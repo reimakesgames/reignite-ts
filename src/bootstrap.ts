@@ -34,25 +34,21 @@ if (!CanvasRenderer) {
 	throw new Error('Could not get 2D context');
 }
 
+CanvasRenderer.fillStyle = '#17171F';
+CanvasRenderer.fillRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y);
 
-let img = new Image();
-img.src = 'texture.png';
-img.onload = () => {
-	CanvasRenderer.fillStyle = '#1F1F1F';
-	CanvasRenderer.fillRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y);
-	CanvasRenderer.drawImage(img, 0, 0);
+CanvasRenderer.fillStyle = '#FFFFFF';
+CanvasRenderer.font = '36px Ubuntu';
+CanvasRenderer.textAlign = 'center';
+CanvasRenderer.textBaseline = 'bottom';
+CanvasRenderer.fillText('REIGNITE', Settings.SCREEN_SIZE_X / 2, Settings.SCREEN_SIZE_Y / 2);
 
-	CanvasRenderer.fillStyle = '#FFFFFF';
-	CanvasRenderer.font = '36px Ubuntu';
-	CanvasRenderer.textAlign = 'center';
-	CanvasRenderer.textBaseline = 'bottom';
-	CanvasRenderer.fillText('REIGNITE', Settings.SCREEN_SIZE_X / 2, Settings.SCREEN_SIZE_Y / 2);
-	CanvasRenderer.font = '12px Ubuntu';
-	CanvasRenderer.textBaseline = 'top';
-	CanvasRenderer.fillText('A TypeScript Game Engine by Rei', Settings.SCREEN_SIZE_X / 2, Settings.SCREEN_SIZE_Y / 2 + 4);
-	CanvasRenderer.strokeStyle = '#FFFFFF';
-	CanvasRenderer.beginPath();
-	CanvasRenderer.moveTo(Settings.SCREEN_SIZE_X/2 - 120, Settings.SCREEN_SIZE_Y / 2);
-	CanvasRenderer.lineTo(Settings.SCREEN_SIZE_X/2 + 120, Settings.SCREEN_SIZE_Y / 2);
-	CanvasRenderer.stroke();
-}
+CanvasRenderer.font = '12px Ubuntu';
+CanvasRenderer.textBaseline = 'top';
+CanvasRenderer.fillText('A TypeScript Game Engine by Rei', Settings.SCREEN_SIZE_X / 2, Settings.SCREEN_SIZE_Y / 2 + 4);
+
+CanvasRenderer.strokeStyle = '#FFFFFF';
+CanvasRenderer.beginPath();
+CanvasRenderer.moveTo(Settings.SCREEN_SIZE_X/2 - 120, Math.floor(Settings.SCREEN_SIZE_Y / 2));
+CanvasRenderer.lineTo(Settings.SCREEN_SIZE_X/2 + 120, Math.floor(Settings.SCREEN_SIZE_Y / 2));
+CanvasRenderer.stroke();
