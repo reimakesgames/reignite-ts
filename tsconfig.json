@@ -24,6 +24,9 @@
 	},
 
 	"compileOnSave": true,
+	"include": [
+		"src/**/*"
+	],
 
 	"watchOptions": {
 		"watchFile": "useFsEvents",
