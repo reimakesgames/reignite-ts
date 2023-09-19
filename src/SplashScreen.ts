@@ -4,13 +4,20 @@ const UserActivation: any = (navigator as any).userActivation
 const Duration = 300
 const FadeDuration = 700
 let Timer: number
+let Callback: Function
 
-function SplashScreen(context: CanvasRenderingContext2D) {
+// TODO: replace callback with an event instead of a function, so that many things can listen to it if needed
+
+function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 	if (Timer) {
 		if (performance.now() - Timer > Duration) {
 			context.globalAlpha =
 				1 - (performance.now() - Timer - Duration) / FadeDuration
 		}
+	}
+
+	if (callback) {
+		Callback = callback
 	}
 
 	context.clearRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y)
@@ -65,7 +72,8 @@ function SplashScreen(context: CanvasRenderingContext2D) {
 			Timer = performance.now()
 		}
 		if (performance.now() - Timer > Duration + FadeDuration) {
-			return // exit the loop
+			Callback?.()
+			return
 		}
 		requestAnimationFrame(() => SplashScreen(context))
 	}
