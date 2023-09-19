@@ -4,10 +4,10 @@ import {
 	CreateCanvas,
 	EnableFill,
 } from "./CanvasViewport.js"
-import LoadingScreen from "./LoadingScreen.js"
+import SplashScreen from "./SplashScreen.js"
 
 CreateCanvas()
 document.body.appendChild(CanvasContainer)
 EnableFill(false)
 
-LoadingScreen(Context)
+SplashScreen(Context)
