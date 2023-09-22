@@ -1,3 +1,4 @@
+import App from "./App.js"
 import {
 	CanvasContainer,
 	Context,
@@ -15,7 +16,9 @@ EnableFill(false)
 
 function Post() {
 	Log.log("User has interacted with the window.")
+	App(Context)
 }
 
 Log.log("Awaiting user interaction...")
-SplashScreen(Context, Post)
+Post()
+// SplashScreen(Context, Post)
