@@ -1,9 +1,14 @@
-import Settings from "../../Settings.js"
 import Camera from "../classes/Camera.js"
 import Matrix3 from "../datatypes/Matrix3.js"
 import Vector3 from "../datatypes/Vector3.js"
 import Projector from "../modules/Projector.js"
+import SkewedImage, { Point } from "../modules/Texturer.js"
 import Profiler from "./Profiler.js"
+
+const texture = new Image()
+// texture.src =
+// 	"https://media.discordapp.net/stickers/1098863054369865868.png?size=160"
+texture.src = "./assets/normal.png"
 
 const cubeVertices = [
 	new Vector3(-1, -1, -1),
@@ -128,6 +133,26 @@ export default function RenderCube(
 		})
 		context.closePath()
 		context.fill()
+
+		let image = new SkewedImage(texture)
+		image.p1 = new Point(
+			faceProjectedVertices[0].X,
+			faceProjectedVertices[0].Y
+		)
+		image.p2 = new Point(
+			faceProjectedVertices[1].X,
+			faceProjectedVertices[1].Y
+		)
+		image.p3 = new Point(
+			faceProjectedVertices[2].X,
+			faceProjectedVertices[2].Y
+		)
+		image.p4 = new Point(
+			faceProjectedVertices[3].X,
+			faceProjectedVertices[3].Y
+		)
+		image.context = context
+		image.Draw()
 	})
 	Profiler.End()
 

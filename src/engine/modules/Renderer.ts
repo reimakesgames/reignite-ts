@@ -6,11 +6,6 @@ import ProfilerGui from "../debug/ProfilerGui.js"
 import RenderCube from "../debug/RenderCube.js"
 import Projector from "./Projector.js"
 
-const texture = new Image()
-// texture.src =
-// 	"https://media.discordapp.net/stickers/1098863054369865868.png?size=160"
-texture.src = "./assets/texture.png"
-
 export function Renderer(
 	context: CanvasRenderingContext2D,
 	deltaTime: number,
@@ -20,6 +15,8 @@ export function Renderer(
 	Profiler.CreateFrame()
 
 	Profiler.Begin("Renderer")
+
+	camera.Position = new Vector3(Math.sin(performance.now() / 1000) * 8, 1, 10)
 
 	Profiler.Begin("Clear Screen")
 	context.clearRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y)

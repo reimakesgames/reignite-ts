@@ -10,7 +10,7 @@ export default function App(context: CanvasRenderingContext2D) {
 	console.log("hi team")
 	context.globalAlpha = 1
 
-	new Image().src = "./assets/texture.png"
+	new Image().src = "./assets/normal.png"
 
 	camera.Position = new Vector3(0, 0, 10)
 
