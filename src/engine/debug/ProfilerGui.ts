@@ -3,18 +3,20 @@ import Profiler from "./Profiler.js"
 
 const hexColors: string[] = [
 	"#FF0000", // Red
-	"#00FF00", // Green
-	"#0000FF", // Blue
+	"#FF7F00", // Orange
 	"#FFFF00", // Yellow
-	"#FF00FF", // Magenta
+	"#7FFF00", // Chartreuse
+	"#00FF00", // Green
+	"#00FF7F", // Spring Green
 	"#00FFFF", // Cyan
-	"#FFA500", // Orange
-	"#800080", // Purple
-	"#008000", // Dark Green
-	"#000080", // Navy
-	"#800000", // Maroon
-	"#008080", // Teal
+	"#007FFF", // Azure
+	"#0000FF", // Blue
+	"#7F00FF", // Violet
+	"#FF00FF", // Magenta
+	"#FF007F", // Rose
 ]
+
+const ProfilerZoom = 10 // How much should the profiler be zoomed in? 1 is normal, 2 is twice as zoomed in, etc.
 
 export default function ProfilerGui(
 	context: CanvasRenderingContext2D,
@@ -29,11 +31,9 @@ export default function ProfilerGui(
 		const firstLabel = frame.Labels[0]
 		context.fillStyle = hexColors[label.Depth % hexColors.length] as string
 		context.fillRect(
-			(label.Start - (firstLabel?.Start || 0)) *
-				frameTime *
-				Settings.PROFILER_ZOOM,
+			(label.Start - (firstLabel?.Start || 0)) * frameTime * ProfilerZoom,
 			Settings.SCREEN_SIZE_Y / 2 + label.Depth * 16,
-			label.Duration * frameTime * Settings.PROFILER_ZOOM,
+			label.Duration * frameTime * ProfilerZoom,
 			16
 		)
 		context.fillStyle = "#000000"
@@ -43,16 +43,14 @@ export default function ProfilerGui(
 			`${label.Name} ${(label.Duration * 1000).toFixed(2)}μs`,
 			(label.Start - (firstLabel?.Start || 0)) *
 				frameTime *
-				Settings.PROFILER_ZOOM +
+				ProfilerZoom +
 				1,
 			Settings.SCREEN_SIZE_Y / 2 + label.Depth * 16 + 5
 		)
 		context.fillStyle = "#ffffff"
 		context.fillText(
 			`${label.Name} ${(label.Duration * 1000).toFixed(2)}μs`,
-			(label.Start - (firstLabel?.Start || 0)) *
-				frameTime *
-				Settings.PROFILER_ZOOM,
+			(label.Start - (firstLabel?.Start || 0)) * frameTime * ProfilerZoom,
 			Settings.SCREEN_SIZE_Y / 2 + label.Depth * 16 + 4
 		)
 	}

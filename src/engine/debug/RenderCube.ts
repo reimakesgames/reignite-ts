@@ -136,20 +136,20 @@ export default function RenderCube(
 
 		let image = new SkewedImage(texture)
 		image.p1 = new Point(
-			faceProjectedVertices[0].X,
-			faceProjectedVertices[0].Y
+			faceProjectedVertices[0]?.X,
+			faceProjectedVertices[0]?.Y
 		)
 		image.p2 = new Point(
-			faceProjectedVertices[1].X,
-			faceProjectedVertices[1].Y
+			faceProjectedVertices[1]?.X,
+			faceProjectedVertices[1]?.Y
 		)
 		image.p3 = new Point(
-			faceProjectedVertices[2].X,
-			faceProjectedVertices[2].Y
+			faceProjectedVertices[2]?.X,
+			faceProjectedVertices[2]?.Y
 		)
 		image.p4 = new Point(
-			faceProjectedVertices[3].X,
-			faceProjectedVertices[3].Y
+			faceProjectedVertices[3]?.X,
+			faceProjectedVertices[3]?.Y
 		)
 		image.context = context
 		image.Draw()
