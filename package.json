@@ -1,12 +1,16 @@
 {
-  "devDependencies": {
-    "concurrently": "^8.2.1",
-    "esbuild": "0.19.3",
-    "tsup": "^7.2.0"
-  },
-  "scripts": {
-    "dev": "tsup src/bootstrap.ts --splitting --sourcemap --clean --treeshake --minify --watch",
-    "build": "tsup src/bootstrap.ts --splitting --clean --treeshake --minify",
-    "start": "concurrently \"live-server --port=3000 --entry-file=index.html\" \"npm run dev\""
-  }
+	"devDependencies": {
+		"@types/jest": "^29.5.5",
+		"concurrently": "^8.2.1",
+		"esbuild": "0.19.3",
+		"jest-ts-webcompat-resolver": "^1.0.0",
+		"ts-jest": "^29.1.1",
+		"tsup": "^7.2.0"
+	},
+	"scripts": {
+		"dev": "tsup src/bootstrap.ts --splitting --sourcemap --clean --treeshake --minify --watch",
+		"build": "tsup src/bootstrap.ts --splitting --clean --treeshake --minify",
+		"start": "concurrently \"live-server --port=3000 --entry-file=index.html\" \"npm run dev\"",
+		"test": "jest"
+	}
 }
