@@ -1,4 +1,4 @@
-import Matrix3 from "../datatypes/Matrix3.js"
+import Matrix3x3 from "../datatypes/Matrix3x3.js"
 import Vector3 from "../datatypes/Vector3.js"
 
 class Camera {

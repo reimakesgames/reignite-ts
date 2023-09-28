@@ -1,5 +1,5 @@
 import Camera from "../classes/Camera.js"
-import Matrix3 from "../datatypes/Matrix3.js"
+import Matrix3x3 from "../datatypes/Matrix3x3.js"
 import Vector3 from "../datatypes/Vector3.js"
 import Projector from "../modules/Projector.js"
 import SkewedImage, { Point } from "../modules/Texturer.js"
@@ -52,20 +52,20 @@ export default function RenderCube(
 		performance.now() / 1000
 	)
 
-	const cubeRotationMatrix = new Matrix3([
+	const cubeRotationMatrix = new Matrix3x3([
 		[Math.cos(cubeRotation.Z), -Math.sin(cubeRotation.Z), 0],
 		[Math.sin(cubeRotation.Z), Math.cos(cubeRotation.Z), 0],
 		[0, 0, 1],
 	])
 		.Multiply(
-			new Matrix3([
+			new Matrix3x3([
 				[Math.cos(cubeRotation.Y), 0, Math.sin(cubeRotation.Y)],
 				[0, 1, 0],
 				[-Math.sin(cubeRotation.Y), 0, Math.cos(cubeRotation.Y)],
 			])
 		)
 		.Multiply(
-			new Matrix3([
+			new Matrix3x3([
 				[1, 0, 0],
 				[0, Math.cos(cubeRotation.X), -Math.sin(cubeRotation.X)],
 				[0, Math.sin(cubeRotation.X), Math.cos(cubeRotation.X)],
