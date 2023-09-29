@@ -7,6 +7,15 @@ type Matrix3Raw = [
 	[number, number, number]
 ]
 type Range = 0 | 1 | 2
+
+function logMatrix(m: Matrix3x3) {
+	let thing = []
+	for (let i = 0 as Range; i < 3; i++) {
+		// print i, j, k hat as row and x, y, z hat as column
+		thing.push([m.Matrix[0][i], m.Matrix[1][i], m.Matrix[2][i]])
+	}
+	return thing
+}
 class Matrix3x3 {
 	constructor(
 		matrix: Matrix3Raw = [
@@ -77,11 +86,16 @@ class Matrix3x3 {
 				[0, 0, 0],
 			]
 
+			// aj + bm + cp, ak + bn + cq, al + bo + cr
+			// dj + em + fp, dk + en + fq, dl + eo + fr
+			// gj + hm + ip, gk + hn + iq, gl + ho + ir
+
 			for (let i = 0 as Range; i < 3; i++) {
 				for (let j = 0 as Range; j < 3; j++) {
-					for (let k = 0 as Range; k < 3; k++) {
-						matrix[i][j] += this.Matrix[i][k] * other.Matrix[k][j]
-					}
+					matrix[i][j] =
+						this.Matrix[i][0] * other.Matrix[0][j] +
+						this.Matrix[i][1] * other.Matrix[1][j] +
+						this.Matrix[i][2] * other.Matrix[2][j]
 				}
 			}
 
@@ -106,6 +120,8 @@ class Matrix3x3 {
 	}
 
 	public Inverse(): Matrix3x3 {
+		console.table(logMatrix(this))
+
 		let detM = new Matrix3x3([
 			[
 				new Matrix2x2([
@@ -115,16 +131,16 @@ class Matrix3x3 {
 					this.Matrix[2][2],
 				]).Determinant,
 				new Matrix2x2([
-					this.Matrix[0][2],
-					this.Matrix[0][1],
+					this.Matrix[1][0],
+					this.Matrix[1][2],
+					this.Matrix[2][0],
 					this.Matrix[2][2],
-					this.Matrix[2][1],
 				]).Determinant,
 				new Matrix2x2([
-					this.Matrix[0][1],
-					this.Matrix[0][2],
+					this.Matrix[1][0],
 					this.Matrix[1][1],
-					this.Matrix[1][2],
+					this.Matrix[2][0],
+					this.Matrix[2][1],
 				]).Determinant,
 			],
 			[
@@ -169,38 +185,22 @@ class Matrix3x3 {
 			],
 		])
 
-		let multDet = new Matrix3x3([
-			[
-				detM.Matrix[0][0] * 1,
-				detM.Matrix[1][0] * -1,
-				detM.Matrix[2][0] * 1,
-			],
-			[
-				detM.Matrix[0][1] * -1,
-				detM.Matrix[1][1] * 1,
-				detM.Matrix[2][1] * -1,
-			],
-			[
-				detM.Matrix[0][2] * 1,
-				detM.Matrix[1][2] * -1,
-				detM.Matrix[2][2] * 1,
-			],
-		])
-
-		console.log(detM)
-		console.log(multDet)
-
-		let transp = new Matrix3x3([
-			[-multDet.Matrix[0][0], multDet.Matrix[1][0], multDet.Matrix[2][0]],
-			[-multDet.Matrix[0][1], multDet.Matrix[1][1], multDet.Matrix[2][1]],
-			[-multDet.Matrix[0][2], multDet.Matrix[1][2], multDet.Matrix[2][2]],
+		let multAndTransp = new Matrix3x3([
+			[detM.Matrix[0][0], detM.Matrix[1][0] * -1, detM.Matrix[2][0]],
+			[detM.Matrix[0][1] * -1, detM.Matrix[1][1], detM.Matrix[2][1] * -1],
+			[detM.Matrix[0][2], detM.Matrix[1][2] * -1, detM.Matrix[2][2]],
 		])
 
 		const det = this.Determinant()
-		transp = transp.Multiply(1 / det)
+		const final = multAndTransp.Multiply(1 / det)
 
-		return transp
-		// ! TODO: Returns correct inverse but incorrect i hat, j hat, k hat
+		console.table(logMatrix(final))
+
+		// TODO: optimize operations to reduce number of heavy operations of floating point numbers
+		// but i dont know how to !!!
+		// damn it js, thanks for dropping SIMD support
+
+		return final
 	}
 
 	public VectorToObjectSpace(vector: Vector3): Vector3 {
@@ -237,7 +237,6 @@ class Matrix3x3 {
 			[-right.Y, up.Y, forward.Y],
 			[-right.Z, up.Z, forward.Z],
 		])
-		// ! TODO: i think i screwed this up so bad
 	}
 
 	public static Identity(): Matrix3x3 {
