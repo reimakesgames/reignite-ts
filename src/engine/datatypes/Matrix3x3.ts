@@ -16,6 +16,7 @@ function logMatrix(m: Matrix3x3) {
 	}
 	return thing
 }
+
 class Matrix3x3 {
 	constructor(
 		matrix: Matrix3Raw = [
@@ -34,30 +35,11 @@ class Matrix3x3 {
 	]
 
 	public Determinant(): number {
-		// det A = a * det e, f, h, i - b * det d, f, g, i + c * det d, e, g, h
-		return (
-			this.Matrix[0][0] *
-				new Matrix2x2([
-					this.Matrix[1][1],
-					this.Matrix[1][2],
-					this.Matrix[2][1],
-					this.Matrix[2][2],
-				]).Determinant -
-			this.Matrix[0][1] *
-				new Matrix2x2([
-					this.Matrix[1][0],
-					this.Matrix[1][2],
-					this.Matrix[2][0],
-					this.Matrix[2][2],
-				]).Determinant +
-			this.Matrix[0][2] *
-				new Matrix2x2([
-					this.Matrix[1][0],
-					this.Matrix[1][1],
-					this.Matrix[2][0],
-					this.Matrix[2][1],
-				]).Determinant
-		)
+		const [a, b, c] = this.Matrix[0]
+		const [d, e, f] = this.Matrix[1]
+		const [g, h, i] = this.Matrix[2]
+
+		return a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
 	}
 
 	public Multiply(other: Matrix3x3): Matrix3x3
@@ -65,30 +47,31 @@ class Matrix3x3 {
 	public Multiply(scalar: number): Matrix3x3
 	public Multiply(other: Matrix3x3 | Vector3 | Number): Matrix3x3 | Vector3 {
 		if (other instanceof Vector3) {
+			const matrix = this.Matrix
 			const x =
-				this.Matrix[0][0] * other.X +
-				this.Matrix[0][1] * other.Y +
-				this.Matrix[0][2] * other.Z
+				matrix[0][0] * other.X +
+				matrix[0][1] * other.Y +
+				matrix[0][2] * other.Z
 			const y =
-				this.Matrix[1][0] * other.X +
-				this.Matrix[1][1] * other.Y +
-				this.Matrix[1][2] * other.Z
+				matrix[1][0] * other.X +
+				matrix[1][1] * other.Y +
+				matrix[1][2] * other.Z
 			const z =
-				this.Matrix[2][0] * other.X +
-				this.Matrix[2][1] * other.Y +
-				this.Matrix[2][2] * other.Z
+				matrix[2][0] * other.X +
+				matrix[2][1] * other.Y +
+				matrix[2][2] * other.Z
 
 			return new Vector3(x, y, z)
 		} else if (other instanceof Matrix3x3) {
+			// aj + bm + cp, ak + bn + cq, al + bo + cr
+			// dj + em + fp, dk + en + fq, dl + eo + fr
+			// gj + hm + ip, gk + hn + iq, gl + ho + ir
+
 			const matrix: Matrix3Raw = [
 				[0, 0, 0],
 				[0, 0, 0],
 				[0, 0, 0],
 			]
-
-			// aj + bm + cp, ak + bn + cq, al + bo + cr
-			// dj + em + fp, dk + en + fq, dl + eo + fr
-			// gj + hm + ip, gk + hn + iq, gl + ho + ir
 
 			for (let i = 0 as Range; i < 3; i++) {
 				for (let j = 0 as Range; j < 3; j++) {
@@ -120,85 +103,32 @@ class Matrix3x3 {
 	}
 
 	public Inverse(): Matrix3x3 {
-		console.table(logMatrix(this))
+		const [a, b, c] = this.Matrix[0]
+		const [d, e, f] = this.Matrix[1]
+		const [g, h, i] = this.Matrix[2]
 
-		let detM = new Matrix3x3([
+		const det =
+			a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+
+		const final = new Matrix3x3([
 			[
-				new Matrix2x2([
-					this.Matrix[1][1],
-					this.Matrix[1][2],
-					this.Matrix[2][1],
-					this.Matrix[2][2],
-				]).Determinant,
-				new Matrix2x2([
-					this.Matrix[1][0],
-					this.Matrix[1][2],
-					this.Matrix[2][0],
-					this.Matrix[2][2],
-				]).Determinant,
-				new Matrix2x2([
-					this.Matrix[1][0],
-					this.Matrix[1][1],
-					this.Matrix[2][0],
-					this.Matrix[2][1],
-				]).Determinant,
+				(e * i - f * h) / det,
+				-(b * i - c * h) / det,
+				(b * f - c * e) / det,
 			],
 			[
-				new Matrix2x2([
-					this.Matrix[0][1],
-					this.Matrix[0][2],
-					this.Matrix[2][1],
-					this.Matrix[2][2],
-				]).Determinant,
-				new Matrix2x2([
-					this.Matrix[0][0],
-					this.Matrix[0][2],
-					this.Matrix[2][0],
-					this.Matrix[2][2],
-				]).Determinant,
-				new Matrix2x2([
-					this.Matrix[0][0],
-					this.Matrix[0][1],
-					this.Matrix[2][0],
-					this.Matrix[2][1],
-				]).Determinant,
+				-(d * i - f * g) / det,
+				(a * i - c * g) / det,
+				-(a * f - c * d) / det,
 			],
 			[
-				new Matrix2x2([
-					this.Matrix[0][1],
-					this.Matrix[0][2],
-					this.Matrix[1][1],
-					this.Matrix[1][2],
-				]).Determinant,
-				new Matrix2x2([
-					this.Matrix[0][0],
-					this.Matrix[0][2],
-					this.Matrix[1][0],
-					this.Matrix[1][2],
-				]).Determinant,
-				new Matrix2x2([
-					this.Matrix[0][0],
-					this.Matrix[0][1],
-					this.Matrix[1][0],
-					this.Matrix[1][1],
-				]).Determinant,
+				(d * h - e * g) / det,
+				-(a * h - b * g) / det,
+				(a * e - b * d) / det,
 			],
 		])
 
-		let multAndTransp = new Matrix3x3([
-			[detM.Matrix[0][0], detM.Matrix[1][0] * -1, detM.Matrix[2][0]],
-			[detM.Matrix[0][1] * -1, detM.Matrix[1][1], detM.Matrix[2][1] * -1],
-			[detM.Matrix[0][2], detM.Matrix[1][2] * -1, detM.Matrix[2][2]],
-		])
-
-		const det = this.Determinant()
-		const final = multAndTransp.Multiply(1 / det)
-
-		console.table(logMatrix(final))
-
-		// TODO: optimize operations to reduce number of heavy operations of floating point numbers
-		// but i dont know how to !!!
-		// damn it js, thanks for dropping SIMD support
+		// sexy optimization brought the time taken by a whopping 50% !!! holy hell
 
 		return final
 	}
