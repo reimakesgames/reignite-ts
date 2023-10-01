@@ -121,6 +121,9 @@ export default function RenderCube(
 		const faceProjectedVertices = faceVertices?.map((vertex) => {
 			return cubeProjectedVertices[vertex]
 		}) as Vector3[]
+		if (faceProjectedVertices.some((vertex) => vertex.Z < 0)) {
+			return
+		}
 
 		context.fillStyle = `#${faceColor}`
 		context.beginPath()

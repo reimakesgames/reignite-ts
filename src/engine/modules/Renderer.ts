@@ -1,5 +1,5 @@
 import Settings from "../../Settings.js"
-import type Camera from "../classes/Camera.js"
+import Camera from "../classes/Camera.js"
 import Vector3 from "../datatypes/Vector3.js"
 import FPSBarChart from "../debug/FPSBarChart.js"
 import Profiler from "../debug/Profiler.js"
@@ -73,9 +73,9 @@ export function Renderer(
 
 	Profiler.Begin("Make Floor")
 	const floorPoints = []
-	for (let x = -10; x < 10; x++) {
+	for (let x = -5; x <= 5; x++) {
 		let line = []
-		for (let y = -10; y < 10; y++) {
+		for (let y = -5; y <= 5; y++) {
 			line.push(new Vector3(x, 0, y))
 		}
 		floorPoints.push(line)
@@ -96,6 +96,9 @@ export function Renderer(
 			if (x < floorProjected.length - 1) {
 				const nextLine = floorProjected[x + 1] as Vector3[]
 				const nextPoint = nextLine[y] as Vector3
+				if (point.Z < 0 && nextPoint.Z < 0) {
+					continue
+				}
 				context.beginPath()
 				context.moveTo(point.X, point.Y)
 				context.lineTo(nextPoint.X, nextPoint.Y)
@@ -103,6 +106,9 @@ export function Renderer(
 			}
 			if (y < line.length - 1) {
 				const nextPoint = line[y + 1] as Vector3
+				if (point.Z < 0 && nextPoint.Z < 0) {
+					continue
+				}
 				context.beginPath()
 				context.moveTo(point.X, point.Y)
 				context.lineTo(nextPoint.X, nextPoint.Y)

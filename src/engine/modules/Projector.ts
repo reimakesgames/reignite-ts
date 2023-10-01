@@ -2,27 +2,40 @@ import Vector3 from "../datatypes/Vector3.js"
 import Camera from "../classes/Camera.js"
 import Settings from "../../Settings.js"
 
-const FOV = 70 * (Math.PI / 180)
 const AspectRatio = Settings.SCREEN_SIZE_X / Settings.SCREEN_SIZE_Y
+const ScreenX = Settings.SCREEN_SIZE_X
+const ScreenY = Settings.SCREEN_SIZE_Y
+const RenderMargin = Settings.RENDER_MARGIN
 
 export default function Projector(position: Vector3, camera: Camera): Vector3 {
+	const FieldOfView = camera.FieldOfView * (Math.PI / 180)
+
 	const cameraTransform = camera.Transform
 
 	const directionToObject = cameraTransform.VectorToObjectSpace(position)
 	const distanceToObject = directionToObject.Magnitude()
 
 	const projectedX =
-		Settings.SCREEN_SIZE_X / 2 +
-		((Settings.SCREEN_SIZE_X / 2) *
-			(1 / Math.tan(FOV / 2)) *
+		ScreenX / 2 +
+		((ScreenX / 2 / Math.tan(FieldOfView / 2)) *
 			-(directionToObject.X / directionToObject.Z)) /
 			AspectRatio
 
 	const projectedY =
-		Settings.SCREEN_SIZE_Y / 2 -
-		(Settings.SCREEN_SIZE_Y / 2) *
-			(1 / Math.tan(FOV / 2)) *
+		ScreenY / 2 -
+		(ScreenY / 2 / Math.tan(FieldOfView / 2)) *
 			(directionToObject.Y / directionToObject.Z)
 
-	return new Vector3(projectedX, projectedY, distanceToObject)
+	const isSeen = !(
+		directionToObject.Z <= 0 ||
+		distanceToObject <= 0 ||
+		projectedX < 0 - ScreenX * RenderMargin ||
+		projectedX > ScreenX + ScreenX * RenderMargin ||
+		projectedY < 0 - ScreenY * RenderMargin ||
+		projectedY > ScreenY + ScreenY * RenderMargin
+	)
+
+	const distance = isSeen ? distanceToObject : -distanceToObject
+
+	return new Vector3(projectedX, projectedY, distance)
 }

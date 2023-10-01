@@ -6,6 +6,7 @@ import {
 	EnableFill,
 } from "./CanvasViewport.js"
 import Logger from "./Logger.js"
+import Settings from "./Settings.js"
 import SplashScreen from "./SplashScreen.js"
 
 const Log = new Logger("Bootstrap")
@@ -20,5 +21,8 @@ function Post() {
 }
 
 Log.log("Awaiting user interaction...")
-Post()
-// SplashScreen(Context, Post)
+if (Settings.ENABLE_SPLASH_SCREEN) {
+	SplashScreen(Context, Post)
+} else {
+	Post()
+}

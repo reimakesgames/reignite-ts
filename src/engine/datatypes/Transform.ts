@@ -45,6 +45,10 @@ class Transform {
 		return this.Rotation.Inverse().Multiply(other.Sub(this.Position))
 	}
 
+	public PointToWorldSpace(other: Vector3): Vector3 {
+		return this.Position.Add(this.Rotation.Multiply(other))
+	}
+
 	public Inverse(): Transform {
 		// new position based on visual testing should be
 		// the position of the origin based on the rotation
