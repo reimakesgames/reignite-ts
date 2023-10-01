@@ -19,8 +19,6 @@ export function Renderer(
 
 	Profiler.Begin("Renderer")
 
-	camera.Position = new Vector3(Math.sin(performance.now() / 1000) * 8, 1, 10)
-
 	Profiler.Begin("Clear Screen")
 	context.clearRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y)
 	context.fillStyle = "#1f1f1f"
@@ -71,6 +69,47 @@ export function Renderer(
 	context.lineTo(yProjected.X + 8, yProjected.Y + 8)
 	context.fill()
 
+	Profiler.End()
+
+	Profiler.Begin("Make Floor")
+	const floorPoints = []
+	for (let x = -10; x < 10; x++) {
+		let line = []
+		for (let y = -10; y < 10; y++) {
+			line.push(new Vector3(x, 0, y))
+		}
+		floorPoints.push(line)
+	}
+	const floorProjected = floorPoints.map((line) => {
+		return line.map((point) => {
+			return Projector(point, camera)
+		})
+	})
+	Profiler.End()
+
+	Profiler.Begin("Draw Floor")
+	context.strokeStyle = "#ffffff"
+	for (let x = 0; x < floorProjected.length; x++) {
+		const line = floorProjected[x] as Vector3[]
+		for (let y = 0; y < line.length; y++) {
+			const point = line[y] as Vector3
+			if (x < floorProjected.length - 1) {
+				const nextLine = floorProjected[x + 1] as Vector3[]
+				const nextPoint = nextLine[y] as Vector3
+				context.beginPath()
+				context.moveTo(point.X, point.Y)
+				context.lineTo(nextPoint.X, nextPoint.Y)
+				context.stroke()
+			}
+			if (y < line.length - 1) {
+				const nextPoint = line[y + 1] as Vector3
+				context.beginPath()
+				context.moveTo(point.X, point.Y)
+				context.lineTo(nextPoint.X, nextPoint.Y)
+				context.stroke()
+			}
+		}
+	}
 	Profiler.End()
 
 	RenderCube(context, camera)

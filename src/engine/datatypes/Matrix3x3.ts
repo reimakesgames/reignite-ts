@@ -33,7 +33,29 @@ class Matrix3x3 {
 		[0, 0, 1],
 	]
 
-	public Determinant(): number {
+	public get RightVector(): Vector3 {
+		return new Vector3(
+			this.Matrix[0][0],
+			this.Matrix[1][0],
+			this.Matrix[2][0]
+		)
+	}
+	public get UpVector(): Vector3 {
+		return new Vector3(
+			this.Matrix[0][1],
+			this.Matrix[1][1],
+			this.Matrix[2][1]
+		)
+	}
+	public get LookVector(): Vector3 {
+		return new Vector3(
+			-this.Matrix[0][2],
+			-this.Matrix[1][2],
+			-this.Matrix[2][2]
+		)
+	}
+
+	private _determinant(): number {
 		const [a, b, c] = this.Matrix[0]
 		const [d, e, f] = this.Matrix[1]
 		const [g, h, i] = this.Matrix[2]
