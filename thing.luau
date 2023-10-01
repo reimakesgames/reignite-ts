@@ -1,3 +1,5 @@
+local RunService = game:GetService("RunService")
+
 local function Arm(pos: Vector3, dir: Vector3, up: Vector3)
 	local arm = Instance.new("Part")
 	arm.Size = Vector3.new(0.1, 0.1, 1)
@@ -17,35 +19,88 @@ local function GenerateArmsForCFrame(cframe: CFrame)
 	yArm.Parent = workspace
 	zArm.Parent = workspace
 
-	return xArm, yArm, zArm
+	return { xArm, yArm, zArm }
 end
 
-local function ToFixed(n, fixed)
-	return math.floor(n * 10 ^ fixed) / 10 ^ fixed
+local function ToFixed(num: number, decimalPlaces: number)
+	local mult = 10 ^ (decimalPlaces or 0)
+	local str = tostring(math.floor(num * mult + 0.5) / mult)
+	local negative = str:find("-", 1, true)
+	local p = str:find(".", 1, true)
+	if not p then
+		str = str .. "." .. string.rep("0", decimalPlaces)
+	else
+		local endDecimals = str:sub(p + 1, -1)
+		if #endDecimals < decimalPlaces then
+			str = str .. string.rep("0", decimalPlaces - #endDecimals)
+		end
+	end
+	-- append negative sign again
+	if negative then
+		str = "-" .. str
+	end
+	return str
 end
 
-local Offset = CFrame.lookAt(Vector3.new(0, 0, 0), -Vector3.new(2, 2, 2))
-local Inversed = Offset:Inverse()
-
-print("Offset: ")
-print("i :", ToFixed(Offset.XVector.X, 2), ToFixed(Offset.XVector.Y, 2), ToFixed(Offset.XVector.Z, 2))
-print("j :", ToFixed(Offset.YVector.X, 2), ToFixed(Offset.YVector.Y, 2), ToFixed(Offset.YVector.Z, 2))
-print("k :", ToFixed(Offset.ZVector.X, 2), ToFixed(Offset.ZVector.Y, 2), ToFixed(Offset.ZVector.Z, 2))
-
-print("Inversed: ")
-print("i :", ToFixed(Inversed.XVector.X, 2), ToFixed(Inversed.XVector.Y, 2), ToFixed(Inversed.XVector.Z, 2))
-print("j :", ToFixed(Inversed.YVector.X, 2), ToFixed(Inversed.YVector.Y, 2), ToFixed(Inversed.YVector.Z, 2))
-print("k :", ToFixed(Inversed.ZVector.X, 2), ToFixed(Inversed.ZVector.Y, 2), ToFixed(Inversed.ZVector.Z, 2))
-
-while true do
-	local xArm, yArm, zArm = GenerateArmsForCFrame(Offset)
-	task.wait(1)
-	xArm:Destroy()
-	yArm:Destroy()
-	zArm:Destroy()
-	xArm, yArm, zArm = GenerateArmsForCFrame(Inversed)
-	task.wait(1)
-	xArm:Destroy()
-	yArm:Destroy()
-	zArm:Destroy()
+local function PrintTableValues(t)
+	local ENTRY_WIDTH = 8
+	local function pad(str: string, len: number)
+		return str .. string.rep(" ", len - #str)
+	end
+	local function padNum(num: number, len: number)
+		return pad(tostring(num), len)
+	end
+	local tableStr = ""
+	for i, v in ipairs(t) do
+		tableStr = tableStr .. padNum(ToFixed(v, 2), ENTRY_WIDTH)
+		if i % 3 == 0 then
+			print(tableStr)
+			tableStr = ""
+		end
+	end
 end
+
+local function PrintCFrameIJKHatInTableForm(cf: CFrame)
+	local i = cf.RightVector
+	local j = cf.UpVector
+	local k = -cf.LookVector
+	PrintTableValues({ i.X, i.Y, i.Z })
+	PrintTableValues({ j.X, j.Y, j.Z })
+	PrintTableValues({ k.X, k.Y, k.Z })
+end
+
+local function PrintCFramePositionInTableForm(cf: CFrame)
+	local p = cf.Position
+	PrintTableValues({ p.X, p.Y, p.Z })
+end
+
+local PreviousArms = {}
+local PreviousInvertedArms = {}
+local PreviousResettedArms = {}
+
+local Offset = CFrame.lookAt(Vector3.new(4, 0, 0), Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
+local Inverse = Offset:Inverse()
+
+RunService.Stepped:Connect(function(t, dt)
+	if #PreviousArms ~= 0 then
+		-- delete
+		for _, v in ipairs(PreviousArms) do
+			v:Destroy()
+		end
+		for _, v in ipairs(PreviousInvertedArms) do
+			v:Destroy()
+		end
+		for _, v in ipairs(PreviousResettedArms) do
+			v:Destroy()
+		end
+	end
+	PreviousArms = GenerateArmsForCFrame(Offset)
+	PreviousInvertedArms = GenerateArmsForCFrame(Inverse)
+	PreviousResettedArms = GenerateArmsForCFrame(Offset * Inverse)
+end)
+
+print("Offset:")
+PrintCFramePositionInTableForm(Offset)
+
+print("Inverse:")
+PrintCFramePositionInTableForm(Inverse)

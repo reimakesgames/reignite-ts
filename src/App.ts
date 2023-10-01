@@ -1,5 +1,6 @@
 import Camera from "./engine/classes/Camera.js"
 import Matrix3x3 from "./engine/datatypes/Matrix3x3.js"
+import Transform from "./engine/datatypes/Transform.js"
 import Vector3 from "./engine/datatypes/Vector3.js"
 import { Renderer } from "./engine/modules/Renderer.js"
 
@@ -15,10 +16,11 @@ export default function App(context: CanvasRenderingContext2D) {
 
 	camera.Position = new Vector3(0, 0, 10)
 
-	let thing = Matrix3x3.LookAt(new Vector3(0, 0, 0), new Vector3(1, 1, 1))
-	console.log(thing)
-	let inversedThing = thing.Inverse()
-	console.log(inversedThing)
+	let Offset = Transform.LookAt(new Vector3(4, 0, 0), new Vector3(0, 0, 0))
+	let Inverse = Offset.Inverse()
+
+	console.log(Offset)
+	console.log(Inverse)
 
 	let previousTime = 0
 

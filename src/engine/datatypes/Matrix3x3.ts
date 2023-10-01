@@ -1,4 +1,3 @@
-import Matrix2x2 from "./Matrix2x2.js"
 import Vector3 from "./Vector3.js"
 
 type Matrix3Raw = [
@@ -157,15 +156,19 @@ class Matrix3x3 {
 		return zMatrix.Multiply(yMatrix).Multiply(xMatrix)
 	}
 
-	public static LookAt(position: Vector3, target: Vector3): Matrix3x3 {
+	public static LookAt(
+		position: Vector3,
+		target: Vector3,
+		up: Vector3 = new Vector3(0, 1, 0)
+	): Matrix3x3 {
 		const forward = target.Sub(position).Unit()
-		const right = forward.Cross(new Vector3(0, 1, 0)).Unit()
-		const up = right.Cross(forward).Unit()
+		const right = forward.Cross(up).Unit()
+		const up2 = right.Cross(forward).Unit()
 
 		return new Matrix3x3([
-			[-right.X, up.X, forward.X],
-			[-right.Y, up.Y, forward.Y],
-			[-right.Z, up.Z, forward.Z],
+			[-right.X, up2.X, forward.X],
+			[-right.Y, up2.Y, forward.Y],
+			[-right.Z, up2.Z, forward.Z],
 		])
 	}
 
