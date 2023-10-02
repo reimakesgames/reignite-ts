@@ -22,8 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install Dependencies
-        run: npm install
+      - name: Install TypeDoc
+        run: npm install typedoc
       - name: Build
         run: npx typedoc
       - name: Setup Pages
@@ -31,7 +31,7 @@ jobs:
       - name: Upload docs/
         uses: actions/upload-artifact@v2
         with:
-          path: 'docs/'
+          path: './docs/'
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v2
