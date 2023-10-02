@@ -1,40 +1,12 @@
-class Point {
-	constructor(x: number = 0, y: number = 0) {
-		this.X = x
-		this.Y = y
-	}
-
-	public X: number
-	public Y: number
-
-	public length(point?: Point): number {
-		point = point ? point : new Point()
-		var xs = 0,
-			ys = 0
-		xs = point.X - this.X
-		xs = xs * xs
-
-		ys = point.Y - this.Y
-		ys = ys * ys
-		return Math.sqrt(xs + ys)
-	}
-}
-
-class TextureCoordinates {
-	constructor(u: number = 0, v: number = 0) {
-		this.U = u
-		this.V = v
-	}
-
-	public U: number
-	public V: number
-}
+import Settings from "../../Settings.js"
+import TextureCoordinates from "../datatypes/TextureCoordinates.js"
+import Vector2 from "../datatypes/Vector2.js"
 
 class Triangle {
 	constructor(
-		p0: Point,
-		p1: Point,
-		p2: Point,
+		p0: Vector2,
+		p1: Vector2,
+		p2: Vector2,
 		t0: TextureCoordinates,
 		t1: TextureCoordinates,
 		t2: TextureCoordinates
@@ -48,25 +20,25 @@ class Triangle {
 		this.t2 = t2
 	}
 
-	public p0: Point
-	public p1: Point
-	public p2: Point
+	public p0: Vector2
+	public p1: Vector2
+	public p2: Vector2
 
 	public t0: TextureCoordinates
 	public t1: TextureCoordinates
 	public t2: TextureCoordinates
 }
 
-class SkewedImage {
+class Texturer {
 	constructor(image: HTMLImageElement) {
 		this.image = image
 	}
 
-	private _render(wireframe: boolean, triangle: Triangle) {
+	private _render(triangle: Triangle) {
 		if (!this.context) {
 			return
 		}
-		if (wireframe) {
+		if (Settings.ENABLE_WIREFRAME) {
 			this.context.strokeStyle = "black"
 			this.context.beginPath()
 			this.context.moveTo(triangle.p0.X, triangle.p0.Y)
@@ -81,27 +53,18 @@ class SkewedImage {
 			this._drawTriangle(
 				this.context,
 				this.image,
-				triangle.p0.X,
-				triangle.p0.Y,
-				triangle.p1.X,
-				triangle.p1.Y,
-				triangle.p2.X,
-				triangle.p2.Y,
-				triangle.t0.U,
-				triangle.t0.V,
-				triangle.t1.U,
-				triangle.t1.V,
-				triangle.t2.U,
-				triangle.t2.V
+				triangle.p0,
+				triangle.p1,
+				triangle.p2,
+				triangle.t0,
+				triangle.t1,
+				triangle.t2
 			)
 		}
 	}
 
 	private _calculateGeometry() {
 		this.triangles = []
-
-		const VerticalSubdivisions = 1
-		const HorizontalSubdivisions = 1
 
 		let dx1 = this.p4.X - this.p1.X
 		let dy1 = this.p4.Y - this.p1.Y
@@ -111,9 +74,9 @@ class SkewedImage {
 		let imgW = this.image.naturalWidth
 		let imgH = this.image.naturalHeight
 
-		for (let sub = 0; sub < VerticalSubdivisions; ++sub) {
-			let curRow = sub / VerticalSubdivisions
-			let nextRow = (sub + 1) / VerticalSubdivisions
+		for (let sub = 0; sub < this.VerticalSubdivisions; ++sub) {
+			let curRow = sub / this.VerticalSubdivisions
+			let nextRow = (sub + 1) / this.VerticalSubdivisions
 
 			let curRowX1 = this.p1.X + dx1 * curRow
 			let curRowY1 = this.p1.Y + dy1 * curRow
@@ -127,9 +90,9 @@ class SkewedImage {
 			let nextRowX2 = this.p2.X + dx2 * nextRow
 			let nextRowY2 = this.p2.Y + dy2 * nextRow
 
-			for (let div = 0; div < HorizontalSubdivisions; ++div) {
-				let curCol = div / HorizontalSubdivisions
-				let nextCol = (div + 1) / HorizontalSubdivisions
+			for (let div = 0; div < this.HorizontalSubdivisions; ++div) {
+				let curCol = div / this.HorizontalSubdivisions
+				let nextCol = (div + 1) / this.HorizontalSubdivisions
 
 				let dCurX = curRowX2 - curRowX1
 				let dCurY = curRowY2 - curRowY1
@@ -155,9 +118,9 @@ class SkewedImage {
 
 				this.triangles.push(
 					new Triangle(
-						new Point(p1x, p1y),
-						new Point(p3x, p3y),
-						new Point(p4x, p4y),
+						new Vector2(p1x, p1y),
+						new Vector2(p3x, p3y),
+						new Vector2(p4x, p4y),
 						new TextureCoordinates(u1, v1),
 						new TextureCoordinates(u2, v2),
 						new TextureCoordinates(u1, v2)
@@ -165,9 +128,9 @@ class SkewedImage {
 				)
 				this.triangles.push(
 					new Triangle(
-						new Point(p1x, p1y),
-						new Point(p2x, p2y),
-						new Point(p3x, p3y),
+						new Vector2(p1x, p1y),
+						new Vector2(p2x, p2y),
+						new Vector2(p3x, p3y),
 						new TextureCoordinates(u1, v1),
 						new TextureCoordinates(u2, v1),
 						new TextureCoordinates(u2, v2)
@@ -180,26 +143,20 @@ class SkewedImage {
 	private _drawTriangle(
 		ctx: CanvasRenderingContext2D,
 		im: HTMLImageElement,
-		x0: number,
-		y0: number,
-		x1: number,
-		y1: number,
-		x2: number,
-		y2: number,
-		sx0: number,
-		sy0: number,
-		sx1: number,
-		sy1: number,
-		sx2: number,
-		sy2: number
+		v0: Vector2,
+		v1: Vector2,
+		v2: Vector2,
+		tp0: TextureCoordinates,
+		tp1: TextureCoordinates,
+		tp2: TextureCoordinates
 	) {
 		ctx.save()
 
 		// Clip the output to the on-screen triangle boundaries.
 		ctx.beginPath()
-		ctx.moveTo(x0, y0)
-		ctx.lineTo(x1, y1)
-		ctx.lineTo(x2, y2)
+		ctx.moveTo(v0.X, v0.Y)
+		ctx.lineTo(v1.X, v1.Y)
+		ctx.lineTo(v2.X, v2.Y)
 		ctx.closePath()
 		//ctx.stroke();//xxxxxxx for wireframe
 		ctx.clip()
@@ -246,27 +203,48 @@ class SkewedImage {
 
 		// TODO: eliminate common subexpressions.
 		let denom =
-			sx0 * (sy2 - sy1) - sx1 * sy2 + sx2 * sy1 + (sx1 - sx2) * sy0
+			tp0.U * (tp2.V - tp1.V) -
+			tp1.U * tp2.V +
+			tp2.U * tp1.V +
+			(tp1.U - tp2.U) * tp0.V
 		if (denom == 0) {
 			return
 		}
 		let m11 =
-			-(sy0 * (x2 - x1) - sy1 * x2 + sy2 * x1 + (sy1 - sy2) * x0) / denom
+			-(
+				tp0.V * (v2.X - v1.X) -
+				tp1.V * v2.X +
+				tp2.V * v1.X +
+				(tp1.V - tp2.V) * v0.X
+			) / denom
 		let m12 =
-			(sy1 * y2 + sy0 * (y1 - y2) - sy2 * y1 + (sy2 - sy1) * y0) / denom
+			(tp1.V * v2.Y +
+				tp0.V * (v1.Y - v2.Y) -
+				tp2.V * v1.Y +
+				(tp2.V - tp1.V) * v0.Y) /
+			denom
 		let m21 =
-			(sx0 * (x2 - x1) - sx1 * x2 + sx2 * x1 + (sx1 - sx2) * x0) / denom
+			(tp0.U * (v2.X - v1.X) -
+				tp1.U * v2.X +
+				tp2.U * v1.X +
+				(tp1.U - tp2.U) * v0.X) /
+			denom
 		let m22 =
-			-(sx1 * y2 + sx0 * (y1 - y2) - sx2 * y1 + (sx2 - sx1) * y0) / denom
+			-(
+				tp1.U * v2.Y +
+				tp0.U * (v1.Y - v2.Y) -
+				tp2.U * v1.Y +
+				(tp2.U - tp1.U) * v0.Y
+			) / denom
 		let dx =
-			(sx0 * (sy2 * x1 - sy1 * x2) +
-				sy0 * (sx1 * x2 - sx2 * x1) +
-				(sx2 * sy1 - sx1 * sy2) * x0) /
+			(tp0.U * (tp2.V * v1.X - tp1.V * v2.X) +
+				tp0.V * (tp1.U * v2.X - tp2.U * v1.X) +
+				(tp2.U * tp1.V - tp1.U * tp2.V) * v0.X) /
 			denom
 		let dy =
-			(sx0 * (sy2 * y1 - sy1 * y2) +
-				sy0 * (sx1 * y2 - sx2 * y1) +
-				(sx2 * sy1 - sx1 * sy2) * y0) /
+			(tp0.U * (tp2.V * v1.Y - tp1.V * v2.Y) +
+				tp0.V * (tp1.U * v2.Y - tp2.U * v1.Y) +
+				(tp2.U * tp1.V - tp1.U * tp2.V) * v0.Y) /
 			denom
 
 		ctx.transform(m11, m12, m21, m22, dx, dy)
@@ -280,23 +258,36 @@ class SkewedImage {
 		ctx.restore()
 	}
 
-	public Draw() {
+	public Draw(
+		context: CanvasRenderingContext2D,
+		verticalSubdivisions?: number,
+		horizontalSubdivisions?: number
+	) {
+		this.context = context
+		if (verticalSubdivisions) {
+			this.VerticalSubdivisions = verticalSubdivisions
+		}
+		if (horizontalSubdivisions) {
+			this.HorizontalSubdivisions = horizontalSubdivisions
+		}
+
 		this._calculateGeometry()
 
 		for (var i = 0; i < this.triangles.length; ++i) {
 			var triangle = this.triangles[i] as Triangle
-			this._render(true, triangle)
+			this._render(triangle)
 		}
 	}
 
 	public image: HTMLImageElement
-	public p1: Point = new Point()
-	public p2: Point = new Point()
-	public p3: Point = new Point()
-	public p4: Point = new Point()
+	public p1: Vector2 = new Vector2()
+	public p2: Vector2 = new Vector2()
+	public p3: Vector2 = new Vector2()
+	public p4: Vector2 = new Vector2()
+	public VerticalSubdivisions: number = 1
+	public HorizontalSubdivisions: number = 1
 	public context: CanvasRenderingContext2D | null = null
 	private triangles: Triangle[] = []
 }
 
-export default SkewedImage
-export { Point }
+export default Texturer

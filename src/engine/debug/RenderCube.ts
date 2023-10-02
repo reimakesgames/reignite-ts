@@ -1,8 +1,9 @@
 import Camera from "../classes/Camera.js"
 import Matrix3x3 from "../datatypes/Matrix3x3.js"
+import Vector2 from "../datatypes/Vector2.js"
 import Vector3 from "../datatypes/Vector3.js"
 import Projector from "../modules/Projector.js"
-import SkewedImage, { Point } from "../modules/Texturer.js"
+import Texturer from "../modules/Texturer.js"
 import Profiler from "./Profiler.js"
 
 const texture = new Image()
@@ -28,15 +29,6 @@ const cubeFaces = [
 	[2, 3, 7, 6],
 	[0, 2, 6, 4],
 	[1, 3, 7, 5],
-]
-
-const cubeFacesColor = [
-	"ff0000",
-	"ffff00",
-	"00ff00",
-	"ff00ff",
-	"00ffff",
-	"0000ff",
 ]
 
 export default function RenderCube(
@@ -117,7 +109,6 @@ export default function RenderCube(
 	Profiler.Begin("Draw Cube Faces")
 	sortedDrawOrder.forEach((face) => {
 		const faceVertices = cubeFaces[face.index]
-		const faceColor = cubeFacesColor[face.index]
 		const faceProjectedVertices = faceVertices?.map((vertex) => {
 			return cubeProjectedVertices[vertex]
 		}) as Vector3[]
@@ -125,7 +116,7 @@ export default function RenderCube(
 			return
 		}
 
-		context.fillStyle = `#${faceColor}`
+		context.fillStyle = `#000000`
 		context.beginPath()
 		context.moveTo(
 			faceProjectedVertices[0]?.X || 0,
@@ -137,25 +128,24 @@ export default function RenderCube(
 		context.closePath()
 		context.fill()
 
-		let image = new SkewedImage(texture)
-		image.p1 = new Point(
+		let image = new Texturer(texture)
+		image.p1 = new Vector2(
 			faceProjectedVertices[0]?.X,
 			faceProjectedVertices[0]?.Y
 		)
-		image.p2 = new Point(
+		image.p2 = new Vector2(
 			faceProjectedVertices[1]?.X,
 			faceProjectedVertices[1]?.Y
 		)
-		image.p3 = new Point(
+		image.p3 = new Vector2(
 			faceProjectedVertices[2]?.X,
 			faceProjectedVertices[2]?.Y
 		)
-		image.p4 = new Point(
+		image.p4 = new Vector2(
 			faceProjectedVertices[3]?.X,
 			faceProjectedVertices[3]?.Y
 		)
-		image.context = context
-		image.Draw()
+		image.Draw(context)
 	})
 	Profiler.End()
 

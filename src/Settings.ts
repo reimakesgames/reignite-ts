@@ -8,6 +8,8 @@ const Settings = {
 	// PS. This is a feature, not a bug. Do not ask me to change it unless you have a good fix for the problem.
 	// I am losing my mind over the math required to fix this.
 
+	ENABLE_WIREFRAME: false, // Should the engine render wireframes of 3d objects?
+
 	ENABLE_SPLASH_SCREEN: true, // Should the engine display the splash screen?
 	ENABLE_LOGGING: true, // Should the engine log debug messages to the console?
 	ENABLE_FPS_COUNTER: true, // Should the engine display the FPS counter?
