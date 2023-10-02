@@ -1,0 +1,6 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"name": "Reignite API Documentation",
+	"entryPointStrategy": "expand",
+	"entryPoints": ["src/engine/classes", "src/engine/datatypes"]
+}
