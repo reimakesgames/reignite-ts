@@ -26,15 +26,15 @@ jobs:
         run: npm install typedoc
       - name: Build
         run: npx typedoc
-      - name: List contents of docs
-        run: ls docs
+      - name: Copy Docs
+        run: cp -rL docs deployed_docs
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload docs
         uses: actions/upload-artifact@v2
         with:
           name: docs
-          path: 'docs'
+          path: 'deployed_docs'
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v2
