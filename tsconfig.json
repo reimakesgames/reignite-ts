@@ -6,14 +6,14 @@
 		"target": "ES2022",
 		// "verbatimModuleSyntax": true,
 		"allowJs": true,
-		// "resolveJsonModule": true,
+		"resolveJsonModule": true,
 		"moduleDetection": "force",
 
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
 
-		// "moduleResolution": "NodeNext",
-		// "module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"module": "NodeNext",
 
 		"lib": ["ES2022", "DOM"],
 
