@@ -1,29 +1,35 @@
 class Matrix2x2 {
-	constructor(m00: number, m01: number, m10: number, m11: number)
+	constructor(a: number, b: number, c: number, d: number)
 	constructor([m00, m01, m10, m11]: [number, number, number, number])
 	constructor(
-		m00: number | [number, number, number, number],
-		m01?: number,
-		m10?: number,
-		m11?: number
+		a: number | [number, number, number, number],
+		b?: number,
+		c?: number,
+		d?: number
 	) {
-		if (typeof m00 === "number") {
-			this.m00 = m00
-			this.m01 = m01!
-			this.m10 = m10!
-			this.m11 = m11!
+		if (typeof a === "number") {
+			this.Matrix = [
+				[a, b!],
+				[c!, d!],
+			]
 		} else {
-			;[this.m00, this.m01, this.m10, this.m11] = m00
+			this.Matrix = [
+				[a[0], a[1]],
+				[a[2], a[3]],
+			]
 		}
 	}
 
-	public m00: number
-	public m01: number
-	public m10: number
-	public m11: number
+	public Matrix: [[number, number], [number, number]] = [
+		[1, 0],
+		[0, 1],
+	]
 
 	public get Determinant(): number {
-		return this.m00 * this.m11 - this.m01 * this.m10
+		const [a, b] = this.Matrix[0]
+		const [c, d] = this.Matrix[1]
+
+		return a * d - b * c
 	}
 }
 

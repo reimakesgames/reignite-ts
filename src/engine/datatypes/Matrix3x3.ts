@@ -7,15 +7,6 @@ type Matrix3Raw = [
 ]
 type Range = 0 | 1 | 2
 
-function logMatrix(m: Matrix3x3) {
-	let thing = []
-	for (let i = 0 as Range; i < 3; i++) {
-		// print i, j, k hat as row and x, y, z hat as column
-		thing.push([m.Matrix[0][i], m.Matrix[1][i], m.Matrix[2][i]])
-	}
-	return thing
-}
-
 class Matrix3x3 {
 	constructor(
 		matrix: Matrix3Raw = [
@@ -55,7 +46,7 @@ class Matrix3x3 {
 		)
 	}
 
-	private _determinant(): number {
+	public Determinant(): number {
 		const [a, b, c] = this.Matrix[0]
 		const [d, e, f] = this.Matrix[1]
 		const [g, h, i] = this.Matrix[2]
