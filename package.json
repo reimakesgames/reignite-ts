@@ -5,7 +5,8 @@
 		"esbuild": "0.19.3",
 		"jest-ts-webcompat-resolver": "^1.0.0",
 		"ts-jest": "^29.1.1",
-		"tsup": "^7.2.0"
+		"tsup": "^7.2.0",
+		"typedoc": "^0.25.1"
 	},
 	"scripts": {
 		"dev": "tsup src/bootstrap.ts --splitting --sourcemap --clean --treeshake --minify --metafile --watch",
