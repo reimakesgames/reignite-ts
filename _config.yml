@@ -1,6 +1,7 @@
 lsi: false
 safe: false
 source: ./posts
+destination: ./_site
 incremental: false
 highlighter: rouge
 gist:
