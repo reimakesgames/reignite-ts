@@ -4,6 +4,8 @@ description: Everything related to the Reignite project.
 markdown: kramdown
 remote_theme: reimakesgames/moonwalk
 
+source: ./posts
+
 plugins:
 - jekyll-feed
 - jekyll-seo-tag
