@@ -15,12 +15,12 @@ defaults:
   values:
     layout: post
 - scope:
-    path: "posts/releases"
+    path: "releases"
   values:
     layout: post
     collection: releases
 - scope: # this time for tech shenanigans
-    path: "posts/tech"
+    path: "tech"
   values:
     layout: post
     collection: tech
