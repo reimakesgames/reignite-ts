@@ -32,8 +32,15 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          source: ./posts
+          destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
+        with:
+          name: site
+          path: ./_site
 
   # Deployment job
   deploy:
