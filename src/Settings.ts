@@ -3,6 +3,8 @@ const Settings = {
 	SCREEN_SIZE_Y: 1080,
 	SCREEN_FILL: false, // Should the canvas fill the screen? If false, the canvas will be centered and letterboxed.
 
+	PRELOADER_THREADS: 4, // How many green threads should the preloader use to load assets? (0 = unlimited)
+
 	RENDER_MARGIN: 1, // Percentage of the screen to render outside of the screen bounds. This is useful for rendering objects that are partially off-screen.
 	// Note: This is a percentage of the screen size, not a percentage of the object size.
 	// PS. This is a feature, not a bug. Do not ask me to change it unless you have a good fix for the problem.

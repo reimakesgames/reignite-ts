@@ -12,10 +12,11 @@
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
 
-		"moduleResolution": "NodeNext",
-		"module": "NodeNext",
+		"moduleResolution": "Bundler",
+		"module": "ES2022",
+		"noEmit": true,
 
-		"lib": ["ES2022", "DOM"],
+		"lib": ["ES2022", "DOM", "DOM.Iterable"],
 
 		"outDir": "js"
 	},

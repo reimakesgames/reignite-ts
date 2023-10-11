@@ -8,12 +8,19 @@ import {
 import Logger from "./Logger.js"
 import Settings from "./Settings.js"
 import SplashScreen from "./SplashScreen.js"
+import Preloader from "./engine/modules/Preloader.js"
 
 const Log = new Logger("Bootstrap")
 
 CreateCanvas()
 document.body.appendChild(CanvasContainer)
 EnableFill(false)
+
+Preloader.PreloadAssets([
+	"assets/texture.png",
+	"assets/explosion.png",
+	"assets/normal.png",
+])
 
 function Post() {
 	Log.log("User has interacted with the window.")

@@ -1,4 +1,5 @@
 import Settings from "./Settings.js"
+import Preloader from "./engine/modules/Preloader.js"
 
 const UserActivation: any = (navigator as any).userActivation
 const Duration = 300
@@ -65,12 +66,27 @@ function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 	)
 	context.stroke()
 
+	// draw pi chart of preloader progress
+	context.fillStyle = "#FFFFFF"
+	context.beginPath()
+	context.arc(
+		Settings.SCREEN_SIZE_X - 24,
+		Settings.SCREEN_SIZE_Y - 24,
+		16,
+		-90 * (Math.PI / 180),
+		(-90 + (Preloader.Progress / Preloader.Total) * 360) * (Math.PI / 180)
+	)
+	context.lineTo(Settings.SCREEN_SIZE_X - 24, Settings.SCREEN_SIZE_Y - 24)
+	context.closePath()
+	context.fill()
+
 	// continually request animation frames for the splash screen
 	if (Settings.ENABLE_SPLASH_SCREEN) {
-		// cancel after all timers have been cleared
-		if (!Timer && UserActivation.hasBeenActive) {
+		// cancel after timer has expired, assets have loaded, and user has interacted with the window
+		if (!Timer && UserActivation.hasBeenActive && Preloader.Active) {
 			Timer = performance.now()
 		}
+		// then run the callback and exit
 		if (performance.now() - Timer > Duration + FadeDuration) {
 			Callback?.()
 			return

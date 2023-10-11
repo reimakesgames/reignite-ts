@@ -17,10 +17,15 @@ export default function App(context: CanvasRenderingContext2D) {
 	let WorldModel = {
 		Camera: camera,
 	}
-	console.log("hi team")
-	context.globalAlpha = 1
 
-	new Image().src = "./assets/normal.png"
+	// fix so that the console doesn't spam errors
+	Canvas.addEventListener("click", () => {
+		Canvas.requestPointerLock()
+	})
+
+	context.globalAlpha = 1
+	context.imageSmoothingEnabled = false
+	context.imageSmoothingQuality = "high"
 
 	let previousTime = 0
 
@@ -69,8 +74,6 @@ export default function App(context: CanvasRenderingContext2D) {
 		requestAnimationFrame(Update)
 
 		MouseDelta = [0, 0]
-
-		Canvas.requestPointerLock()
 	}
 	Update()
 }
