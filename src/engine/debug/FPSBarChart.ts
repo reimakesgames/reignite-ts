@@ -1,4 +1,4 @@
-import Settings from "../../Settings.js"
+import Settings from "../../game/Settings"
 
 const FPSBarHeight = 10
 const UsageBarHeight = 100

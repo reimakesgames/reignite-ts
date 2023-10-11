@@ -1,5 +1,5 @@
-import Settings from "../../Settings.js"
-import Profiler from "./Profiler.js"
+import Settings from "../../game/Settings"
+import Profiler from "./Profiler"
 
 const hexColors: string[] = [
 	"#FF0000", // Red

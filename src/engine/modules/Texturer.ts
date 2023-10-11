@@ -1,6 +1,6 @@
-import Settings from "../../Settings.js"
-import TextureCoordinates from "../datatypes/TextureCoordinates.js"
-import Vector2 from "../datatypes/Vector2.js"
+import Settings from "../../game/Settings"
+import TextureCoordinates from "../datatypes/TextureCoordinates"
+import Vector2 from "../datatypes/Vector2"
 
 class Triangle {
 	constructor(

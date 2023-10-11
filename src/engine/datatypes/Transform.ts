@@ -1,7 +1,7 @@
 // Similar to Roblox's CFrame, and Unity's Transform.
 
-import Matrix3x3 from "./Matrix3x3.js"
-import Vector3 from "./Vector3.js"
+import Matrix3x3 from "./Matrix3x3"
+import Vector3 from "./Vector3"
 
 class Transform {
 	constructor(position: Vector3, rotation: Matrix3x3)

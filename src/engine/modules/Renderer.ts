@@ -1,11 +1,11 @@
-import Settings from "../../Settings.js"
-import Camera from "../classes/Camera.js"
-import Vector3 from "../datatypes/Vector3.js"
-import FPSBarChart from "../debug/FPSBarChart.js"
-import Profiler from "../debug/Profiler.js"
-import ProfilerGui from "../debug/ProfilerGui.js"
-import RenderCube from "../debug/RenderCube.js"
-import Projector from "./Projector.js"
+import Settings from "../../game/Settings"
+import Camera from "../classes/Camera"
+import Vector3 from "../datatypes/Vector3"
+import FPSBarChart from "../debug/FPSBarChart"
+import Profiler from "../debug/Profiler"
+import ProfilerGui from "../debug/ProfilerGui"
+import RenderCube from "../debug/RenderCube"
+import Projector from "./Projector"
 
 let previousFrameTime = 0
 

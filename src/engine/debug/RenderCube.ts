@@ -1,10 +1,10 @@
-import Camera from "../classes/Camera.js"
-import Matrix3x3 from "../datatypes/Matrix3x3.js"
-import Vector2 from "../datatypes/Vector2.js"
-import Vector3 from "../datatypes/Vector3.js"
-import Projector from "../modules/Projector.js"
-import Texturer from "../modules/Texturer.js"
-import Profiler from "./Profiler.js"
+import Camera from "../classes/Camera"
+import Matrix3x3 from "../datatypes/Matrix3x3"
+import Vector2 from "../datatypes/Vector2"
+import Vector3 from "../datatypes/Vector3"
+import Projector from "../modules/Projector"
+import Texturer from "../modules/Texturer"
+import Profiler from "./Profiler"
 
 const texture = new Image()
 // texture.src =

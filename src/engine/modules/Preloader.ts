@@ -1,5 +1,5 @@
-import Logger from "../../Logger"
-import Settings from "../../Settings"
+import Logger from "../debug/Logger"
+import Settings from "../../game/Settings"
 
 let Log = new Logger("Preloader")
 

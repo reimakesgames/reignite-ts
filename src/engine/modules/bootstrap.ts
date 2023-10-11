@@ -1,14 +1,14 @@
-import App from "./App.js"
+import App from "./App"
 import {
 	CanvasContainer,
 	Context,
 	CreateCanvas,
 	EnableFill,
-} from "./CanvasViewport.js"
-import Logger from "./Logger.js"
-import Settings from "./Settings.js"
-import SplashScreen from "./SplashScreen.js"
-import Preloader from "./engine/modules/Preloader.js"
+} from "./CanvasViewport"
+import Logger from "../debug/Logger"
+import Settings from "../../game/Settings"
+import SplashScreen from "./SplashScreen"
+import Preloader from "./Preloader"
 
 const Log = new Logger("Bootstrap")
 

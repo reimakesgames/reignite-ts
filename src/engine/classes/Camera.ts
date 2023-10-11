@@ -1,5 +1,5 @@
-import Transform from "../datatypes/Transform.js"
-import Vector3 from "../datatypes/Vector3.js"
+import Transform from "../datatypes/Transform"
+import Vector3 from "../datatypes/Vector3"
 
 class Camera {
 	constructor() {

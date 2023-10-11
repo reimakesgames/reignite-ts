@@ -1,5 +1,5 @@
-import Settings from "./Settings.js"
-import Preloader from "./engine/modules/Preloader.js"
+import Settings from "../../game/Settings"
+import Preloader from "./Preloader"
 
 const UserActivation: any = (navigator as any).userActivation
 const Duration = 300
