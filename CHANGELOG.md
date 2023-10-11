@@ -1,5 +1,18 @@
 # Reignite Typescript Game Engine Changelog
 
+# [v1.095.1]
+
+## Added
+
+-   Preloader system with customizable preloaders
+
+## Changed
+
+-   Splash screen waits for preloader and user input instead of just user input
+-   requestPointerLock is now called onclick instead of every frame
+-   Reorganized the project structure to prepare for Editor development
+-   Changed html file from `index.html` to `game.html` to prepare for Editor development
+
 # [v1.095.0]
 
 ## Added
