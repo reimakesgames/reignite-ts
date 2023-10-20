@@ -1,5 +1,16 @@
 # Reignite Typescript Game Engine Changelog
 
+# [v1.096.0-pre.1]
+
+## Added
+
+-   Electron test and support
+-   Electron configuration
+
+## Changed
+
+-   Default Engine Font is now imported as a local asset instead of a local installed font
+
 # [v1.095.1]
 
 ## Added

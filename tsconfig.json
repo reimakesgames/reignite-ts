@@ -22,7 +22,7 @@
 	},
 
 	"compileOnSave": true,
-	"include": ["src/**/*"],
+	"include": ["src/**/*", "main.ts"],
 
 	"watchOptions": {
 		"watchFile": "useFsEvents",
