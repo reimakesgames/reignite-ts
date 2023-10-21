@@ -1,14 +1,18 @@
 // Similar to Roblox's CFrame, and Unity's Transform.
 
-import Matrix3x3 from "./Matrix3x3"
+import { Matrix3d } from "./Matrix3d"
 import Vector3 from "./Vector3"
 
+/**
+ * ### Transform
+ *
+ */
 class Transform {
-	constructor(position: Vector3, rotation: Matrix3x3)
+	constructor(position: Vector3, rotation: Matrix3d)
 	constructor(x: number, y: number, z: number)
 	constructor()
-	constructor(x?: Vector3 | number, y?: Matrix3x3 | number, z?: number) {
-		if (x instanceof Vector3 && y instanceof Matrix3x3) {
+	constructor(x?: Vector3 | number, y?: Matrix3d | number, z?: number) {
+		if (x instanceof Vector3 && y instanceof Matrix3d) {
 			this.Position = x
 			this.Rotation = y
 		} else if (
@@ -17,36 +21,36 @@ class Transform {
 			typeof z === "number"
 		) {
 			this.Position = new Vector3(x, y, z)
-			this.Rotation = new Matrix3x3()
+			this.Rotation = new Matrix3d()
 		} else {
 			this.Position = new Vector3()
-			this.Rotation = new Matrix3x3()
+			this.Rotation = new Matrix3d()
 		}
 	}
 
 	public Position: Vector3 = new Vector3()
-	public Rotation: Matrix3x3 = new Matrix3x3()
+	public Rotation: Matrix3d = new Matrix3d()
 
 	public get LookVector(): Vector3 {
-		return this.Rotation.LookVector
+		return this.Rotation.lookVector
 	}
 	public get UpVector(): Vector3 {
-		return this.Rotation.UpVector
+		return this.Rotation.upVector
 	}
 	public get RightVector(): Vector3 {
-		return this.Rotation.RightVector
+		return this.Rotation.rightVector
 	}
 
 	public Multiply(other: Vector3) {
-		return this.Position.Add(this.Rotation.Multiply(other))
+		return this.Position.Add(this.Rotation.multiply(other))
 	}
 
 	public VectorToObjectSpace(other: Vector3): Vector3 {
-		return this.Rotation.Inverse().Multiply(other.Sub(this.Position))
+		return this.Rotation.inverse().multiply(other.Sub(this.Position))
 	}
 
 	public PointToWorldSpace(other: Vector3): Vector3 {
-		return this.Position.Add(this.Rotation.Multiply(other))
+		return this.Position.Add(this.Rotation.multiply(other))
 	}
 
 	public Inverse(): Transform {
@@ -54,8 +58,8 @@ class Transform {
 		// the position of the origin based on the rotation
 
 		return new Transform(
-			this.Rotation.Multiply(this.Position).Mul(-1),
-			this.Rotation.Inverse()
+			this.Rotation.multiply(this.Position).Mul(-1),
+			this.Rotation.inverse()
 		)
 	}
 
@@ -64,7 +68,7 @@ class Transform {
 		target: Vector3,
 		up: Vector3 = new Vector3(0, 1, 0)
 	): Transform {
-		return new Transform(position, Matrix3x3.LookAt(position, target, up))
+		return new Transform(position, Matrix3d.lookAt(position, target, up))
 	}
 }
 

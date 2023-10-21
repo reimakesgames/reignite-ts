@@ -1,4 +1,4 @@
-class Matrix2x2 {
+class Matrix2d {
 	constructor(a: number, b: number, c: number, d: number)
 	constructor([m00, m01, m10, m11]: [number, number, number, number])
 	constructor(
@@ -20,12 +20,12 @@ class Matrix2x2 {
 		}
 	}
 
-	public Matrix: [[number, number], [number, number]] = [
+	Matrix: [[number, number], [number, number]] = [
 		[1, 0],
 		[0, 1],
 	]
 
-	public get Determinant(): number {
+	get Determinant(): number {
 		const [a, b] = this.Matrix[0]
 		const [c, d] = this.Matrix[1]
 
@@ -33,4 +33,4 @@ class Matrix2x2 {
 	}
 }
 
-export default Matrix2x2
+export { Matrix2d }

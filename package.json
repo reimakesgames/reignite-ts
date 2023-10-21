@@ -17,7 +17,7 @@
 		"test": "jest"
 	},
 	"name": "reignitetypescript",
-	"version": "0.96.0-pre.1",
+	"version": "1.96.1",
 	"description": "A Godot/Unity-like simplistic 2d with basic 3d support game engine for the web and as a standalone desktop app.",
 	"author": "Rei",
 	"license": "MIT",

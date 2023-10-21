@@ -1,9 +1,12 @@
 import WorldModel from "../engine/classes/WorldModel"
-import Matrix3x3 from "../engine/datatypes/Matrix3x3"
+import { Matrix3d } from "../engine/datatypes/Matrix3d"
 import Transform from "../engine/datatypes/Transform"
 import Vector3 from "../engine/datatypes/Vector3"
 
-let PlayerTransform = new Transform(0, 2, 0)
+let PlayerTransform = Transform.LookAt(
+	new Vector3(0, 2, 8),
+	new Vector3(0, 0, 0)
+)
 let WDown = false
 let ADown = false
 let SDown = false
@@ -26,12 +29,12 @@ function Update(deltaTime: number) {
 		isNaN(MovementVector.Z) ? 0 : MovementVector.Z
 	)
 	// rotate the entire rotation matrix on the world Y axis
-	RotationMatrix = Matrix3x3.Angles(0, -MouseDelta[0] / 1000, 0).Multiply(
+	RotationMatrix = Matrix3d.angles(0, -MouseDelta[0] / 1000, 0).multiply(
 		RotationMatrix
 	)
 	// rotate the matrix on its own X axis
-	RotationMatrix = RotationMatrix.Multiply(
-		Matrix3x3.Angles(MouseDelta[1] / 1000, 0, 0)
+	RotationMatrix = RotationMatrix.multiply(
+		Matrix3d.angles(MouseDelta[1] / 1000, 0, 0)
 	)
 
 	PlayerTransform = new Transform(

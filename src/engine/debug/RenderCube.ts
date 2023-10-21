@@ -1,5 +1,5 @@
 import Camera from "../classes/Camera"
-import Matrix3x3 from "../datatypes/Matrix3x3"
+import { Matrix3d } from "../datatypes/Matrix3d"
 import Vector2 from "../datatypes/Vector2"
 import Vector3 from "../datatypes/Vector3"
 import Projector from "../modules/Projector"
@@ -23,12 +23,12 @@ const cubeVertices = [
 ]
 
 const cubeFaces = [
-	[0, 1, 3, 2],
-	[4, 5, 7, 6],
-	[0, 1, 5, 4],
-	[2, 3, 7, 6],
-	[0, 2, 6, 4],
-	[1, 3, 7, 5],
+	[2, 3, 1, 0],
+	[3, 7, 5, 1],
+	[7, 6, 4, 5],
+	[6, 2, 0, 4],
+	[4, 0, 1, 5],
+	[2, 6, 7, 3],
 ]
 
 export default function RenderCube(
@@ -44,28 +44,38 @@ export default function RenderCube(
 		performance.now() / 1000
 	)
 
-	const cubeRotationMatrix = new Matrix3x3([
-		[Math.cos(cubeRotation.Z), -Math.sin(cubeRotation.Z), 0],
-		[Math.sin(cubeRotation.Z), Math.cos(cubeRotation.Z), 0],
-		[0, 0, 1],
-	])
-		.Multiply(
-			new Matrix3x3([
-				[Math.cos(cubeRotation.Y), 0, Math.sin(cubeRotation.Y)],
-				[0, 1, 0],
-				[-Math.sin(cubeRotation.Y), 0, Math.cos(cubeRotation.Y)],
-			])
-		)
-		.Multiply(
-			new Matrix3x3([
-				[1, 0, 0],
-				[0, Math.cos(cubeRotation.X), -Math.sin(cubeRotation.X)],
-				[0, Math.sin(cubeRotation.X), Math.cos(cubeRotation.X)],
-			])
-		)
+	// const cubeRotationMatrix = new Matrix3d([
+	// 	[Math.cos(cubeRotation.Z), -Math.sin(cubeRotation.Z), 0],
+	// 	[Math.sin(cubeRotation.Z), Math.cos(cubeRotation.Z), 0],
+	// 	[0, 0, 1],
+	// ])
+	// 	.multiply(
+	// 		new Matrix3d([
+	// 			[Math.cos(cubeRotation.Y), 0, Math.sin(cubeRotation.Y)],
+	// 			[0, 1, 0],
+	// 			[-Math.sin(cubeRotation.Y), 0, Math.cos(cubeRotation.Y)],
+	// 		])
+	// 	)
+	// 	.multiply(
+	// 		new Matrix3d([
+	// 			[1, 0, 0],
+	// 			[0, Math.cos(cubeRotation.X), -Math.sin(cubeRotation.X)],
+	// 			[0, Math.sin(cubeRotation.X), Math.cos(cubeRotation.X)],
+	// 		])
+	// 	)
+	const pos = new Vector3(
+		Math.sin(performance.now() / 1000) * 4,
+		Math.cos(performance.now() / 1000) * 4,
+		0
+	)
+	const cubeRotationMatrix = Matrix3d.lookAt(
+		pos,
+		new Vector3(0, 0, 0),
+		new Vector3(0, 0, 1)
+	)
 
 	let cubeRotatedVertices = cubeVertices.map((vertex) => {
-		return cubeRotationMatrix.Multiply(vertex) as Vector3
+		return cubeRotationMatrix.multiply(vertex) as Vector3
 	})
 	cubeRotatedVertices = cubeRotatedVertices.map((vertex) => {
 		return vertex.Add(
