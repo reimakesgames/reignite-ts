@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies and build docs
         run: |
           npm install
-          npm run docs
+          npm run docs:prod
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
