@@ -47,11 +47,9 @@ jobs:
         run: |
           npm run docs
       - name: Move the Docs
-        # new folder
-        run: |
-          mkdir ./_site/docs
-          mv ./docs/* ./_site/docs
         # move the docs
+        run: |
+          mv ./docs ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
