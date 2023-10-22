@@ -43,7 +43,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           source: ./posts
-          destination: ./_site
+          destination: ./_site/posts
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
