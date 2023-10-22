@@ -44,6 +44,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           source: ./posts
           destination: ./_site/posts
+      - name: Repair links
+        run: |
+          chmod +x ./posts/repairlinks.sh;
+          ./posts/repairlinks.sh;
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
