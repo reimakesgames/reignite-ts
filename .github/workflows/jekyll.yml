@@ -30,6 +30,10 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v3
+      - name: Install dependencies and build docs
+        run: |
+          npm install
+          npm run docs:prod
       - name: Add Links
         run: |
           chmod +x ./posts/addlatest.sh;
@@ -40,10 +44,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           source: ./posts
           destination: ./_site
-      - name: Install dependencies and build docs
-        run: |
-          npm install
-          npm run docs:prod
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
