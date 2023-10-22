@@ -1,4 +1,4 @@
-import Settings from "../../game/Settings"
+import Settings from "../Settings"
 import TextureCoordinates from "../datatypes/TextureCoordinates"
 import Vector2 from "../datatypes/Vector2"
 

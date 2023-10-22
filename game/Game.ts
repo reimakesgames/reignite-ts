@@ -1,7 +1,7 @@
-import WorldModel from "../engine/classes/WorldModel"
-import { Matrix3d } from "../engine/datatypes/Matrix3d"
-import Transform from "../engine/datatypes/Transform"
-import Vector3 from "../engine/datatypes/Vector3"
+import WorldModel from "../src/engine/classes/WorldModel"
+import { Matrix3d } from "../src/engine/datatypes/Matrix3d"
+import Transform from "../src/engine/datatypes/Transform"
+import Vector3 from "../src/engine/datatypes/Vector3"
 
 let PlayerTransform = Transform.LookAt(
 	new Vector3(0, 2, 8),

@@ -1,0 +1,2 @@
+export { Matrix2d } from "./datatypes/Matrix2d"
+export { Matrix3d } from "./datatypes/Matrix3d"

@@ -20,7 +20,7 @@ highest_release="${recent_releases[0]}"
 release_number="${highest_release%%.*}"
 
 # Append text to index.md with a link to the latest release
-latest_release_link="[Latest Release: ${release_number}](releases/${release_number}.html)"
+latest_release_link="1. [Latest Release: ${release_number}](releases/${release_number}.html)"
 
 # Append the link to the index.md file
 index_file="posts/index.md"
@@ -34,7 +34,7 @@ for release in "${recent_releases[@]}"; do
   if [ "$release_number" = "${highest_release%%.*}" ]; then
     continue
   fi
-  release_link="[Release: ${release_number}](releases/${release_number}.html)"
+  release_link="1. [Release: ${release_number}](releases/${release_number}.html)"
   # Append the link to the index.md file
   echo -e "$release_link" >> "$index_file"
   echo "$release_link"

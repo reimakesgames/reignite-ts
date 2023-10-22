@@ -4,7 +4,7 @@ import Camera from "../classes/Camera"
 import { Renderer } from "./Renderer"
 import WorldModel from "../classes/WorldModel"
 
-import { Update } from "../../game/Game"
+import { Update } from "../../../game/Game"
 
 export default function App(context: CanvasRenderingContext2D) {
 	const camera = new Camera()

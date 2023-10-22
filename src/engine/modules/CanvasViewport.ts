@@ -1,4 +1,4 @@
-import Settings from "../../game/Settings"
+import Settings from "../Settings"
 
 let CanvasContainer: HTMLDivElement = null as any
 let Canvas: HTMLCanvasElement = null as any

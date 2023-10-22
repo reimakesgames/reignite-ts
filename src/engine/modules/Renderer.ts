@@ -1,4 +1,4 @@
-import Settings from "../../game/Settings"
+import Settings from "../Settings"
 import Camera from "../classes/Camera"
 import Vector3 from "../datatypes/Vector3"
 import FPSBarChart from "../debug/FPSBarChart"

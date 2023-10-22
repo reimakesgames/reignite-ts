@@ -1,4 +1,4 @@
-import Settings from "../../game/Settings"
+import Settings from "../Settings"
 import Preloader from "./Preloader"
 
 const UserActivation: any = (navigator as any).userActivation

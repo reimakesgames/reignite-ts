@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from "electron"
-import Settings from "./src/game/Settings"
+import Settings from "./Settings"
 
 const FRAME_ENABLED = true
 const TITLEBAR_ENABLED = true

@@ -1,6 +1,7 @@
 {
 	"devDependencies": {
 		"@electron/typescript-definitions": "^8.15.0",
+		"@mxssfd/typedoc-theme": "^1.1.3",
 		"@types/jest": "^29.5.5",
 		"concurrently": "^8.2.1",
 		"electron": "^27.0.1",
@@ -8,18 +9,19 @@
 		"jest-ts-webcompat-resolver": "^1.0.0",
 		"ts-jest": "^29.1.1",
 		"tsup": "^7.2.0",
-		"typedoc": "^0.25.1"
+		"typedoc": "^0.25.2"
 	},
 	"scripts": {
-		"dev": "tsup main.ts src/engine/modules/bootstrap.ts --splitting --sourcemap --clean --treeshake --minify --metafile --watch",
-		"build": "tsup main.ts src/engine/modules/bootstrap.ts --splitting --clean --treeshake --minify",
+		"dev": "tsup --sourcemap --metafile --watch --dts src/engine/index.ts",
+		"build": "tsup",
 		"start": "electron .",
-		"test": "jest"
+		"test": "jest",
+		"docs": "typedoc"
 	},
 	"name": "reignitetypescript",
 	"version": "1.96.1",
 	"description": "A Godot/Unity-like simplistic 2d with basic 3d support game engine for the web and as a standalone desktop app.",
 	"author": "Rei",
 	"license": "MIT",
-	"main": "dist/main.js"
+	"main": "dist/electron.js"
 }

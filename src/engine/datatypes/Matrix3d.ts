@@ -8,7 +8,6 @@ type Matrix3x3 = [
 type Range = 0 | 1 | 2
 
 /**
- * ### Matrix3d
  * A 3x3 matrix that can be used to represent rotations and transformations in 3D space.
  *
  * Hosts methods relating to matrix operations which can be used to transform vectors.
@@ -17,7 +16,15 @@ type Range = 0 | 1 | 2
  */
 export class Matrix3d {
 	/**
-	 * @param matrix The matrix to use for the transformation. Defaults to the identity matrix.
+	 * Creates a new matrix from the given 3x3 matrix.
+	 *
+	 * This is how the matrix looks like:
+	 * ```ts
+	 * [
+	 * 	[a, b, c],
+	 * 	[d, e, f],
+	 * 	[g, h, i],
+	 * ]
 	 */
 	constructor(
 		readonly matrix: Matrix3x3 = [

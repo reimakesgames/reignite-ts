@@ -1,6 +1,6 @@
 import Vector3 from "../datatypes/Vector3"
 import Camera from "../classes/Camera"
-import Settings from "../../game/Settings"
+import Settings from "../Settings"
 
 const AspectRatio = Settings.SCREEN_SIZE_X / Settings.SCREEN_SIZE_Y
 const ScreenX = Settings.SCREEN_SIZE_X

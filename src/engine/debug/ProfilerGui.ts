@@ -1,4 +1,4 @@
-import Settings from "../../game/Settings"
+import Settings from "../Settings"
 import Profiler from "./Profiler"
 
 const hexColors: string[] = [

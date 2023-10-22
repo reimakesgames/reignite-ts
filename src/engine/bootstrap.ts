@@ -1,14 +1,14 @@
-import App from "./App"
+import App from "./modules/App"
 import {
 	CanvasContainer,
 	Context,
 	CreateCanvas,
 	EnableFill,
-} from "./CanvasViewport"
-import Logger from "../debug/Logger"
-import Settings from "../../game/Settings"
-import SplashScreen from "./SplashScreen"
-import Preloader from "./Preloader"
+} from "./modules/CanvasViewport"
+import Logger from "./debug/Logger"
+import Settings from "./Settings"
+import SplashScreen from "./modules/SplashScreen"
+import Preloader from "./modules/Preloader"
 
 // standard engine font
 document.fonts.add(new FontFace("Ubuntu", "url(assets/Ubuntu-Regular.ttf)"))

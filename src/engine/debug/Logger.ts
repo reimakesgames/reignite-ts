@@ -1,4 +1,4 @@
-import Settings from "../../game/Settings"
+import Settings from "../Settings"
 
 class Logger {
 	constructor(identifier: string, respectSettings: boolean = true) {

@@ -22,7 +22,7 @@
 	},
 
 	"compileOnSave": true,
-	"include": ["src/**/*", "main.ts"],
+	"include": ["src/**/*", "src/engine/electron.ts", "game"],
 
 	"watchOptions": {
 		"watchFile": "useFsEvents",
