@@ -16,7 +16,7 @@
 		"build": "tsup",
 		"start": "electron .",
 		"test": "jest",
-		"docs": "typedoc",
+		"docs": "typedoc --watch",
 		"docs:prod": "typedoc --out _site/docs"
 	},
 	"name": "reignitetypescript",

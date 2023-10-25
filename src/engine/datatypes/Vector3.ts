@@ -1,146 +1,139 @@
-class Vector3 {
-	constructor(x: number = 0, y: number = 0, z: number = 0) {
-		this.X = x
-		this.Y = y
-		this.Z = z
-		this._magnitude = Math.sqrt(x * x + y * y + z * z)
-		this._unitValues = [
-			x / this._magnitude,
-			y / this._magnitude,
-			z / this._magnitude,
+/**
+ * Docs WIP
+ */
+export class Vector3 {
+	constructor(
+		readonly x: number = 0,
+		readonly y: number = 0,
+		readonly z: number = 0
+	) {
+		this.magnitude = Math.sqrt(x * x + y * y + z * z)
+		this.unitElements = [
+			x / this.magnitude,
+			y / this.magnitude,
+			z / this.magnitude,
 		]
 	}
 
-	public readonly X: number
-	public readonly Y: number
-	public readonly Z: number
+	readonly magnitude: number
 
-	private readonly _unitValues: [number, number, number]
-	private _unitVector: Vector3 | null = null // only exists if Unit is called, then it's cached
-	private readonly _magnitude: number
+	private readonly unitElements: [number, number, number]
+	private unitVector?: Vector3
+	get unit(): Vector3 {
+		if (!this.unitVector) {
+			this.unitVector = new Vector3(
+				this.unitElements[0],
+				this.unitElements[1],
+				this.unitElements[2]
+			)
+		}
+		return this.unitVector
+	}
 
-	public Cross(other: Vector3): Vector3 {
+	cross(other: Vector3): Vector3 {
 		return new Vector3(
-			this.Y * other.Z - this.Z * other.Y,
-			this.Z * other.X - this.X * other.Z,
-			this.X * other.Y - this.Y * other.X
+			this.y * other.z - this.z * other.y,
+			this.z * other.x - this.x * other.z,
+			this.x * other.y - this.y * other.x
 		)
 	}
 
-	public Angle(other: Vector3, axis: Vector3): number {
-		const a = this.Sub(axis)
-		const b = other.Sub(axis)
+	angle(other: Vector3, axis: Vector3): number {
+		const a = this.subtract(axis)
+		const b = other.subtract(axis)
 
-		return Math.atan2(a.Cross(b).Magnitude(), a.Dot(b))
+		return Math.atan2(a.cross(b).magnitude, a.dot(b))
 	}
 
-	public Dot(other: Vector3): number {
-		return this.X * other.X + this.Y * other.Y + this.Z * other.Z
+	dot(other: Vector3): number {
+		return this.x * other.x + this.y * other.y + this.z * other.z
 	}
 
-	public FuzzyEq(other: Vector3, epilson: number): boolean {
+	fuzzyEq(other: Vector3, epilson: number): boolean {
 		return (
-			Math.abs(this.X - other.X) < epilson &&
-			Math.abs(this.Y - other.Y) < epilson &&
-			Math.abs(this.Z - other.Z) < epilson
+			Math.abs(this.x - other.x) < epilson &&
+			Math.abs(this.y - other.y) < epilson &&
+			Math.abs(this.z - other.z) < epilson
 		)
 	}
 
-	public Lerp(other: Vector3, alpha: number): Vector3 {
+	lerp(other: Vector3, alpha: number): Vector3 {
 		return new Vector3(
-			this.X + (other.X - this.X) * alpha,
-			this.Y + (other.Y - this.Y) * alpha,
-			this.Z + (other.Z - this.Z) * alpha
+			this.x + (other.x - this.x) * alpha,
+			this.y + (other.y - this.y) * alpha,
+			this.z + (other.z - this.z) * alpha
 		)
 	}
 
-	public Max(other: Vector3): Vector3 {
+	max(other: Vector3): Vector3 {
 		return new Vector3(
-			Math.max(this.X, other.X),
-			Math.max(this.Y, other.Y),
-			Math.max(this.Z, other.Z)
+			Math.max(this.x, other.x),
+			Math.max(this.y, other.y),
+			Math.max(this.z, other.z)
 		)
 	}
 
-	public Min(other: Vector3): Vector3 {
+	min(other: Vector3): Vector3 {
 		return new Vector3(
-			Math.min(this.X, other.X),
-			Math.min(this.Y, other.Y),
-			Math.min(this.Z, other.Z)
+			Math.min(this.x, other.x),
+			Math.min(this.y, other.y),
+			Math.min(this.z, other.z)
 		)
 	}
 
-	public Add(other: Vector3): Vector3 {
-		return new Vector3(this.X + other.X, this.Y + other.Y, this.Z + other.Z)
+	add(other: Vector3): Vector3 {
+		return new Vector3(this.x + other.x, this.y + other.y, this.z + other.z)
 	}
 
-	public Sub(other: Vector3): Vector3 {
-		return new Vector3(this.X - other.X, this.Y - other.Y, this.Z - other.Z)
+	subtract(other: Vector3): Vector3 {
+		return new Vector3(this.x - other.x, this.y - other.y, this.z - other.z)
 	}
 
-	public Mul(other: Vector3 | number): Vector3 {
+	multiply(other: Vector3 | number): Vector3 {
 		if (typeof other === "number") {
-			return new Vector3(this.X * other, this.Y * other, this.Z * other)
+			return new Vector3(this.x * other, this.y * other, this.z * other)
 		} else {
 			return new Vector3(
-				this.X * other.X,
-				this.Y * other.Y,
-				this.Z * other.Z
+				this.x * other.x,
+				this.y * other.y,
+				this.z * other.z
 			)
 		}
 	}
 
-	public Div(other: Vector3 | number): Vector3 {
+	divide(other: Vector3 | number): Vector3 {
 		if (typeof other === "number") {
-			return new Vector3(this.X / other, this.Y / other, this.Z / other)
+			return new Vector3(this.x / other, this.y / other, this.z / other)
 		} else {
 			return new Vector3(
-				this.X / other.X,
-				this.Y / other.Y,
-				this.Z / other.Z
+				this.x / other.x,
+				this.y / other.y,
+				this.z / other.z
 			)
 		}
 	}
 
-	public Neg(): Vector3 {
-		return new Vector3(-this.X, -this.Y, -this.Z)
+	negate(): Vector3 {
+		return new Vector3(-this.x, -this.y, -this.z)
 	}
 
-	public Magnitude(): number {
-		return this._magnitude
-	}
-
-	public Unit(): Vector3 {
-		if (!this._unitVector) {
-			this._unitVector = new Vector3(
-				this._unitValues[0],
-				this._unitValues[1],
-				this._unitValues[2]
-			)
-		}
-
-		return this._unitVector
-	}
-
-	public static Zero(): Vector3 {
+	static zero(): Vector3 {
 		return new Vector3()
 	}
 
-	public static One(): Vector3 {
+	static one(): Vector3 {
 		return new Vector3(1, 1, 1)
 	}
 
-	public static UnitX(): Vector3 {
+	static unitX(): Vector3 {
 		return new Vector3(1, 0, 0)
 	}
 
-	public static UnitY(): Vector3 {
+	static unitY(): Vector3 {
 		return new Vector3(0, 1, 0)
 	}
 
-	public static UnitZ(): Vector3 {
+	static unitZ(): Vector3 {
 		return new Vector3(0, 0, 1)
 	}
 }
-
-export default Vector3

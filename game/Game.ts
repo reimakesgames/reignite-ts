@@ -1,7 +1,7 @@
 import WorldModel from "../src/engine/classes/WorldModel"
 import { Matrix3d } from "../src/engine/datatypes/Matrix3d"
-import Transform from "../src/engine/datatypes/Transform"
-import Vector3 from "../src/engine/datatypes/Vector3"
+import { Transform } from "../src/engine/datatypes/Transform"
+import { Vector3 } from "../src/engine/datatypes/Vector3"
 
 let PlayerTransform = Transform.LookAt(
 	new Vector3(0, 2, 8),
@@ -15,18 +15,18 @@ let MouseDelta: [number, number] = [0, 0]
 
 function Update(deltaTime: number) {
 	let MovementVector = new Vector3(0, 0, 0)
-	let RotationMatrix = PlayerTransform.Rotation
-	if (WDown) MovementVector = MovementVector.Add(new Vector3(0, 0, 1))
-	if (ADown) MovementVector = MovementVector.Add(new Vector3(1, 0, 0))
-	if (SDown) MovementVector = MovementVector.Add(new Vector3(0, 0, -1))
-	if (DDown) MovementVector = MovementVector.Add(new Vector3(-1, 0, 0))
-	MovementVector = MovementVector.Unit()
-	MovementVector = MovementVector.Mul(deltaTime / 100)
+	let RotationMatrix = PlayerTransform.rotation
+	if (WDown) MovementVector = MovementVector.add(new Vector3(0, 0, 1))
+	if (ADown) MovementVector = MovementVector.add(new Vector3(1, 0, 0))
+	if (SDown) MovementVector = MovementVector.add(new Vector3(0, 0, -1))
+	if (DDown) MovementVector = MovementVector.add(new Vector3(-1, 0, 0))
+	MovementVector = MovementVector.unit
+	MovementVector = MovementVector.multiply(deltaTime / 100)
 	// check if the movement vector is nan, if it is, set it to 0
 	MovementVector = new Vector3(
-		isNaN(MovementVector.X) ? 0 : MovementVector.X,
-		isNaN(MovementVector.Y) ? 0 : MovementVector.Y,
-		isNaN(MovementVector.Z) ? 0 : MovementVector.Z
+		isNaN(MovementVector.x) ? 0 : MovementVector.x,
+		isNaN(MovementVector.y) ? 0 : MovementVector.y,
+		isNaN(MovementVector.z) ? 0 : MovementVector.z
 	)
 	// rotate the entire rotation matrix on the world Y axis
 	RotationMatrix = Matrix3d.angles(0, -MouseDelta[0] / 1000, 0).multiply(

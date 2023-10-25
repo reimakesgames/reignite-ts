@@ -1,4 +1,4 @@
-import Vector3 from "../datatypes/Vector3"
+import { Vector3 } from "../datatypes/Vector3"
 import Camera from "../classes/Camera"
 import Settings from "../Settings"
 
@@ -13,21 +13,21 @@ export default function Projector(position: Vector3, camera: Camera): Vector3 {
 	const cameraTransform = camera.Transform
 
 	const directionToObject = cameraTransform.VectorToObjectSpace(position)
-	const distanceToObject = directionToObject.Magnitude()
+	const distanceToObject = directionToObject.magnitude
 
 	const projectedX =
 		ScreenX / 2 +
 		((ScreenX / 2 / Math.tan(FieldOfView / 2)) *
-			-(directionToObject.X / directionToObject.Z)) /
+			-(directionToObject.x / directionToObject.z)) /
 			AspectRatio
 
 	const projectedY =
 		ScreenY / 2 -
 		(ScreenY / 2 / Math.tan(FieldOfView / 2)) *
-			(directionToObject.Y / directionToObject.Z)
+			(directionToObject.y / directionToObject.z)
 
 	const isSeen = !(
-		directionToObject.Z <= 0 ||
+		directionToObject.z <= 0 ||
 		distanceToObject <= 0 ||
 		projectedX < 0 - ScreenX * RenderMargin ||
 		projectedX > ScreenX + ScreenX * RenderMargin ||

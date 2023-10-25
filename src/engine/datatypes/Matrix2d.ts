@@ -1,36 +1,35 @@
-class Matrix2d {
-	constructor(a: number, b: number, c: number, d: number)
-	constructor([m00, m01, m10, m11]: [number, number, number, number])
-	constructor(
-		a: number | [number, number, number, number],
-		b?: number,
-		c?: number,
-		d?: number
-	) {
-		if (typeof a === "number") {
-			this.Matrix = [
-				[a, b!],
-				[c!, d!],
-			]
-		} else {
-			this.Matrix = [
-				[a[0], a[1]],
-				[a[2], a[3]],
-			]
-		}
-	}
+type Matrix2x2 = [[number, number], [number, number]]
 
-	Matrix: [[number, number], [number, number]] = [
-		[1, 0],
-		[0, 1],
-	]
+/**
+ * A 2x2 matrix that can be used to represent rotations and transformations in 2D space.
+ *
+ * Hosts methods relating to matrix operations which can be used to transform vectors.
+ */
+export class Matrix2d {
+	/**
+	 * Creates a new matrix from the given 2x2 matrix.
+	 *
+	 * This is how the matrix looks like:
+	 * ```ts
+	 * [
+	 * 	[a, b],
+	 * 	[c, d],
+	 * ]
+	 * ```
+	 *
+	 * This class is a stub, future additions will be made when needed.
+	 */
+	constructor(
+		readonly matrix: Matrix2x2 = [
+			[1, 0],
+			[0, 1],
+		]
+	) {}
 
 	get Determinant(): number {
-		const [a, b] = this.Matrix[0]
-		const [c, d] = this.Matrix[1]
+		const [a, b] = this.matrix[0]
+		const [c, d] = this.matrix[1]
 
 		return a * d - b * c
 	}
 }
-
-export { Matrix2d }

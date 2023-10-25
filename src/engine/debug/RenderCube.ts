@@ -1,7 +1,7 @@
 import Camera from "../classes/Camera"
 import { Matrix3d } from "../datatypes/Matrix3d"
 import Vector2 from "../datatypes/Vector2"
-import Vector3 from "../datatypes/Vector3"
+import { Vector3 } from "../datatypes/Vector3"
 import Projector from "../modules/Projector"
 import Texturer from "../modules/Texturer"
 import Profiler from "./Profiler"
@@ -78,7 +78,7 @@ export default function RenderCube(
 		return cubeRotationMatrix.multiply(vertex) as Vector3
 	})
 	cubeRotatedVertices = cubeRotatedVertices.map((vertex) => {
-		return vertex.Add(
+		return vertex.add(
 			new Vector3(
 				Math.sin(performance.now() / 1000) * 4,
 				Math.cos(performance.now() / 1000) * 4,
@@ -104,7 +104,7 @@ export default function RenderCube(
 			}) as Vector3[]
 			const faceDistance =
 				faceProjectedVertices.reduce((acc, vertex) => {
-					return acc + vertex.Z
+					return acc + vertex.z
 				}, 0) / faceProjectedVertices?.length
 			return {
 				index: index,
@@ -122,38 +122,38 @@ export default function RenderCube(
 		const faceProjectedVertices = faceVertices?.map((vertex) => {
 			return cubeProjectedVertices[vertex]
 		}) as Vector3[]
-		if (faceProjectedVertices.some((vertex) => vertex.Z < 0)) {
+		if (faceProjectedVertices.some((vertex) => vertex.z < 0)) {
 			return
 		}
 
 		context.fillStyle = `#000000`
 		context.beginPath()
 		context.moveTo(
-			faceProjectedVertices[0]?.X || 0,
-			faceProjectedVertices[0]?.Y || 0
+			faceProjectedVertices[0]?.x || 0,
+			faceProjectedVertices[0]?.y || 0
 		)
 		faceProjectedVertices.forEach((vertex) => {
-			context.lineTo(vertex.X, vertex.Y)
+			context.lineTo(vertex.x, vertex.y)
 		})
 		context.closePath()
 		context.fill()
 
 		let image = new Texturer(texture)
 		image.p1 = new Vector2(
-			faceProjectedVertices[0]?.X,
-			faceProjectedVertices[0]?.Y
+			faceProjectedVertices[0]?.x,
+			faceProjectedVertices[0]?.y
 		)
 		image.p2 = new Vector2(
-			faceProjectedVertices[1]?.X,
-			faceProjectedVertices[1]?.Y
+			faceProjectedVertices[1]?.x,
+			faceProjectedVertices[1]?.y
 		)
 		image.p3 = new Vector2(
-			faceProjectedVertices[2]?.X,
-			faceProjectedVertices[2]?.Y
+			faceProjectedVertices[2]?.x,
+			faceProjectedVertices[2]?.y
 		)
 		image.p4 = new Vector2(
-			faceProjectedVertices[3]?.X,
-			faceProjectedVertices[3]?.Y
+			faceProjectedVertices[3]?.x,
+			faceProjectedVertices[3]?.y
 		)
 		image.Draw(context)
 	})

@@ -1,4 +1,4 @@
-import Vector3 from "./Vector3"
+import { Vector3 } from "./Vector3"
 
 type Matrix3x3 = [
 	[number, number, number],
@@ -34,48 +34,70 @@ export class Matrix3d {
 		]
 	) {}
 
+	private cachedRightVector?: Vector3
 	/**
-	 * The right vector of the matrix.
+	 * The right vector of the matrix, or the Positive X axis.
 	 */
 	get rightVector(): Vector3 {
-		return new Vector3(
-			this.matrix[0][0],
-			this.matrix[1][0],
-			this.matrix[2][0]
-		)
+		// cached for performance
+		// do not compute at creation or an endless loop will occur
+		// if we make the right vector already made when creating the matrix,
+		// it will generate its internal properties over and over again.
+		if (!this.cachedRightVector) {
+			this.cachedRightVector = new Vector3(
+				this.matrix[0][0],
+				this.matrix[1][0],
+				this.matrix[2][0]
+			)
+		}
+		return this.cachedRightVector
 	}
 
+	private cachedUpVector?: Vector3
 	/**
 	 * The up vector of the matrix.
 	 */
 	get upVector(): Vector3 {
-		return new Vector3(
-			this.matrix[0][1],
-			this.matrix[1][1],
-			this.matrix[2][1]
-		)
+		// cached for performance
+		if (!this.cachedUpVector) {
+			this.cachedUpVector = new Vector3(
+				this.matrix[0][1],
+				this.matrix[1][1],
+				this.matrix[2][1]
+			)
+		}
+		return this.cachedUpVector
 	}
 
+	private cachedLookVector?: Vector3
 	/**
 	 * The look vector of the matrix. Opposite of the forward vector.
 	 */
 	get lookVector(): Vector3 {
-		return new Vector3(
-			-this.matrix[0][2],
-			-this.matrix[1][2],
-			-this.matrix[2][2]
-		)
+		if (!this.cachedLookVector) {
+			this.cachedLookVector = new Vector3(
+				-this.matrix[0][2],
+				-this.matrix[1][2],
+				-this.matrix[2][2]
+			)
+		}
+		return this.cachedLookVector
 	}
 
+	private cachedDeterminant?: number
 	/**
 	 * Calculates the determinant of the matrix.
 	 */
 	determinant(): number {
-		const [a, b, c] = this.matrix[0]
-		const [d, e, f] = this.matrix[1]
-		const [g, h, i] = this.matrix[2]
+		if (!this.cachedDeterminant) {
+			const [a, b, c] = this.matrix[0]
+			const [d, e, f] = this.matrix[1]
+			const [g, h, i] = this.matrix[2]
 
-		return a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+			this.cachedDeterminant =
+				a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+		}
+		return this.cachedDeterminant
 	}
 
 	/**
@@ -127,39 +149,46 @@ export class Matrix3d {
 		}
 	}
 
+	// i can do these because if you're getting the inverse of an inverse,
+	// maybe there's something wrong with your code.
+	private cachedInverse?: Matrix3d
 	/**
 	 * Calculates the inverse of the matrix.
 	 */
 	inverse(): Matrix3d {
-		const [a, b, c] = this.matrix[0]
-		const [d, e, f] = this.matrix[1]
-		const [g, h, i] = this.matrix[2]
+		if (!this.cachedInverse) {
+			const [a, b, c] = this.matrix[0]
+			const [d, e, f] = this.matrix[1]
+			const [g, h, i] = this.matrix[2]
 
-		const det =
-			a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+			const det =
+				a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
 
-		// sexy optimization brought the time taken by a whopping 50% !!! holy hell
+			// sexy optimization brought the time taken by a whopping 50% !!! holy hell
+			// append; it takes a while but subsequent calls are literally instant
 
-		// consolidates the following operations
-		// getting the adjugate matrix
-		// dividing each element by the determinant
-		return new Matrix3d([
-			[
-				(e * i - f * h) / det,
-				-(b * i - c * h) / det,
-				(b * f - c * e) / det,
-			],
-			[
-				-(d * i - f * g) / det,
-				(a * i - c * g) / det,
-				-(a * f - c * d) / det,
-			],
-			[
-				(d * h - e * g) / det,
-				-(a * h - b * g) / det,
-				(a * e - b * d) / det,
-			],
-		])
+			// consolidates the following operations
+			// getting the adjugate matrix
+			// dividing each element by the determinant
+			this.cachedInverse = new Matrix3d([
+				[
+					(e * i - f * h) / det,
+					-(b * i - c * h) / det,
+					(b * f - c * e) / det,
+				],
+				[
+					-(d * i - f * g) / det,
+					(a * i - c * g) / det,
+					-(a * f - c * d) / det,
+				],
+				[
+					(d * h - e * g) / det,
+					-(a * h - b * g) / det,
+					(a * e - b * d) / det,
+				],
+			])
+		}
+		return this.cachedInverse
 	}
 
 	/**
@@ -170,17 +199,17 @@ export class Matrix3d {
 	vectorToObjectSpace(vector: Vector3): Vector3 {
 		const matrix = this.matrix
 		const x =
-			matrix[0][0] * vector.X +
-			matrix[0][1] * vector.Y +
-			matrix[0][2] * vector.Z
+			matrix[0][0] * vector.x +
+			matrix[0][1] * vector.y +
+			matrix[0][2] * vector.z
 		const y =
-			matrix[1][0] * vector.X +
-			matrix[1][1] * vector.Y +
-			matrix[1][2] * vector.Z
+			matrix[1][0] * vector.x +
+			matrix[1][1] * vector.y +
+			matrix[1][2] * vector.z
 		const z =
-			matrix[2][0] * vector.X +
-			matrix[2][1] * vector.Y +
-			matrix[2][2] * vector.Z
+			matrix[2][0] * vector.x +
+			matrix[2][1] * vector.y +
+			matrix[2][2] * vector.z
 		return new Vector3(x, y, z)
 	}
 
@@ -218,21 +247,19 @@ export class Matrix3d {
 		target: Vector3,
 		up: Vector3 = new Vector3(0, 1, 0)
 	): Matrix3d {
-		const forward = position.Sub(target).Unit()
-		const right = forward.Cross(up).Unit()
-		const up2 = right.Cross(forward).Unit()
+		const forward = position.subtract(target).unit
+		const right = forward.cross(up).unit
+		const up2 = right.cross(forward).unit
 
 		return new Matrix3d([
-			[right.X, up2.X, -forward.X],
-			[right.Y, up2.Y, -forward.Y],
-			[right.Z, up2.Z, -forward.Z],
+			[right.x, up2.x, -forward.x],
+			[right.y, up2.y, -forward.y],
+			[right.z, up2.z, -forward.z],
 		])
 	}
 
 	/**
 	 * Returns the default identity matrix.
 	 */
-	static identity(): Matrix3d {
-		return new Matrix3d()
-	}
+	static readonly IDENTITY = new Matrix3d()
 }
