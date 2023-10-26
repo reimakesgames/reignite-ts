@@ -12,7 +12,7 @@ export default function Projector(position: Vector3, camera: Camera): Vector3 {
 
 	const cameraTransform = camera.Transform
 
-	const directionToObject = cameraTransform.VectorToObjectSpace(position)
+	const directionToObject = cameraTransform.vectorToObjectSpace(position)
 	const distanceToObject = directionToObject.magnitude
 
 	const projectedX =

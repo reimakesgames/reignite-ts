@@ -5,6 +5,10 @@ import { Vector3 } from "./Vector3"
 
 /**
  * A Matrix3d and Vector3 pair that represents a position and rotation in 3d space.
+ *
+ * ---
+ *
+ * [Roblox Reference](https://create.roblox.com/docs/reference/engine/datatypes/CFrame)
  */
 export class Transform {
 	constructor(position: Vector3, rotation: Matrix3d)
@@ -41,40 +45,28 @@ export class Transform {
 	 *
 	 * Note: This is the negative Z axis of the rotation matrix.
 	 */
-	get LookVector(): Vector3 {
+	get lookVector(): Vector3 {
 		return this.rotation.lookVector
 	}
 
 	/**
 	 * The UpVector of the Transform.
 	 */
-	get UpVector(): Vector3 {
+	get upVector(): Vector3 {
 		return this.rotation.upVector
 	}
 
 	/**
 	 * The RightVector of the Transform.
 	 */
-	get RightVector(): Vector3 {
+	get rightVector(): Vector3 {
 		return this.rotation.rightVector
-	}
-
-	Multiply(other: Vector3) {
-		return this.position.add(this.rotation.multiply(other))
-	}
-
-	VectorToObjectSpace(other: Vector3): Vector3 {
-		return this.rotation.inverse().multiply(other.subtract(this.position))
-	}
-
-	PointToWorldSpace(other: Vector3): Vector3 {
-		return this.position.add(this.rotation.multiply(other))
 	}
 
 	/**
 	 * Returns a new Transform that is the inverse of this Transform.
 	 */
-	Inverse(): Transform {
+	inverse(): Transform {
 		// new position based on visual testing should be
 		// the position of the origin based on the rotation
 
@@ -85,9 +77,103 @@ export class Transform {
 	}
 
 	/**
-	 * Creates a Transform at the given position pointed at the given target.
+	 * Returns the composition of two Transforms. Follows the function composition order.
+	 *
+	 * Right to left.
 	 */
-	static LookAt(
+	multiply(other: Transform): Transform
+	/**
+	 * Returns a Vector3 transformed by this Transform.
+	 */
+	multiply(other: Vector3): Vector3
+	multiply(other: Transform | Vector3) {
+		if (other instanceof Transform) {
+			return new Transform(
+				this.position.add(this.rotation.multiply(other.position)),
+				this.rotation.multiply(other.rotation)
+			)
+		} else if (other instanceof Vector3) {
+			return this.position.add(this.rotation.multiply(other))
+		}
+		throw new Error("Invalid type")
+	}
+
+	/**
+	 * Returns a new Transform that is translated by the given Vector3.
+	 */
+	add(other: Vector3) {
+		return new Transform(this.position.add(other), this.rotation)
+	}
+
+	/**
+	 * Returns a new Transform that is translated by the given Vector3.
+	 */
+	subtract(other: Vector3) {
+		return new Transform(this.position.subtract(other), this.rotation)
+	}
+
+	/**
+	 * Returns the Transform transformed by this Transform.
+	 *
+	 * Equivalent to the operation: `this.multiply(other)`.
+	 */
+	toWorldSpace(other: Transform): Transform {
+		return this.multiply(other)
+	}
+
+	/**
+	 * Returns the Transform in the object space of this Transform.
+	 *
+	 * Equivalent to the operation: `this.inverse().multiply(other)`.
+	 */
+	toObjectSpace(other: Transform): Transform {
+		return this.inverse().multiply(other)
+	}
+
+	/**
+	 * Returns a worldspace vector from a local vector.
+	 *
+	 * Equivalent to transforming the input vector from object space to worldspace using this transformation:
+	 * `(this.rotation * other + this.position)`
+	 */
+	vectorToWorldSpace(other: Vector3): Vector3 {
+		return this.rotation.multiply(other).add(this.position)
+	}
+
+	/**
+	 * Returns a local vector from a worldspace vector.
+	 *
+	 * Equivalent to transforming the input vector from worldspace to object space using this transformation:
+	 * `(this.rotation.inverse() * (other - this.position))`
+	 */
+	vectorToObjectSpace(other: Vector3): Vector3 {
+		return this.rotation.inverse().multiply(other.subtract(this.position))
+	}
+
+	/**
+	 * Returns a vector from the object space of this Transform to world space.
+	 *
+	 * Equivalent to the operation: `this.position.add(this.rotation.multiply(other))`.
+	 */
+	pointToWorldSpace(other: Vector3): Vector3 {
+		return this.position.add(this.rotation.multiply(other))
+	}
+
+	/**
+	 * Returns a vector in the object space of this Transform.
+	 *
+	 * Equivalent to the operation: `this.rotation.inverse().multiply(other.subtract(this.position))`.
+	 */
+	pointToObjectSpace(other: Vector3): Vector3 {
+		return this.rotation.inverse().multiply(other.subtract(this.position))
+	}
+
+	/**
+	 * Creates a Transform at the given position pointed at the given target.
+	 *
+	 * An optional up vector can be provided. Defaults to (0, 1, 0).
+	 */
+	static lookAt(
 		position: Vector3,
 		target: Vector3,
 		up: Vector3 = new Vector3(0, 1, 0)

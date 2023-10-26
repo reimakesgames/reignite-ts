@@ -11,19 +11,19 @@ import SplashScreen from "./modules/SplashScreen"
 import Preloader from "./modules/Preloader"
 
 // standard engine font
-document.fonts.add(new FontFace("Ubuntu", "url(assets/Ubuntu-Regular.ttf)"))
+document.fonts.add(new FontFace("Ubuntu", "url(assets/Ubuntu.ttf)"))
 
 const Log = new Logger("Bootstrap")
+
+Preloader.PreloadAssets([
+	"assets/normal.png",
+	"assets/texture.png",
+	"assets/explosion.png",
+])
 
 CreateCanvas()
 document.body.appendChild(CanvasContainer)
 EnableFill(false)
-
-Preloader.PreloadAssets([
-	"assets/texture.png",
-	"assets/explosion.png",
-	"assets/normal.png",
-])
 
 function Post() {
 	Log.log("User has interacted with the window.")
