@@ -199,17 +199,17 @@ export class Matrix3d {
 	vectorToObjectSpace(vector: Vector3): Vector3 {
 		const matrix = this.matrix
 		const x =
-			matrix[0][0] * vector.x +
-			matrix[0][1] * vector.y +
-			matrix[0][2] * vector.z
+			matrix[0][0] * vector.X +
+			matrix[0][1] * vector.Y +
+			matrix[0][2] * vector.Z
 		const y =
-			matrix[1][0] * vector.x +
-			matrix[1][1] * vector.y +
-			matrix[1][2] * vector.z
+			matrix[1][0] * vector.X +
+			matrix[1][1] * vector.Y +
+			matrix[1][2] * vector.Z
 		const z =
-			matrix[2][0] * vector.x +
-			matrix[2][1] * vector.y +
-			matrix[2][2] * vector.z
+			matrix[2][0] * vector.X +
+			matrix[2][1] * vector.Y +
+			matrix[2][2] * vector.Z
 		return new Vector3(x, y, z)
 	}
 
@@ -252,9 +252,9 @@ export class Matrix3d {
 		const up2 = right.cross(forward).unit
 
 		return new Matrix3d([
-			[right.x, up2.x, -forward.x],
-			[right.y, up2.y, -forward.y],
-			[right.z, up2.z, -forward.z],
+			[right.X, up2.X, -forward.X],
+			[right.Y, up2.Y, -forward.Y],
+			[right.Z, up2.Z, -forward.Z],
 		])
 	}
 

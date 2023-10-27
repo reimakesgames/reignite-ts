@@ -1,6 +1,6 @@
 import Settings from "../Settings"
 import TextureCoordinates from "../datatypes/TextureCoordinates"
-import Vector2 from "../datatypes/Vector2"
+import { Vector2 } from "../datatypes/Vector2"
 
 class Triangle {
 	constructor(

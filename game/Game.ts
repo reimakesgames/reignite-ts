@@ -29,9 +29,9 @@ function Update(deltaTime: number) {
 	)
 	// check if the movement vector is nan, if it is, set it to 0
 	MovementVector = new Vector3(
-		isNaN(MovementVector.x) ? 0 : MovementVector.x,
-		isNaN(MovementVector.y) ? 0 : MovementVector.y,
-		isNaN(MovementVector.z) ? 0 : MovementVector.z
+		isNaN(MovementVector.X) ? 0 : MovementVector.X,
+		isNaN(MovementVector.Y) ? 0 : MovementVector.Y,
+		isNaN(MovementVector.Z) ? 0 : MovementVector.Z
 	)
 	// rotate the entire rotation matrix on the world Y axis
 	RotationMatrix = Matrix3d.angles(0, -MouseDelta[0] / 1000, 0).multiply(

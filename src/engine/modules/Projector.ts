@@ -18,16 +18,16 @@ export default function Projector(position: Vector3, camera: Camera): Vector3 {
 	const projectedX =
 		ScreenX / 2 +
 		((ScreenX / 2 / Math.tan(FieldOfView / 2)) *
-			-(directionToObject.x / directionToObject.z)) /
+			-(directionToObject.X / directionToObject.Z)) /
 			AspectRatio
 
 	const projectedY =
 		ScreenY / 2 -
 		(ScreenY / 2 / Math.tan(FieldOfView / 2)) *
-			(directionToObject.y / directionToObject.z)
+			(directionToObject.Y / directionToObject.Z)
 
 	const isSeen = !(
-		directionToObject.z <= 0 ||
+		directionToObject.Z <= 0 ||
 		distanceToObject <= 0 ||
 		projectedX < 0 - ScreenX * RenderMargin ||
 		projectedX > ScreenX + ScreenX * RenderMargin ||

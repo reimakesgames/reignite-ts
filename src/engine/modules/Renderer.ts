@@ -38,35 +38,35 @@ export function Renderer(
 
 	context.strokeStyle = "#ff0000"
 	context.beginPath()
-	context.moveTo(originProjected.x, originProjected.y)
-	context.lineTo(xProjected.x, xProjected.y)
+	context.moveTo(originProjected.X, originProjected.Y)
+	context.lineTo(xProjected.X, xProjected.Y)
 	context.stroke()
 
 	context.strokeStyle = "#00ff00"
 	context.beginPath()
-	context.moveTo(originProjected.x, originProjected.y)
-	context.lineTo(yProjected.x, yProjected.y)
+	context.moveTo(originProjected.X, originProjected.Y)
+	context.lineTo(yProjected.X, yProjected.Y)
 	context.stroke()
 
 	context.strokeStyle = "#0000ff"
 	context.beginPath()
-	context.moveTo(originProjected.x, originProjected.y)
-	context.lineTo(zProjected.x, zProjected.y)
+	context.moveTo(originProjected.X, originProjected.Y)
+	context.lineTo(zProjected.X, zProjected.Y)
 	context.stroke()
 
 	// make arrow heads
 	context.fillStyle = "#ff0000"
 	context.beginPath()
-	context.moveTo(xProjected.x, xProjected.y)
-	context.lineTo(xProjected.x - 8, xProjected.y - 8)
-	context.lineTo(xProjected.x - 8, xProjected.y + 8)
+	context.moveTo(xProjected.X, xProjected.Y)
+	context.lineTo(xProjected.X - 8, xProjected.Y - 8)
+	context.lineTo(xProjected.X - 8, xProjected.Y + 8)
 	context.fill()
 
 	context.fillStyle = "#00ff00"
 	context.beginPath()
-	context.moveTo(yProjected.x, yProjected.y)
-	context.lineTo(yProjected.x - 8, yProjected.y + 8)
-	context.lineTo(yProjected.x + 8, yProjected.y + 8)
+	context.moveTo(yProjected.X, yProjected.Y)
+	context.lineTo(yProjected.X - 8, yProjected.Y + 8)
+	context.lineTo(yProjected.X + 8, yProjected.Y + 8)
 	context.fill()
 
 	Profiler.End()
@@ -96,22 +96,22 @@ export function Renderer(
 			if (x < floorProjected.length - 1) {
 				const nextLine = floorProjected[x + 1] as Vector3[]
 				const nextPoint = nextLine[y] as Vector3
-				if (point.z < 0 && nextPoint.z < 0) {
+				if (point.Z < 0 && nextPoint.Z < 0) {
 					continue
 				}
 				context.beginPath()
-				context.moveTo(point.x, point.y)
-				context.lineTo(nextPoint.x, nextPoint.y)
+				context.moveTo(point.X, point.Y)
+				context.lineTo(nextPoint.X, nextPoint.Y)
 				context.stroke()
 			}
 			if (y < line.length - 1) {
 				const nextPoint = line[y + 1] as Vector3
-				if (point.z < 0 && nextPoint.z < 0) {
+				if (point.Z < 0 && nextPoint.Z < 0) {
 					continue
 				}
 				context.beginPath()
-				context.moveTo(point.x, point.y)
-				context.lineTo(nextPoint.x, nextPoint.y)
+				context.moveTo(point.X, point.Y)
+				context.lineTo(nextPoint.X, nextPoint.Y)
 				context.stroke()
 			}
 		}

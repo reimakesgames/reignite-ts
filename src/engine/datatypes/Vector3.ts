@@ -3,15 +3,15 @@
  */
 export class Vector3 {
 	constructor(
-		readonly x: number = 0,
-		readonly y: number = 0,
-		readonly z: number = 0
+		readonly X: number = 0,
+		readonly Y: number = 0,
+		readonly Z: number = 0
 	) {
-		this.magnitude = Math.sqrt(x * x + y * y + z * z)
+		this.magnitude = Math.sqrt(X * X + Y * Y + Z * Z)
 		this.unitElements = [
-			x / this.magnitude,
-			y / this.magnitude,
-			z / this.magnitude,
+			X / this.magnitude,
+			Y / this.magnitude,
+			Z / this.magnitude,
 		]
 	}
 
@@ -36,17 +36,6 @@ export class Vector3 {
 	}
 
 	/**
-	 * Calculates the cross product of two vectors.
-	 */
-	cross(other: Vector3): Vector3 {
-		return new Vector3(
-			this.y * other.z - this.z * other.y,
-			this.z * other.x - this.x * other.z,
-			this.x * other.y - this.y * other.x
-		)
-	}
-
-	/**
 	 * Calculates the angle between two vectors.
 	 */
 	angle(other: Vector3, axis: Vector3): number {
@@ -57,10 +46,21 @@ export class Vector3 {
 	}
 
 	/**
+	 * Calculates the cross product of two vectors.
+	 */
+	cross(other: Vector3): Vector3 {
+		return new Vector3(
+			this.Y * other.Z - this.Z * other.Y,
+			this.Z * other.X - this.X * other.Z,
+			this.X * other.Y - this.Y * other.X
+		)
+	}
+
+	/**
 	 * Calculates the dot product of two vectors.
 	 */
 	dot(other: Vector3): number {
-		return this.x * other.x + this.y * other.y + this.z * other.z
+		return this.X * other.X + this.Y * other.Y + this.Z * other.Z
 	}
 
 	/**
@@ -68,9 +68,9 @@ export class Vector3 {
 	 */
 	fuzzyEq(other: Vector3, epilson: number): boolean {
 		return (
-			Math.abs(this.x - other.x) < epilson &&
-			Math.abs(this.y - other.y) < epilson &&
-			Math.abs(this.z - other.z) < epilson
+			Math.abs(this.X - other.X) < epilson &&
+			Math.abs(this.Y - other.Y) < epilson &&
+			Math.abs(this.Z - other.Z) < epilson
 		)
 	}
 
@@ -79,9 +79,9 @@ export class Vector3 {
 	 */
 	lerp(other: Vector3, alpha: number): Vector3 {
 		return new Vector3(
-			this.x + (other.x - this.x) * alpha,
-			this.y + (other.y - this.y) * alpha,
-			this.z + (other.z - this.z) * alpha
+			this.X + (other.X - this.X) * alpha,
+			this.Y + (other.Y - this.Y) * alpha,
+			this.Z + (other.Z - this.Z) * alpha
 		)
 	}
 
@@ -90,9 +90,9 @@ export class Vector3 {
 	 */
 	max(other: Vector3): Vector3 {
 		return new Vector3(
-			Math.max(this.x, other.x),
-			Math.max(this.y, other.y),
-			Math.max(this.z, other.z)
+			Math.max(this.X, other.X),
+			Math.max(this.Y, other.Y),
+			Math.max(this.Z, other.Z)
 		)
 	}
 
@@ -101,24 +101,10 @@ export class Vector3 {
 	 */
 	min(other: Vector3): Vector3 {
 		return new Vector3(
-			Math.min(this.x, other.x),
-			Math.min(this.y, other.y),
-			Math.min(this.z, other.z)
+			Math.min(this.X, other.X),
+			Math.min(this.Y, other.Y),
+			Math.min(this.Z, other.Z)
 		)
-	}
-
-	/**
-	 * Adds two vectors together.
-	 */
-	add(other: Vector3): Vector3 {
-		return new Vector3(this.x + other.x, this.y + other.y, this.z + other.z)
-	}
-
-	/**
-	 * Subtracts two vectors.
-	 */
-	subtract(other: Vector3): Vector3 {
-		return new Vector3(this.x - other.x, this.y - other.y, this.z - other.z)
 	}
 
 	/**
@@ -126,12 +112,12 @@ export class Vector3 {
 	 */
 	multiply(other: Vector3 | number): Vector3 {
 		if (typeof other === "number") {
-			return new Vector3(this.x * other, this.y * other, this.z * other)
+			return new Vector3(this.X * other, this.Y * other, this.Z * other)
 		} else {
 			return new Vector3(
-				this.x * other.x,
-				this.y * other.y,
-				this.z * other.z
+				this.X * other.X,
+				this.Y * other.Y,
+				this.Z * other.Z
 			)
 		}
 	}
@@ -141,55 +127,69 @@ export class Vector3 {
 	 */
 	divide(other: Vector3 | number): Vector3 {
 		if (typeof other === "number") {
-			return new Vector3(this.x / other, this.y / other, this.z / other)
+			return new Vector3(this.X / other, this.Y / other, this.Z / other)
 		} else {
 			return new Vector3(
-				this.x / other.x,
-				this.y / other.y,
-				this.z / other.z
+				this.X / other.X,
+				this.Y / other.Y,
+				this.Z / other.Z
 			)
 		}
+	}
+
+	/**
+	 * Adds two vectors together.
+	 */
+	add(other: Vector3): Vector3 {
+		return new Vector3(this.X + other.X, this.Y + other.Y, this.Z + other.Z)
+	}
+
+	/**
+	 * Subtracts two vectors.
+	 */
+	subtract(other: Vector3): Vector3 {
+		return new Vector3(this.X - other.X, this.Y - other.Y, this.Z - other.Z)
 	}
 
 	/**
 	 * Negates a vector.
 	 */
 	negate(): Vector3 {
-		return new Vector3(-this.x, -this.y, -this.z)
+		return new Vector3(-this.X, -this.Y, -this.Z)
 	}
 
 	/**
 	 * Returns a new Vector3 with all components as zero.
 	 */
-	static zero(): Vector3 {
+	static get zero(): Vector3 {
 		return new Vector3()
 	}
 
 	/**
 	 * Returns a new Vector3 with all components as one.
 	 */
-	static one(): Vector3 {
+	static get one(): Vector3 {
 		return new Vector3(1, 1, 1)
 	}
 
 	/**
 	 * Returns a new Vector3 with only the X component as one.
 	 */
-	static unitX(): Vector3 {
+	static get unitX(): Vector3 {
 		return new Vector3(1, 0, 0)
 	}
 
 	/**
 	 * Returns a new Vector3 with only the Y component as one.
 	 */
-	static unitY(): Vector3 {
+	static get unitY(): Vector3 {
 		return new Vector3(0, 1, 0)
 	}
 
 	/**
 	 * Returns a new Vector3 with only the Z component as one.
 	 */
-	static unitZ(): Vector3 {
+	static get unitZ(): Vector3 {
 		return new Vector3(0, 0, 1)
 	}
 }
