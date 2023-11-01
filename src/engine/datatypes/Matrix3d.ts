@@ -12,11 +12,14 @@ type Range = 0 | 1 | 2
  *
  * Hosts methods relating to matrix operations which can be used to transform vectors.
  *
- * See also: [[Transform]]
+ * The matrix is stored in row-major order.
  */
 export class Matrix3d {
 	/**
 	 * Creates a new matrix from the given 3x3 matrix.
+	 *
+	 * The matrix is stored in row-major order.
+	 * This means that the first row is the first array, and the first column is the first element of each array.
 	 *
 	 * This is how the matrix looks like:
 	 * ```ts
@@ -36,7 +39,9 @@ export class Matrix3d {
 
 	private cachedRightVector?: Vector3
 	/**
-	 * The right vector of the matrix, or the Positive X axis.
+	 * The right vector of the matrix.
+	 *
+	 * The first column of the matrix.
 	 */
 	get rightVector(): Vector3 {
 		// cached for performance
@@ -56,6 +61,8 @@ export class Matrix3d {
 	private cachedUpVector?: Vector3
 	/**
 	 * The up vector of the matrix.
+	 *
+	 * The second column of the matrix.
 	 */
 	get upVector(): Vector3 {
 		// cached for performance
@@ -71,7 +78,9 @@ export class Matrix3d {
 
 	private cachedLookVector?: Vector3
 	/**
-	 * The look vector of the matrix. Opposite of the forward vector.
+	 * The look vector of the matrix.
+	 *
+	 * The inverse of the third column of the matrix.
 	 */
 	get lookVector(): Vector3 {
 		if (!this.cachedLookVector) {
@@ -101,11 +110,22 @@ export class Matrix3d {
 	}
 
 	/**
-	 * Multiplies the matrix by another matrix, vector, or scalar.
+	 * Multiplies the matrix by another matrix.
 	 */
 	multiply(other: Matrix3d): Matrix3d
+	/**
+	 * Multiplies the matrix by a vector.
+	 *
+	 * The result is a vector relative to the matrix. See [[vectorToObjectSpace]].
+	 */
 	multiply(other: Vector3): Vector3
+	/**
+	 * Multiplies the matrix by a scalar.
+	 */
 	multiply(scalar: number): Matrix3d
+	/**
+	 * Multiplies the matrix by another matrix, vector or scalar.
+	 */
 	multiply(other: Matrix3d | Vector3 | Number): Matrix3d | Vector3 {
 		if (other instanceof Vector3) {
 			return this.vectorToObjectSpace(other)
@@ -258,8 +278,16 @@ export class Matrix3d {
 		])
 	}
 
+	private static identity: Matrix3d
 	/**
 	 * Returns the default identity matrix.
 	 */
-	static readonly IDENTITY = new Matrix3d()
+	static get IDENTITY() {
+		// some runtimes complain that "Can't initialize Matrix3d before Matrix3d is declared"
+		// so i've just made it into a per request thing
+		if (!this.identity) {
+			this.identity = new Matrix3d()
+		}
+		return this.identity
+	}
 }
