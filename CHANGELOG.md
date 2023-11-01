@@ -25,6 +25,7 @@ The following changes were made:
 -   TypeDoc is now reutilized for documentation
 -   Q and E keys are now used to lower and raise the camera
 -   Scroll wheel is now used to zoom in and out
+-   Code that utilizes `TextureCoordinates` now uses `Vector2` instead for simplicity
 
 # [v1.096.0-pre.1]
 

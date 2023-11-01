@@ -1,5 +1,4 @@
 import Settings from "../Settings"
-import TextureCoordinates from "../datatypes/TextureCoordinates"
 import { Vector2 } from "../datatypes/Vector2"
 
 class Triangle {
@@ -7,9 +6,9 @@ class Triangle {
 		p0: Vector2,
 		p1: Vector2,
 		p2: Vector2,
-		t0: TextureCoordinates,
-		t1: TextureCoordinates,
-		t2: TextureCoordinates
+		t0: Vector2,
+		t1: Vector2,
+		t2: Vector2
 	) {
 		this.p0 = p0
 		this.p1 = p1
@@ -24,9 +23,9 @@ class Triangle {
 	public p1: Vector2
 	public p2: Vector2
 
-	public t0: TextureCoordinates
-	public t1: TextureCoordinates
-	public t2: TextureCoordinates
+	public t0: Vector2
+	public t1: Vector2
+	public t2: Vector2
 }
 
 class Texturer {
@@ -121,9 +120,9 @@ class Texturer {
 						new Vector2(p1x, p1y),
 						new Vector2(p3x, p3y),
 						new Vector2(p4x, p4y),
-						new TextureCoordinates(u1, v1),
-						new TextureCoordinates(u2, v2),
-						new TextureCoordinates(u1, v2)
+						new Vector2(u1, v1),
+						new Vector2(u2, v2),
+						new Vector2(u1, v2)
 					)
 				)
 				this.triangles.push(
@@ -131,9 +130,9 @@ class Texturer {
 						new Vector2(p1x, p1y),
 						new Vector2(p2x, p2y),
 						new Vector2(p3x, p3y),
-						new TextureCoordinates(u1, v1),
-						new TextureCoordinates(u2, v1),
-						new TextureCoordinates(u2, v2)
+						new Vector2(u1, v1),
+						new Vector2(u2, v1),
+						new Vector2(u2, v2)
 					)
 				)
 			}
@@ -146,9 +145,9 @@ class Texturer {
 		v0: Vector2,
 		v1: Vector2,
 		v2: Vector2,
-		tp0: TextureCoordinates,
-		tp1: TextureCoordinates,
-		tp2: TextureCoordinates
+		tp0: Vector2,
+		tp1: Vector2,
+		tp2: Vector2
 	) {
 		ctx.save()
 
@@ -202,49 +201,50 @@ class Texturer {
 	  */
 
 		// TODO: eliminate common subexpressions.
+		// TODO: Use matrix2d for the math here?
 		let denom =
-			tp0.U * (tp2.V - tp1.V) -
-			tp1.U * tp2.V +
-			tp2.U * tp1.V +
-			(tp1.U - tp2.U) * tp0.V
+			tp0.X * (tp2.Y - tp1.Y) -
+			tp1.X * tp2.Y +
+			tp2.X * tp1.Y +
+			(tp1.X - tp2.X) * tp0.Y
 		if (denom == 0) {
 			return
 		}
 		let m11 =
 			-(
-				tp0.V * (v2.X - v1.X) -
-				tp1.V * v2.X +
-				tp2.V * v1.X +
-				(tp1.V - tp2.V) * v0.X
+				tp0.Y * (v2.X - v1.X) -
+				tp1.Y * v2.X +
+				tp2.Y * v1.X +
+				(tp1.Y - tp2.Y) * v0.X
 			) / denom
 		let m12 =
-			(tp1.V * v2.Y +
-				tp0.V * (v1.Y - v2.Y) -
-				tp2.V * v1.Y +
-				(tp2.V - tp1.V) * v0.Y) /
+			(tp1.Y * v2.Y +
+				tp0.Y * (v1.Y - v2.Y) -
+				tp2.Y * v1.Y +
+				(tp2.Y - tp1.Y) * v0.Y) /
 			denom
 		let m21 =
-			(tp0.U * (v2.X - v1.X) -
-				tp1.U * v2.X +
-				tp2.U * v1.X +
-				(tp1.U - tp2.U) * v0.X) /
+			(tp0.X * (v2.X - v1.X) -
+				tp1.X * v2.X +
+				tp2.X * v1.X +
+				(tp1.X - tp2.X) * v0.X) /
 			denom
 		let m22 =
 			-(
-				tp1.U * v2.Y +
-				tp0.U * (v1.Y - v2.Y) -
-				tp2.U * v1.Y +
-				(tp2.U - tp1.U) * v0.Y
+				tp1.X * v2.Y +
+				tp0.X * (v1.Y - v2.Y) -
+				tp2.X * v1.Y +
+				(tp2.X - tp1.X) * v0.Y
 			) / denom
 		let dx =
-			(tp0.U * (tp2.V * v1.X - tp1.V * v2.X) +
-				tp0.V * (tp1.U * v2.X - tp2.U * v1.X) +
-				(tp2.U * tp1.V - tp1.U * tp2.V) * v0.X) /
+			(tp0.X * (tp2.Y * v1.X - tp1.Y * v2.X) +
+				tp0.Y * (tp1.X * v2.X - tp2.X * v1.X) +
+				(tp2.X * tp1.Y - tp1.X * tp2.Y) * v0.X) /
 			denom
 		let dy =
-			(tp0.U * (tp2.V * v1.Y - tp1.V * v2.Y) +
-				tp0.V * (tp1.U * v2.Y - tp2.U * v1.Y) +
-				(tp2.U * tp1.V - tp1.U * tp2.V) * v0.Y) /
+			(tp0.X * (tp2.Y * v1.Y - tp1.Y * v2.Y) +
+				tp0.Y * (tp1.X * v2.Y - tp2.X * v1.Y) +
+				(tp2.X * tp1.Y - tp1.X * tp2.Y) * v0.Y) /
 			denom
 
 		ctx.transform(m11, m12, m21, m22, dx, dy)
