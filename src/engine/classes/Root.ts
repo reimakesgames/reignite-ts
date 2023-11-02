@@ -1,5 +1,7 @@
 import { GameObject } from "./GameObject"
 import { Scene } from "./Scene"
+import { loadGameObjectFromObj } from "../modules/Serde"
+import { Camera } from "./Camera"
 
 class Root extends GameObject {
 	constructor(
@@ -22,6 +24,14 @@ class Root extends GameObject {
 		console.log("Scene loaded")
 		// TODO: extra
 	}
+
+	loadSceneFromJson(json: string): void {
+		const obj = JSON.parse(json)
+		this.currentScene = loadGameObjectFromObj(obj) as Scene
+	}
+
+	// serializing root is not necessary
+	override serialize(): any {}
 
 	override update(): void {}
 	override render(): void {}

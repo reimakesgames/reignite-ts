@@ -1,5 +1,5 @@
 import { Canvas } from "./CanvasViewport"
-import Camera from "../classes/Camera"
+import { Camera } from "../classes/Camera"
 
 import { Renderer } from "./Renderer"
 import { root } from "../classes/Root"
@@ -8,17 +8,38 @@ import { Update } from "../../../game/Game"
 import { Scene } from "../classes/Scene"
 
 export default function App(context: CanvasRenderingContext2D) {
-	let scene = new Scene("Scene", root)
-	scene.loadSceneFromJson(`[
-		{
-			"class": "Camera",
-			"properties": {
-				"name": "Camera1",
-				"FieldOfView": 70
+	root.loadSceneFromJson(`{
+		"class": "Scene",
+		"properties": {
+			"name": "Scene1"
+		},
+		"children": [
+			{
+				"class": "Camera",
+				"properties": {
+					"name": "Camera1",
+					"FieldOfView": 70,
+					"Transform": {
+						"datatype": "Transform",
+						"value": {
+							"position": {
+								"datatype": "Vector3",
+								"value": [0, 0, 0]
+							},
+							"rotation": {
+								"datatype": "Matrix3d",
+								"value": [
+									[1, 0, 0],
+									[0, 1, 0],
+									[0, 0, 1]
+								]
+							}
+						}
+					}
+				}
 			}
-		}
-	]`)
-	root.currentScene = scene
+		]
+	}`)
 
 	// fix so that the console doesn't spam errors
 	Canvas.addEventListener("click", () => {

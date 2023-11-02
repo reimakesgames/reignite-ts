@@ -48,7 +48,7 @@ function Update(deltaTime: number) {
 	)
 	if (root.currentScene) {
 		if (root.currentScene.currentCamera)
-			root.currentScene.currentCamera.Transform = PlayerTransform
+			root.currentScene.currentCamera.transform = PlayerTransform
 	}
 
 	MouseDelta = [0, 0]
@@ -57,12 +57,12 @@ function Update(deltaTime: number) {
 document.onwheel = (e) => {
 	if (!root.currentScene?.currentCamera) return
 	PlayerTransform = new Transform(
-		root.currentScene.currentCamera.Transform.position.add(
-			root.currentScene.currentCamera.Transform.lookVector.multiply(
+		root.currentScene.currentCamera.transform.position.add(
+			root.currentScene.currentCamera.transform.lookVector.multiply(
 				1.5 * Math.sign(e.deltaY)
 			)
 		),
-		root.currentScene.currentCamera.Transform.rotation
+		root.currentScene.currentCamera.transform.rotation
 	)
 }
 

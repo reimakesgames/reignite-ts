@@ -1,5 +1,5 @@
 import { Vector3 } from "../datatypes/Vector3"
-import Camera from "../classes/Camera"
+import { Camera } from "../classes/Camera"
 import Settings from "../Settings"
 
 const AspectRatio = Settings.SCREEN_SIZE_X / Settings.SCREEN_SIZE_Y
@@ -8,9 +8,9 @@ const ScreenY = Settings.SCREEN_SIZE_Y
 const RenderMargin = Settings.RENDER_MARGIN
 
 export default function Projector(position: Vector3, camera: Camera): Vector3 {
-	const FieldOfView = camera.FieldOfView * (Math.PI / 180)
+	const FieldOfView = camera.fieldOfView * (Math.PI / 180)
 
-	const cameraTransform = camera.Transform
+	const cameraTransform = camera.transform
 
 	const directionToObject = cameraTransform.vectorToObjectSpace(position)
 	const distanceToObject = directionToObject.magnitude

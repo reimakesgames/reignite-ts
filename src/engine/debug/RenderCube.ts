@@ -1,4 +1,4 @@
-import Camera from "../classes/Camera"
+import { Camera } from "../classes/Camera"
 import { Matrix3d } from "../datatypes/Matrix3d"
 import { Vector2 } from "../datatypes/Vector2"
 import { Vector3 } from "../datatypes/Vector3"

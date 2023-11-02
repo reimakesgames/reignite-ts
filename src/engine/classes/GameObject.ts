@@ -1,3 +1,5 @@
+import { ClassSerializationTemplate } from "../modules/Serde"
+
 export type Subclass<T extends GameObject> = T | null
 
 export abstract class GameObject {
@@ -48,6 +50,8 @@ export abstract class GameObject {
 		}
 		return this.parent.isDescendantOf(parent)
 	}
+
+	abstract serialize(): ClassSerializationTemplate
 
 	abstract update(): void
 	abstract render(): void

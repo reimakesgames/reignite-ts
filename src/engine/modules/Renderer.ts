@@ -1,5 +1,5 @@
 import Settings from "../Settings"
-import Camera from "../classes/Camera"
+import { Camera } from "../classes/Camera"
 import { Vector3 } from "../datatypes/Vector3"
 import FPSBarChart from "../debug/FPSBarChart"
 import Profiler from "../debug/Profiler"
