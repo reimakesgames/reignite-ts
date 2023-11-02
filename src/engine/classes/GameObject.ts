@@ -1,52 +1,54 @@
-type Subclass<T extends GameObject> = T | null
+export type Subclass<T extends GameObject> = T | null
 
-abstract class GameObject {
-	public readonly Children: GameObject[] = []
-	public readonly Name: string
-	public _parent: Subclass<GameObject> = null
+export abstract class GameObject {
+	readonly children: GameObject[] = []
+	private parentReference: Subclass<GameObject> = null
 
-	constructor(name: string, parent: Subclass<GameObject> = null) {
-		this.Name = name ?? "Node"
-		this.Parent = parent
+	constructor(
+		readonly name: string = "GameObject",
+		parent: Subclass<GameObject> = null
+	) {
+		this.parent = parent
 	}
 
-	public set Parent(parent: Subclass<GameObject>) {
+	set parent(parent: Subclass<GameObject>) {
 		if (parent === this) {
 			throw new Error("Cannot set parent to self")
 		}
-		if (parent && parent.IsDescendantOf(this)) {
+		if (parent && parent.isDescendantOf(this)) {
 			throw new Error("Cannot set parent to descendant")
 		}
 		if (typeof parent !== "object" && parent !== null) {
 			throw new Error("Parent must be a GameObject")
 		}
-		if (this._parent) {
-			this._parent.Children.splice(this._parent.Children.indexOf(this), 1)
+		if (this.parentReference) {
+			this.parentReference.children.splice(
+				this.parentReference.children.indexOf(this),
+				1
+			)
 		}
 
-		this._parent = parent
+		this.parentReference = parent
 
 		if (parent) {
-			parent.Children.push(this)
+			parent.children.push(this)
 		}
 	}
 
-	public get Parent(): Subclass<GameObject> {
-		return this._parent
+	get parent(): Subclass<GameObject> {
+		return this.parentReference
 	}
 
-	public IsDescendantOf(parent: GameObject): boolean {
-		if (this.Parent === parent) {
+	isDescendantOf(parent: GameObject): boolean {
+		if (this.parent === parent) {
 			return true
 		}
-		if (this.Parent === null) {
+		if (this.parent === null) {
 			return false
 		}
-		return this.Parent.IsDescendantOf(parent)
+		return this.parent.isDescendantOf(parent)
 	}
 
-	public Update(): void {}
-	public Render(): void {}
+	abstract update(): void
+	abstract render(): void
 }
-
-export default GameObject

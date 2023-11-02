@@ -2,13 +2,23 @@ import { Canvas } from "./CanvasViewport"
 import Camera from "../classes/Camera"
 
 import { Renderer } from "./Renderer"
-import WorldModel from "../classes/WorldModel"
+import { root } from "../classes/Root"
 
 import { Update } from "../../../game/Game"
+import { Scene } from "../classes/Scene"
 
 export default function App(context: CanvasRenderingContext2D) {
-	const camera = new Camera()
-	WorldModel.Camera = camera
+	let scene = new Scene("Scene", root)
+	scene.loadSceneFromJson(`[
+		{
+			"class": "Camera",
+			"properties": {
+				"name": "Camera1",
+				"FieldOfView": 70
+			}
+		}
+	]`)
+	root.currentScene = scene
 
 	// fix so that the console doesn't spam errors
 	Canvas.addEventListener("click", () => {
@@ -28,7 +38,8 @@ export default function App(context: CanvasRenderingContext2D) {
 
 		Update(deltaTime)
 
-		Renderer(context, deltaTime, camera)
+		if (root.currentScene.currentCamera)
+			Renderer(context, deltaTime, root.currentScene.currentCamera)
 		requestAnimationFrame(InternalUpdate)
 	}
 	InternalUpdate()

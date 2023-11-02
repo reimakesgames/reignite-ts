@@ -1,5 +1,4 @@
 import { Transform } from "../datatypes/Transform"
-import { Vector3 } from "../datatypes/Vector3"
 
 class Camera {
 	constructor() {

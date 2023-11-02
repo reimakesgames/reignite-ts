@@ -1,4 +1,4 @@
-import WorldModel from "../src/engine/classes/WorldModel"
+import { root } from "../src/engine/classes/Root"
 import { Matrix3d, Transform, Vector3 } from "../src/engine/index"
 
 let PlayerTransform = Transform.lookAt(
@@ -46,19 +46,23 @@ function Update(deltaTime: number) {
 		PlayerTransform.pointToWorldSpace(MovementVector),
 		RotationMatrix
 	)
-	WorldModel.Camera.Transform = PlayerTransform
+	if (root.currentScene) {
+		if (root.currentScene.currentCamera)
+			root.currentScene.currentCamera.Transform = PlayerTransform
+	}
 
 	MouseDelta = [0, 0]
 }
 
 document.onwheel = (e) => {
+	if (!root.currentScene?.currentCamera) return
 	PlayerTransform = new Transform(
-		WorldModel.Camera.Transform.position.add(
-			WorldModel.Camera.Transform.LookVector.multiply(
+		root.currentScene.currentCamera.Transform.position.add(
+			root.currentScene.currentCamera.Transform.lookVector.multiply(
 				1.5 * Math.sign(e.deltaY)
 			)
 		),
-		WorldModel.Camera.Transform.rotation
+		root.currentScene.currentCamera.Transform.rotation
 	)
 }
 
