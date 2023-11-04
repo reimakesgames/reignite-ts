@@ -1,5 +1,5 @@
 import { Camera } from "../classes/Camera"
-import { GameObject, Subclass } from "../classes/GameObject"
+import { GameObject } from "../classes/GameObject"
 import { Transform } from "../datatypes/Transform"
 import { Vector3 } from "../datatypes/Vector3"
 
@@ -41,7 +41,7 @@ function isClassSerializationTemplate(
 
 export function loadGameObjectFromObj(
 	obj: ClassSerializationTemplate
-): Subclass<GameObject> {
+): GameObject | null {
 	const children: GameObject[] = []
 	if (obj.children) {
 		for (const child of obj.children) {

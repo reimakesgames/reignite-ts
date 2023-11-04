@@ -1,15 +1,12 @@
 import { ClassSerializationTemplate } from "../modules/Serde"
 import { Camera } from "./Camera"
-import { GameObject } from "./GameObject"
+import { GameObject, PropertiesOf } from "./GameObject"
 
 export class Scene extends GameObject {
-	constructor(
-		readonly name: string = "Scene",
-		parent: GameObject | null = null
-	) {
-		super(name, parent)
+	constructor(props?: PropertiesOf<Scene>, parent?: GameObject) {
+		super(props, parent)
 	}
-
+	name = "Scene"
 	currentCamera: Camera | null = null
 
 	override serialize(): ClassSerializationTemplate {

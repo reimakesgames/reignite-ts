@@ -1,14 +1,11 @@
-import { GameObject } from "./GameObject"
+import { GameObject, PropertiesOf } from "./GameObject"
 import { Scene } from "./Scene"
 import { loadGameObjectFromObj } from "../modules/Serde"
 import { Camera } from "./Camera"
 
 class Root extends GameObject {
-	constructor(
-		readonly name: string = "root",
-		parent: GameObject | null = null
-	) {
-		super(name, parent)
+	constructor(props?: PropertiesOf<Root>, parent?: GameObject) {
+		super(props, parent)
 	}
 
 	private wrappedCurrentScene: Scene | null = null

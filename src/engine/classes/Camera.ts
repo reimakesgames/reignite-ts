@@ -1,13 +1,10 @@
 import { Transform } from "../datatypes/Transform"
 import { ClassSerializationTemplate } from "../modules/Serde"
-import { GameObject } from "./GameObject"
+import { GameObject, PropertiesOf } from "./GameObject"
 
 export class Camera extends GameObject {
-	constructor(
-		readonly name: string = "Camera",
-		parent: GameObject | null = null
-	) {
-		super(name, parent)
+	constructor(props?: PropertiesOf<Camera>, parent?: GameObject) {
+		super(props, parent)
 	}
 
 	transform: Transform = new Transform()
