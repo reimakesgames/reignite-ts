@@ -4,6 +4,14 @@ export type PropertiesOf<T> = {
 	[P in keyof T as T[P] extends (...args: any) => any ? never : P]?: T[P]
 }
 
+export function serializeGameObjectChildren(
+	children: GameObject[]
+): ClassSerializationTemplate[] {
+	return children
+		.map((child) => child.serialize())
+		.filter((child) => child !== null) as ClassSerializationTemplate[]
+}
+
 /**
  * A GameObject is the base class for all objects in the engine
  */
@@ -15,8 +23,13 @@ export abstract class GameObject {
 	 * @param parent The parent of the GameObject, if any, leave blank for parent to be null
 	 * @returns A new GameObject
 	 */
+	constructor(props?: PropertiesOf<GameObject>, parent?: GameObject)
+	constructor(parent?: GameObject)
 	constructor(props?: PropertiesOf<GameObject>, parent?: GameObject) {
-		if (props) {
+		if (props instanceof GameObject) {
+			this.parent = props
+			return
+		} else if (props) {
 			Object.assign(this, props)
 		}
 		this.parent = parent || null
@@ -82,7 +95,7 @@ export abstract class GameObject {
 	 *
 	 * BEWARE: Any class that doesn't serialize itself won't let you serialize it's children
 	 */
-	abstract serialize(): ClassSerializationTemplate
+	abstract serialize(): ClassSerializationTemplate | void
 
 	/**
 	 * A required method for updating the GameObject, can be overridden to allow for custom updating

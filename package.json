@@ -2,20 +2,19 @@
 	"devDependencies": {
 		"@electron/typescript-definitions": "^8.15.0",
 		"@mxssfd/typedoc-theme": "^1.1.3",
-		"@types/jest": "^29.5.5",
 		"concurrently": "^8.2.1",
 		"electron": "^27.0.1",
 		"esbuild": "0.19.3",
-		"jest-ts-webcompat-resolver": "^1.0.0",
-		"ts-jest": "^29.1.1",
 		"tsup": "^7.2.0",
-		"typedoc": "^0.25.2"
+		"typedoc": "^0.25.2",
+		"vitest": "^0.34.6"
 	},
 	"scripts": {
 		"dev": "tsup --sourcemap --metafile --watch --dts src/engine/index.ts",
 		"build": "tsup",
 		"start": "electron .",
-		"test": "jest",
+		"test": "vitest",
+		"coverage": "vitest --coverage",
 		"docs": "typedoc --watch",
 		"docs:prod": "typedoc --out _site/docs"
 	},

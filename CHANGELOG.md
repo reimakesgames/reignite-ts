@@ -26,6 +26,8 @@ The following changes were made:
 -   Q and E keys are now used to lower and raise the camera
 -   Scroll wheel is now used to zoom in and out
 -   Code that utilizes `TextureCoordinates` now uses `Vector2` instead for simplicity
+-   Replaced `jest` with `vitest` for easier debugging and integration with vscode
+-   `tests` folder is gone and is now integrated with the `src` folder via `*.spec.ts` files
 
 # [v1.096.0-pre.1]
 

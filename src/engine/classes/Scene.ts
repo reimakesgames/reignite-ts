@@ -1,6 +1,10 @@
 import { ClassSerializationTemplate } from "../modules/Serde"
 import { Camera } from "./Camera"
-import { GameObject, PropertiesOf } from "./GameObject"
+import {
+	GameObject,
+	PropertiesOf,
+	serializeGameObjectChildren,
+} from "./GameObject"
 
 export class Scene extends GameObject {
 	constructor(props?: PropertiesOf<Scene>, parent?: GameObject) {
@@ -15,7 +19,7 @@ export class Scene extends GameObject {
 			properties: {
 				name: this.name,
 			},
-			children: this.children.map((child) => child.serialize()),
+			children: serializeGameObjectChildren(this.children),
 		}
 	}
 
