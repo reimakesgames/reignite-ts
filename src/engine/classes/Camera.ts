@@ -3,10 +3,13 @@ import { ClassSerializationTemplate } from "../modules/Serde"
 import { GameObject, PropertiesOf } from "./GameObject"
 
 export class Camera extends GameObject {
+	constructor(parent?: GameObject)
+	constructor(props: PropertiesOf<Camera>, parent?: GameObject)
 	constructor(props?: PropertiesOf<Camera>, parent?: GameObject) {
-		super(props, parent)
+		if (!props) super(parent)
+		else if (props instanceof GameObject) super(props)
+		else super(props, parent)
 	}
-
 	transform: Transform = new Transform()
 	fieldOfView: number = 70
 

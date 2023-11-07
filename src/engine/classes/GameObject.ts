@@ -17,22 +17,34 @@ export function serializeGameObjectChildren(
  */
 export abstract class GameObject {
 	/**
-	 * Creates a new GameObject, optionally with the given properties and parent
+	 * Creates a new GameObject, optionally with the given properties and parent.
 	 *
-	 * @param props The properties to assign to the GameObject
-	 * @param parent The parent of the GameObject, if any, leave blank for parent to be null
-	 * @returns A new GameObject
+	 * Always defaults to null parent if no parent is given
+	 *
+	 * Overload 1: No arguments
+	 * Overload 2: Parent only
+	 * Overload 3: Properties only
+	 * Overload 4: Properties and parent
 	 */
-	constructor(props?: PropertiesOf<GameObject>, parent?: GameObject)
 	constructor(parent?: GameObject)
-	constructor(props?: PropertiesOf<GameObject>, parent?: GameObject) {
+	constructor(props: PropertiesOf<GameObject>, parent?: GameObject)
+	constructor(
+		props?: PropertiesOf<GameObject> | GameObject,
+		parent?: GameObject
+	) {
+		if (props === undefined) return // no args
+
+		// If the first argument is a GameObject, then it's the parent
 		if (props instanceof GameObject) {
 			this.parent = props
 			return
 		} else if (props) {
 			Object.assign(this, props)
+			this.parent = parent || null
+			return
 		}
-		this.parent = parent || null
+
+		throw new TypeError("Invalid runtime arguments!")
 	}
 
 	/**

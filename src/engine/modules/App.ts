@@ -41,13 +41,6 @@ export default function App(context: CanvasRenderingContext2D) {
 		]
 	}`)
 
-	new Scene(
-		{
-			name: "Scene",
-		},
-		new Camera({})
-	)
-
 	// fix so that the console doesn't spam errors
 	Canvas.addEventListener("click", () => {
 		Canvas.requestPointerLock()
