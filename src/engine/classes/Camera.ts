@@ -5,7 +5,10 @@ import { GameObject, PropertiesOf } from "./GameObject"
 export class Camera extends GameObject {
 	constructor(parent?: GameObject)
 	constructor(props: PropertiesOf<Camera>, parent?: GameObject)
-	constructor(props?: PropertiesOf<Camera>, parent?: GameObject) {
+	constructor(
+		props?: PropertiesOf<Camera> | GameObject,
+		parent?: GameObject
+	) {
 		if (!props) super(parent)
 		else if (props instanceof GameObject) super(props)
 		else super(props, parent)

@@ -8,7 +8,7 @@ import { Update } from "../../../game/Game"
 import { Scene } from "../classes/Scene"
 
 export default function App(context: CanvasRenderingContext2D) {
-	root.loadSceneFromJson(`{
+	const scene = root.loadSceneFromJson(`{
 		"class": "Scene",
 		"properties": {
 			"name": "Scene1"
@@ -40,6 +40,7 @@ export default function App(context: CanvasRenderingContext2D) {
 			}
 		]
 	}`)
+	scene.currentCamera = scene.children[0] as Camera
 
 	// fix so that the console doesn't spam errors
 	Canvas.addEventListener("click", () => {

@@ -9,7 +9,7 @@ import { Camera } from "./Camera"
 class Root extends GameObject {
 	constructor(parent?: GameObject)
 	constructor(props: PropertiesOf<Root>, parent?: GameObject)
-	constructor(props?: PropertiesOf<Root>, parent?: GameObject) {
+	constructor(props?: PropertiesOf<Root> | GameObject, parent?: GameObject) {
 		if (!props) super(parent)
 		else if (props instanceof GameObject) super(props)
 		else super(props, parent)
@@ -35,9 +35,10 @@ class Root extends GameObject {
 	/**
 	 * Loads a scene from a JSON string.
 	 */
-	loadSceneFromJson(json: string): void {
+	loadSceneFromJson(json: string): Scene {
 		const obj = JSON.parse(json)
 		this.currentScene = loadGameObjectFromObj(obj) as Scene
+		return this.currentScene
 	}
 
 	// serializing root is not necessary
