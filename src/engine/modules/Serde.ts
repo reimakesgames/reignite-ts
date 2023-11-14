@@ -2,9 +2,11 @@ import { Camera } from "../classes/Camera"
 import { GameObject } from "../classes/GameObject"
 import { Transform } from "../datatypes/Transform"
 import { Vector3 } from "../datatypes/Vector3"
+import { Scene } from "../classes/Scene"
 
 const Classes: { [key: string]: new (...args: any[]) => any } = {
 	Camera,
+	Scene,
 }
 const Datatypes: { [key: string]: new (...args: any[]) => any } = {
 	Transform,
