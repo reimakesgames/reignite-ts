@@ -1,4 +1,4 @@
-import { DatatypeSerializationTemplate } from "../modules/Serde"
+import { DatatypeStorage } from "../modules/Serde"
 
 /**
  * A 3d vector that represents a position or direction in 3d space.
@@ -160,7 +160,7 @@ export class Vector3 {
 		return new Vector3(-this.X, -this.Y, -this.Z)
 	}
 
-	serialize(): DatatypeSerializationTemplate {
+	serialize(): DatatypeStorage {
 		return {
 			datatype: "Vector3",
 			value: [this.X, this.Y, this.Z],

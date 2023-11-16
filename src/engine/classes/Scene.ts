@@ -1,4 +1,4 @@
-import { ClassSerializationTemplate } from "../modules/Serde"
+import { ClassStorage } from "../modules/Serde"
 import { Camera } from "./Camera"
 import {
 	GameObject,
@@ -23,7 +23,7 @@ export class Scene extends GameObject {
 	 */
 	currentCamera: Camera | null = null
 
-	override serialize(): ClassSerializationTemplate {
+	override serialize(): ClassStorage {
 		return {
 			class: "Scene",
 			properties: {

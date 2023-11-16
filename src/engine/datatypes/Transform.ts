@@ -1,6 +1,6 @@
 // Similar to Roblox's CFrame, and Unity's Transform.
 
-import { DatatypeSerializationTemplate } from "../modules/Serde"
+import { DatatypeStorage } from "../modules/Serde"
 import { Matrix3d } from "./Matrix3d"
 import { Vector3 } from "./Vector3"
 
@@ -169,7 +169,7 @@ export class Transform {
 		return this.rotation.inverse().multiply(other.subtract(this.position))
 	}
 
-	serialize(): DatatypeSerializationTemplate {
+	serialize(): DatatypeStorage {
 		return {
 			datatype: "Transform",
 			value: {

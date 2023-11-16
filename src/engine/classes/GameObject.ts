@@ -1,4 +1,4 @@
-import { ClassSerializationTemplate } from "../modules/Serde"
+import { ClassStorage } from "../modules/Serde"
 
 export type PropertiesOf<T> = {
 	[P in keyof T as T[P] extends (...args: any) => any ? never : P]?: T[P]
@@ -6,10 +6,10 @@ export type PropertiesOf<T> = {
 
 export function serializeGameObjectChildren(
 	children: GameObject[]
-): ClassSerializationTemplate[] {
+): ClassStorage[] {
 	return children
 		.map((child) => child.serialize())
-		.filter((child) => child !== null) as ClassSerializationTemplate[]
+		.filter((child) => child !== null) as ClassStorage[]
 }
 
 /**
@@ -107,7 +107,7 @@ export abstract class GameObject {
 	 *
 	 * BEWARE: Any class that doesn't serialize itself won't let you serialize it's children
 	 */
-	abstract serialize(): ClassSerializationTemplate | void
+	abstract serialize(): ClassStorage | void
 
 	/**
 	 * A required method for updating the GameObject, can be overridden to allow for custom updating

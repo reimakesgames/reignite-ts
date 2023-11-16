@@ -1,5 +1,5 @@
 import { Transform } from "../datatypes/Transform"
-import { ClassSerializationTemplate } from "../modules/Serde"
+import { ClassStorage } from "../modules/Serde"
 import { GameObject, PropertiesOf } from "./GameObject"
 
 export class Camera extends GameObject {
@@ -16,7 +16,7 @@ export class Camera extends GameObject {
 	transform: Transform = new Transform()
 	fieldOfView: number = 70
 
-	override serialize(): ClassSerializationTemplate {
+	override serialize(): ClassStorage {
 		return {
 			class: "Camera",
 			properties: {

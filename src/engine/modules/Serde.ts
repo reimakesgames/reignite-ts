@@ -4,46 +4,37 @@ import { Transform } from "../datatypes/Transform"
 import { Vector3 } from "../datatypes/Vector3"
 import { Scene } from "../classes/Scene"
 
-const Classes: { [key: string]: new (...args: any[]) => any } = {
+const CLASSES: { [key: string]: new (...args: any[]) => any } = {
 	Camera,
 	Scene,
 }
-const Datatypes: { [key: string]: new (...args: any[]) => any } = {
+const DATATYPES: { [key: string]: new (...args: any[]) => any } = {
 	Transform,
 	Vector3,
 }
 
-export interface ClassSerializationTemplate {
+export interface ClassStorage {
 	class: string
 	properties: {
-		[key: string]:
-			| DatatypeSerializationTemplate
-			| ClassSerializationTemplate
-			| any
+		[key: string]: DatatypeStorage | ClassStorage | any
 	}
-	children?: ClassSerializationTemplate[]
+	children?: ClassStorage[]
 }
 
-export interface DatatypeSerializationTemplate {
+export interface DatatypeStorage {
 	datatype: string
 	value: any
 }
 
-function isDatatypeSerializationTemplate(
-	obj: any
-): obj is DatatypeSerializationTemplate {
+function isDatatypeStorage(obj: any): obj is DatatypeStorage {
 	return obj && obj.datatype && obj.value
 }
 
-function isClassSerializationTemplate(
-	obj: any
-): obj is ClassSerializationTemplate {
+function isClassStorage(obj: any): obj is ClassStorage {
 	return obj && obj.class && obj.properties && obj.children
 }
 
-export function loadGameObjectFromObj(
-	obj: ClassSerializationTemplate
-): GameObject | null {
+export function loadGameObjectFromObj(obj: ClassStorage): GameObject | null {
 	const children: GameObject[] = []
 	if (obj.children) {
 		for (const child of obj.children) {
@@ -52,7 +43,7 @@ export function loadGameObjectFromObj(
 	}
 
 	const className = obj.class
-	const classObj = Classes[className]
+	const classObj = CLASSES[className]
 	if (!classObj) {
 		console.error(`Class ${className} not found`)
 		return null
@@ -65,15 +56,15 @@ export function loadGameObjectFromObj(
 		// deserialize datatypes or other things
 
 		const value = properties[key]
-		if (isDatatypeSerializationTemplate(value)) {
+		if (isDatatypeStorage(value)) {
 			const datatypeName = value.datatype
-			const datatypeObj = Datatypes[datatypeName]
+			const datatypeObj = DATATYPES[datatypeName]
 			if (!datatypeObj) {
 				console.error(`Datatype ${datatypeName} not found`)
 				continue
 			}
 			gameObject[key] = new datatypeObj(value.value)
-		} else if (isClassSerializationTemplate(value)) {
+		} else if (isClassStorage(value)) {
 			gameObject[key] = loadGameObjectFromObj(value)
 		} else {
 			gameObject[key] = value // TODO: unsafe

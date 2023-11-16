@@ -1,4 +1,4 @@
-import { DatatypeSerializationTemplate } from "../modules/Serde"
+import { DatatypeStorage } from "../modules/Serde"
 import { Vector3 } from "./Vector3"
 
 type Matrix3x3 = [
@@ -234,7 +234,7 @@ export class Matrix3d {
 		return new Vector3(x, y, z)
 	}
 
-	serialize(): DatatypeSerializationTemplate {
+	serialize(): DatatypeStorage {
 		return {
 			datatype: "Matrix3d",
 			value: this.matrix,
