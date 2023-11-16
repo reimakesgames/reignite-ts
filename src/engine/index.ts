@@ -8,3 +8,9 @@ export { Vector3 } from "./datatypes/Vector3"
 export { GameObject } from "./classes/GameObject"
 
 export { Scene } from "./classes/Scene"
+
+export { root } from "./classes/Root"
+
+export { extendSettings } from "./Settings"
+export { setUpdateFunction } from "./modules/App"
+export { main } from "./bootstrap"

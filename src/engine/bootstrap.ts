@@ -1,38 +1,42 @@
 import App from "./modules/App"
+import { SETTINGS } from "./Settings"
+import "./"
 import {
-	CanvasContainer,
-	Context,
-	CreateCanvas,
-	EnableFill,
+	canvasContainer,
+	ctx,
+	createCanvas,
+	enableFill,
 } from "./modules/CanvasViewport"
 import Logger from "./debug/Logger"
-import Settings from "./Settings"
+
 import SplashScreen from "./modules/SplashScreen"
 import Preloader from "./modules/Preloader"
 
-// standard engine font
-document.fonts.add(new FontFace("Ubuntu", "url(assets/Ubuntu.ttf)"))
+export function main() {
+	// standard engine font
+	document.fonts.add(new FontFace("Ubuntu", "url(assets/Ubuntu.ttf)"))
 
-const Log = new Logger("Bootstrap")
+	const Log = new Logger("Bootstrap")
 
-Preloader.PreloadAssets([
-	"assets/normal.png",
-	"assets/texture.png",
-	"assets/explosion.png",
-])
+	Preloader.PreloadAssets([
+		"assets/normal.png",
+		"assets/texture.png",
+		"assets/explosion.png",
+	])
 
-CreateCanvas()
-document.body.appendChild(CanvasContainer)
-EnableFill(false)
+	createCanvas()
+	document.body.appendChild(canvasContainer)
+	enableFill(false)
 
-function Post() {
-	Log.log("User has interacted with the window.")
-	App(Context)
-}
+	function Post() {
+		Log.log("User has interacted with the window.")
+		App(ctx)
+	}
 
-Log.log("Awaiting user interaction...")
-if (Settings.ENABLE_SPLASH_SCREEN) {
-	SplashScreen(Context, Post)
-} else {
-	Post()
+	Log.log("Awaiting user interaction...")
+	if (SETTINGS.ENABLE_SPLASH_SCREEN) {
+		SplashScreen(ctx, Post)
+	} else {
+		Post()
+	}
 }

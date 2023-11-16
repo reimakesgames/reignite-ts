@@ -1,41 +1,38 @@
 import { Vector3 } from "../datatypes/Vector3"
 import { Camera } from "../classes/Camera"
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 
-const AspectRatio = Settings.SCREEN_SIZE_X / Settings.SCREEN_SIZE_Y
-const ScreenX = Settings.SCREEN_SIZE_X
-const ScreenY = Settings.SCREEN_SIZE_Y
-const RenderMargin = Settings.RENDER_MARGIN
+const ASPECT_RATIO = SETTINGS.SCREEN_SIZE_X / SETTINGS.SCREEN_SIZE_Y
+const SCREEN_X = SETTINGS.SCREEN_SIZE_X
+const SCREEN_Y = SETTINGS.SCREEN_SIZE_Y
+const RENDER_CLIPPING_MARGIN = SETTINGS.RENDER_MARGIN
 
 export default function Projector(position: Vector3, camera: Camera): Vector3 {
-	const FieldOfView = camera.fieldOfView * (Math.PI / 180)
+	const fieldOfView = camera.fieldOfView * (Math.PI / 180)
 
-	const cameraTransform = camera.transform
+	const dirToObj = camera.transform.vectorToObjectSpace(position)
+	const distToObj = dirToObj.magnitude
 
-	const directionToObject = cameraTransform.vectorToObjectSpace(position)
-	const distanceToObject = directionToObject.magnitude
+	const outputX =
+		SCREEN_X / 2 +
+		((SCREEN_X / 2 / Math.tan(fieldOfView / 2)) *
+			-(dirToObj.X / dirToObj.Z)) /
+			ASPECT_RATIO
 
-	const projectedX =
-		ScreenX / 2 +
-		((ScreenX / 2 / Math.tan(FieldOfView / 2)) *
-			-(directionToObject.X / directionToObject.Z)) /
-			AspectRatio
+	const outputY =
+		SCREEN_Y / 2 -
+		(SCREEN_Y / 2 / Math.tan(fieldOfView / 2)) * (dirToObj.Y / dirToObj.Z)
 
-	const projectedY =
-		ScreenY / 2 -
-		(ScreenY / 2 / Math.tan(FieldOfView / 2)) *
-			(directionToObject.Y / directionToObject.Z)
-
-	const isSeen = !(
-		directionToObject.Z <= 0 ||
-		distanceToObject <= 0 ||
-		projectedX < 0 - ScreenX * RenderMargin ||
-		projectedX > ScreenX + ScreenX * RenderMargin ||
-		projectedY < 0 - ScreenY * RenderMargin ||
-		projectedY > ScreenY + ScreenY * RenderMargin
+	const isInRenderBounds = !(
+		dirToObj.Z <= 0 ||
+		distToObj <= 0 ||
+		outputX < 0 - SCREEN_X * RENDER_CLIPPING_MARGIN ||
+		outputX > SCREEN_X + SCREEN_X * RENDER_CLIPPING_MARGIN ||
+		outputY < 0 - SCREEN_Y * RENDER_CLIPPING_MARGIN ||
+		outputY > SCREEN_Y + SCREEN_Y * RENDER_CLIPPING_MARGIN
 	)
 
-	const distance = isSeen ? distanceToObject : -distanceToObject
+	const dist = isInRenderBounds ? distToObj : -distToObj
 
-	return new Vector3(projectedX, projectedY, distance)
+	return new Vector3(outputX, outputY, dist)
 }

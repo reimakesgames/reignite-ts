@@ -23,5 +23,5 @@
 	"description": "A Godot/Unity-like simplistic 2d with basic 3d support game engine for the web and as a standalone desktop app.",
 	"author": "Rei",
 	"license": "MIT",
-	"main": "dist/electron.js"
+	"main": "dist/src/engine/electron.js"
 }

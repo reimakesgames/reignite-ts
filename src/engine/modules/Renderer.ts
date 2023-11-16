@@ -1,4 +1,4 @@
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 import { Camera } from "../classes/Camera"
 import { Vector3 } from "../datatypes/Vector3"
 import FPSBarChart from "../debug/FPSBarChart"
@@ -20,9 +20,9 @@ export function Renderer(
 	Profiler.Begin("Renderer")
 
 	Profiler.Begin("Clear Screen")
-	context.clearRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y)
+	context.clearRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
 	context.fillStyle = "#1f1f1f"
-	context.fillRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y)
+	context.fillRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
 	Profiler.End()
 
 	Profiler.Begin("Draw Axes")
@@ -138,7 +138,7 @@ export function Renderer(
 			100
 		).toFixed(2)})`,
 		10,
-		Settings.SCREEN_SIZE_Y - 10
+		SETTINGS.SCREEN_SIZE_Y - 10
 	)
 
 	FPSBarChart(context, deltaTime, previousFrameTime)

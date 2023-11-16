@@ -1,11 +1,16 @@
-import { Canvas } from "./CanvasViewport"
+import { canvas } from "./CanvasViewport"
 import { Camera } from "../classes/Camera"
 
 import { Renderer } from "./Renderer"
 import { root } from "../classes/Root"
 
-import { Update } from "../../../game/Game"
 import { Scene } from "../classes/Scene"
+
+let update = (deltaTime: number) => {}
+
+export function setUpdateFunction(fn: (deltaTime: number) => void) {
+	update = fn
+}
 
 export default function App(context: CanvasRenderingContext2D) {
 	const scene = root.loadSceneFromJson(`{
@@ -43,8 +48,8 @@ export default function App(context: CanvasRenderingContext2D) {
 	scene.currentCamera = scene.children[0] as Camera
 
 	// fix so that the console doesn't spam errors
-	Canvas.addEventListener("click", () => {
-		Canvas.requestPointerLock()
+	canvas.addEventListener("click", () => {
+		canvas.requestPointerLock()
 	})
 
 	context.globalAlpha = 1
@@ -58,7 +63,7 @@ export default function App(context: CanvasRenderingContext2D) {
 		const deltaTime = currentTime - previousTime
 		previousTime = currentTime
 
-		Update(deltaTime)
+		update(deltaTime)
 
 		if (root.currentScene.currentCamera)
 			Renderer(context, deltaTime, root.currentScene.currentCamera)

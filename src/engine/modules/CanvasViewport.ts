@@ -1,44 +1,45 @@
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 
-let CanvasContainer: HTMLDivElement = null as any
-let Canvas: HTMLCanvasElement = null as any
-let Context: CanvasRenderingContext2D = null as any
+export let canvasContainer: HTMLDivElement
+export let canvas: HTMLCanvasElement
+export let ctx: CanvasRenderingContext2D
 
-function CreateCanvas() {
-	CanvasContainer = document.createElement("div")
-	CanvasContainer.classList.add("canvas-container")
-
-	Canvas = document.createElement("canvas")
-	Canvas.width = Settings.SCREEN_SIZE_X
-	Canvas.height = Settings.SCREEN_SIZE_Y
-
-	Context = Canvas.getContext("2d") as CanvasRenderingContext2D
-
-	CanvasContainer.appendChild(Canvas)
-}
-
-function EnableFill(enable: boolean) {
-	Settings.SCREEN_FILL = enable
-}
-
-function FitToScreen() {
-	if (Settings.SCREEN_FILL) {
-		CanvasContainer.style.width = "100%"
-		CanvasContainer.style.height = "100%"
+function fitToScreen() {
+	if (SETTINGS.SCREEN_FILL) {
+		canvasContainer.style.width = "100%"
+		canvasContainer.style.height = "100%"
 	} else {
 		// TODO: Make this more performant, maybe?
-		const ratio = Settings.SCREEN_SIZE_X / Settings.SCREEN_SIZE_Y
+		const ratio = SETTINGS.SCREEN_SIZE_X / SETTINGS.SCREEN_SIZE_Y
 		const windowRatio = window.innerWidth / window.innerHeight
 		if (windowRatio > ratio) {
-			CanvasContainer.style.width = `${window.innerHeight * ratio}px`
-			CanvasContainer.style.height = `${window.innerHeight}px`
+			canvasContainer.style.width = `${window.innerHeight * ratio}px`
+			canvasContainer.style.height = `${window.innerHeight}px`
 		} else {
-			CanvasContainer.style.width = `${window.innerWidth}px`
-			CanvasContainer.style.height = `${window.innerWidth / ratio}px`
+			canvasContainer.style.width = `${window.innerWidth}px`
+			canvasContainer.style.height = `${window.innerWidth / ratio}px`
 		}
 	}
-	requestAnimationFrame(FitToScreen)
+	requestAnimationFrame(fitToScreen)
 }
-requestAnimationFrame(FitToScreen)
 
-export { CanvasContainer, Canvas, Context, CreateCanvas, EnableFill }
+export function createCanvas() {
+	if (canvasContainer) throw new Error("Canvas already created!")
+
+	canvasContainer = document.createElement("div")
+	canvasContainer.classList.add("canvas-container")
+
+	canvas = document.createElement("canvas")
+	canvas.width = SETTINGS.SCREEN_SIZE_X
+	canvas.height = SETTINGS.SCREEN_SIZE_Y
+
+	ctx = canvas.getContext("2d") as CanvasRenderingContext2D
+
+	canvasContainer.appendChild(canvas)
+
+	requestAnimationFrame(fitToScreen)
+}
+
+export function enableFill(enable: boolean) {
+	SETTINGS.SCREEN_FILL = enable
+}

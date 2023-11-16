@@ -1,5 +1,11 @@
-import { root } from "../src/engine/classes/Root"
-import { Matrix3d, Transform, Vector3 } from "../src/engine/index"
+import {
+	Matrix3d,
+	Transform,
+	Vector3,
+	setUpdateFunction,
+	root,
+	main,
+} from "../src/engine/index"
 
 let PlayerTransform = Transform.lookAt(
 	new Vector3(0, 2, 8),
@@ -14,7 +20,7 @@ let EDown = false
 let MouseDelta: [number, number] = [0, 0]
 let shiftDown = false
 
-function Update(deltaTime: number) {
+setUpdateFunction(function (deltaTime: number) {
 	let MovementVector = new Vector3(0, 0, 0)
 	let RotationMatrix = PlayerTransform.rotation
 	if (WDown) MovementVector = MovementVector.add(new Vector3(0, 0, 1))
@@ -52,7 +58,7 @@ function Update(deltaTime: number) {
 	}
 
 	MouseDelta = [0, 0]
-}
+})
 
 document.onwheel = (e) => {
 	if (!root.currentScene?.currentCamera) return
@@ -90,4 +96,4 @@ onmousemove = (e) => {
 	MouseDelta = [e.movementX, e.movementY]
 }
 
-export { Update }
+main()

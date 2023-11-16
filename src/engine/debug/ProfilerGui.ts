@@ -1,4 +1,4 @@
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 import Profiler from "./Profiler"
 
 const hexColors: string[] = [
@@ -22,7 +22,7 @@ export default function ProfilerGui(
 	context: CanvasRenderingContext2D,
 	frameTime: number
 ) {
-	if (Settings.ENABLE_PROFILER === false) {
+	if (SETTINGS.ENABLE_PROFILER === false) {
 		return
 	}
 	const frame = Profiler.GetFrame()
@@ -32,7 +32,7 @@ export default function ProfilerGui(
 		context.fillStyle = hexColors[label.Depth % hexColors.length] as string
 		context.fillRect(
 			(label.Start - (firstLabel?.Start || 0)) * frameTime * ProfilerZoom,
-			Settings.SCREEN_SIZE_Y / 2 + label.Depth * 16,
+			SETTINGS.SCREEN_SIZE_Y / 2 + label.Depth * 16,
 			label.Duration * frameTime * ProfilerZoom,
 			16
 		)
@@ -45,13 +45,13 @@ export default function ProfilerGui(
 				frameTime *
 				ProfilerZoom +
 				1,
-			Settings.SCREEN_SIZE_Y / 2 + label.Depth * 16 + 5
+			SETTINGS.SCREEN_SIZE_Y / 2 + label.Depth * 16 + 5
 		)
 		context.fillStyle = "#ffffff"
 		context.fillText(
 			`${label.Name} ${(label.Duration * 1000).toFixed(2)}μs`,
 			(label.Start - (firstLabel?.Start || 0)) * frameTime * ProfilerZoom,
-			Settings.SCREEN_SIZE_Y / 2 + label.Depth * 16 + 4
+			SETTINGS.SCREEN_SIZE_Y / 2 + label.Depth * 16 + 4
 		)
 	}
 }

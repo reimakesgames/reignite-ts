@@ -1,4 +1,4 @@
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 import { Vector2 } from "../datatypes/Vector2"
 
 class Triangle {
@@ -37,7 +37,7 @@ class Texturer {
 		if (!this.context) {
 			return
 		}
-		if (Settings.ENABLE_WIREFRAME) {
+		if (SETTINGS.ENABLE_WIREFRAME) {
 			this.context.strokeStyle = "black"
 			this.context.beginPath()
 			this.context.moveTo(triangle.p0.X, triangle.p0.Y)

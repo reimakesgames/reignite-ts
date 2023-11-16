@@ -1,4 +1,4 @@
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 
 class Logger {
 	constructor(identifier: string, respectSettings: boolean = true) {
@@ -10,17 +10,17 @@ class Logger {
 	respectSettings: boolean
 
 	log(message: string) {
-		if (!this.respectSettings || Settings.ENABLE_LOGGING)
+		if (!this.respectSettings || SETTINGS.ENABLE_LOGGING)
 			console.log(`[${this.identifier}] ${message}`)
 	}
 
 	warn(message: string) {
-		if (!this.respectSettings || Settings.ENABLE_LOGGING)
+		if (!this.respectSettings || SETTINGS.ENABLE_LOGGING)
 			console.warn(`[${this.identifier}] ${message}`)
 	}
 
 	error(message: string) {
-		if (!this.respectSettings || Settings.ENABLE_LOGGING)
+		if (!this.respectSettings || SETTINGS.ENABLE_LOGGING)
 			console.error(`[${this.identifier}] ${message}`)
 	}
 }

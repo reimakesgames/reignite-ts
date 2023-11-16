@@ -1,4 +1,4 @@
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 import Preloader from "./Preloader"
 
 const UserActivation: any = (navigator as any).userActivation
@@ -21,10 +21,10 @@ function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 		Callback = callback
 	}
 
-	context.clearRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y)
+	context.clearRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
 
 	context.fillStyle = "#17171F"
-	context.fillRect(0, 0, Settings.SCREEN_SIZE_X, Settings.SCREEN_SIZE_Y)
+	context.fillRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
 
 	context.fillStyle = "#FFFFFF"
 	context.font = "100 36px Ubuntu"
@@ -32,16 +32,16 @@ function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 	context.textBaseline = "bottom"
 	context.fillText(
 		"REIGNITE",
-		Settings.SCREEN_SIZE_X / 2,
-		Settings.SCREEN_SIZE_Y / 2
+		SETTINGS.SCREEN_SIZE_X / 2,
+		SETTINGS.SCREEN_SIZE_Y / 2
 	)
 
 	context.font = "200 12px Ubuntu"
 	context.textBaseline = "top"
 	context.fillText(
 		"A TypeScript Game Engine by Rei",
-		Settings.SCREEN_SIZE_X / 2,
-		Settings.SCREEN_SIZE_Y / 2 + 4
+		SETTINGS.SCREEN_SIZE_X / 2,
+		SETTINGS.SCREEN_SIZE_Y / 2 + 4
 	)
 
 	if (!UserActivation.hasBeenActive) {
@@ -49,20 +49,20 @@ function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 		context.textBaseline = "bottom"
 		context.fillText(
 			"Interact with the window to continue",
-			Settings.SCREEN_SIZE_X / 2,
-			Settings.SCREEN_SIZE_Y - 4
+			SETTINGS.SCREEN_SIZE_X / 2,
+			SETTINGS.SCREEN_SIZE_Y - 4
 		)
 	}
 
 	context.strokeStyle = "#FFFFFF"
 	context.beginPath()
 	context.moveTo(
-		Settings.SCREEN_SIZE_X / 2 - 120,
-		Settings.SCREEN_SIZE_Y / 2 - 0.5
+		SETTINGS.SCREEN_SIZE_X / 2 - 120,
+		SETTINGS.SCREEN_SIZE_Y / 2 - 0.5
 	)
 	context.lineTo(
-		Settings.SCREEN_SIZE_X / 2 + 120,
-		Settings.SCREEN_SIZE_Y / 2 - 0.5
+		SETTINGS.SCREEN_SIZE_X / 2 + 120,
+		SETTINGS.SCREEN_SIZE_Y / 2 - 0.5
 	)
 	context.stroke()
 
@@ -70,18 +70,18 @@ function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 	context.fillStyle = "#FFFFFF"
 	context.beginPath()
 	context.arc(
-		Settings.SCREEN_SIZE_X - 24,
-		Settings.SCREEN_SIZE_Y - 24,
+		SETTINGS.SCREEN_SIZE_X - 24,
+		SETTINGS.SCREEN_SIZE_Y - 24,
 		16,
 		-90 * (Math.PI / 180),
 		(-90 + (Preloader.Progress / Preloader.Total) * 360) * (Math.PI / 180)
 	)
-	context.lineTo(Settings.SCREEN_SIZE_X - 24, Settings.SCREEN_SIZE_Y - 24)
+	context.lineTo(SETTINGS.SCREEN_SIZE_X - 24, SETTINGS.SCREEN_SIZE_Y - 24)
 	context.closePath()
 	context.fill()
 
 	// continually request animation frames for the splash screen
-	if (Settings.ENABLE_SPLASH_SCREEN) {
+	if (SETTINGS.ENABLE_SPLASH_SCREEN) {
 		// cancel after timer has expired, assets have loaded, and user has interacted with the window
 		if (!Timer && UserActivation.hasBeenActive && Preloader.Active) {
 			Timer = performance.now()

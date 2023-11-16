@@ -1,4 +1,4 @@
-import Settings from "../Settings"
+import { SETTINGS } from "../Settings"
 
 const FPSBarHeight = 10
 const UsageBarHeight = 100
@@ -14,8 +14,8 @@ function CreateMarker(
 	ident: string
 ): void {
 	ctx.beginPath()
-	ctx.moveTo(Settings.SCREEN_SIZE_X - i * 4, Settings.SCREEN_SIZE_Y)
-	ctx.lineTo(Settings.SCREEN_SIZE_X - i * 4, Settings.SCREEN_SIZE_Y - 32)
+	ctx.moveTo(SETTINGS.SCREEN_SIZE_X - i * 4, SETTINGS.SCREEN_SIZE_Y)
+	ctx.lineTo(SETTINGS.SCREEN_SIZE_X - i * 4, SETTINGS.SCREEN_SIZE_Y - 32)
 	ctx.stroke()
 
 	ctx.font = "12px Arial"
@@ -24,8 +24,8 @@ function CreateMarker(
 	ctx.textBaseline = "top"
 	ctx.fillText(
 		ident,
-		Settings.SCREEN_SIZE_X - i * 4 + 4,
-		Settings.SCREEN_SIZE_Y - 32
+		SETTINGS.SCREEN_SIZE_X - i * 4 + 4,
+		SETTINGS.SCREEN_SIZE_Y - 32
 	)
 }
 
@@ -40,8 +40,8 @@ function UsageWarning(
 	ctx.fillStyle = `rgba(255, ${127 + color}, ${127 + color}, 1)`
 	ctx.fillText(
 		`Usage: ${(usageTime * 100).toFixed(0)}%`,
-		Settings.SCREEN_SIZE_X - 960 - 12,
-		Settings.SCREEN_SIZE_Y - 8
+		SETTINGS.SCREEN_SIZE_X - 960 - 12,
+		SETTINGS.SCREEN_SIZE_Y - 8
 	)
 }
 
@@ -49,12 +49,12 @@ function CreateFpsMarker(ctx: CanvasRenderingContext2D, fps: number): void {
 	ctx.strokeStyle = "#00ff00"
 	ctx.beginPath()
 	ctx.moveTo(
-		Settings.SCREEN_SIZE_X,
-		Settings.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000
+		SETTINGS.SCREEN_SIZE_X,
+		SETTINGS.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000
 	)
 	ctx.lineTo(
-		Settings.SCREEN_SIZE_X - 64,
-		Settings.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000
+		SETTINGS.SCREEN_SIZE_X - 64,
+		SETTINGS.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000
 	)
 	ctx.stroke()
 
@@ -64,8 +64,8 @@ function CreateFpsMarker(ctx: CanvasRenderingContext2D, fps: number): void {
 	ctx.textBaseline = "bottom"
 	ctx.fillText(
 		fps.toFixed(2),
-		Settings.SCREEN_SIZE_X - 8,
-		Settings.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000 - 4
+		SETTINGS.SCREEN_SIZE_X - 8,
+		SETTINGS.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000 - 4
 	)
 }
 
@@ -93,12 +93,12 @@ export default function FPSBarChart(
 
 	context.strokeStyle = "#ffffff"
 	context.beginPath()
-	context.moveTo(Settings.SCREEN_SIZE_X - 960, Settings.SCREEN_SIZE_Y)
+	context.moveTo(SETTINGS.SCREEN_SIZE_X - 960, SETTINGS.SCREEN_SIZE_Y)
 	for (let i = 0; i < previousDeltaTimes.length; i++) {
 		const sel = previousDeltaTimes[i] || 0
 		context.lineTo(
-			Settings.SCREEN_SIZE_X - 960 + i * 4,
-			Settings.SCREEN_SIZE_Y - sel * FPSBarHeight
+			SETTINGS.SCREEN_SIZE_X - 960 + i * 4,
+			SETTINGS.SCREEN_SIZE_Y - sel * FPSBarHeight
 		)
 	}
 	context.stroke()
@@ -107,8 +107,8 @@ export default function FPSBarChart(
 		const sel = previousFrameTimes[i] || 0
 		context.fillStyle = `rgba(255, 127, 0, ${i / 240})`
 		context.fillRect(
-			Settings.SCREEN_SIZE_X - 960 + i * 4,
-			Settings.SCREEN_SIZE_Y - sel * FPSBarHeight,
+			SETTINGS.SCREEN_SIZE_X - 960 + i * 4,
+			SETTINGS.SCREEN_SIZE_Y - sel * FPSBarHeight,
 			4,
 			sel * 100
 		)
@@ -146,16 +146,16 @@ export default function FPSBarChart(
 	const frameTimeUsage = averageFrameTime / averageDeltaTime
 	context.fillStyle = "#000000"
 	context.fillRect(
-		Settings.SCREEN_SIZE_X - 960 - 8,
-		Settings.SCREEN_SIZE_Y - UsageBarHeight,
+		SETTINGS.SCREEN_SIZE_X - 960 - 8,
+		SETTINGS.SCREEN_SIZE_Y - UsageBarHeight,
 		8,
 		UsageBarHeight
 	)
 	const color = Math.floor(Quad(frameTimeUsage + 1) * 127)
 	context.fillStyle = `rgba(255, ${color + 127}, ${color + 127}, 1)`
 	context.fillRect(
-		Settings.SCREEN_SIZE_X - 960 - 8,
-		Settings.SCREEN_SIZE_Y,
+		SETTINGS.SCREEN_SIZE_X - 960 - 8,
+		SETTINGS.SCREEN_SIZE_Y,
 		8,
 		-frameTimeUsage * UsageBarHeight
 	)
@@ -167,24 +167,24 @@ export default function FPSBarChart(
 	context.textBaseline = "bottom"
 	context.fillText(
 		`Avg Process: ${averageFrameTime.toFixed(2)}ms`,
-		Settings.SCREEN_SIZE_X - 960 + 8,
-		Settings.SCREEN_SIZE_Y - 8 - 12 * 4
+		SETTINGS.SCREEN_SIZE_X - 960 + 8,
+		SETTINGS.SCREEN_SIZE_Y - 8 - 12 * 4
 	)
 	context.fillText(
 		`Avg Delta: ${averageDeltaTime.toFixed(2)}ms`,
-		Settings.SCREEN_SIZE_X - 960 + 8,
-		Settings.SCREEN_SIZE_Y - 8 - 12 * 3
+		SETTINGS.SCREEN_SIZE_X - 960 + 8,
+		SETTINGS.SCREEN_SIZE_Y - 8 - 12 * 3
 	)
 	context.fillText(
 		`Avg FPS: ${(1000 / averageDeltaTime).toFixed(2)}`,
-		Settings.SCREEN_SIZE_X - 960 + 8,
-		Settings.SCREEN_SIZE_Y - 8 - 12 * 2
+		SETTINGS.SCREEN_SIZE_X - 960 + 8,
+		SETTINGS.SCREEN_SIZE_Y - 8 - 12 * 2
 	)
 	context.fillText(
 		`Avg Usage: ${((averageFrameTime / averageDeltaTime) * 100).toFixed(
 			0
 		)}%`,
-		Settings.SCREEN_SIZE_X - 960 + 8,
-		Settings.SCREEN_SIZE_Y - 8 - 12
+		SETTINGS.SCREEN_SIZE_X - 960 + 8,
+		SETTINGS.SCREEN_SIZE_Y - 8 - 12
 	)
 }
