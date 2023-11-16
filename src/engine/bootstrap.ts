@@ -33,7 +33,7 @@ export function main() {
 		app.main(ctx)
 	}
 
-	if (SETTINGS.ENABLE_SPLASH_SCREEN) {
+	if (SETTINGS.enableSplashScreen) {
 		log.log("Awaiting user interaction...")
 		splashScreen(ctx, closure)
 	} else {

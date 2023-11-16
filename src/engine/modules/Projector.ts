@@ -2,10 +2,10 @@ import { Vector3 } from "../datatypes/Vector3"
 import { Camera } from "../classes/Camera"
 import { SETTINGS } from "../Settings"
 
-const ASPECT_RATIO = SETTINGS.SCREEN_SIZE_X / SETTINGS.SCREEN_SIZE_Y
-const SCREEN_X = SETTINGS.SCREEN_SIZE_X
-const SCREEN_Y = SETTINGS.SCREEN_SIZE_Y
-const RENDER_CLIPPING_MARGIN = SETTINGS.RENDER_MARGIN
+const ASPECT_RATIO = SETTINGS.screenSizeX / SETTINGS.screenSizeY
+const SCREEN_X = SETTINGS.screenSizeX
+const SCREEN_Y = SETTINGS.screenSizeY
+const RENDER_CLIPPING_MARGIN = SETTINGS.renderClippingPercentage
 
 export function Projector(position: Vector3, camera: Camera): Vector3 {
 	const fieldOfView = camera.fieldOfView * (Math.PI / 180)

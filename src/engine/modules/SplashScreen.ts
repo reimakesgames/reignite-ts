@@ -24,10 +24,10 @@ export function splashScreen(
 		callback = newCallback
 	}
 
-	context.clearRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
+	context.clearRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
 
 	context.fillStyle = "#17171F"
-	context.fillRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
+	context.fillRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
 
 	context.fillStyle = "#FFFFFF"
 	context.font = "100 36px Ubuntu"
@@ -35,16 +35,16 @@ export function splashScreen(
 	context.textBaseline = "bottom"
 	context.fillText(
 		"REIGNITE",
-		SETTINGS.SCREEN_SIZE_X / 2,
-		SETTINGS.SCREEN_SIZE_Y / 2
+		SETTINGS.screenSizeX / 2,
+		SETTINGS.screenSizeY / 2
 	)
 
 	context.font = "200 12px Ubuntu"
 	context.textBaseline = "top"
 	context.fillText(
 		"A TypeScript Game Engine by Rei",
-		SETTINGS.SCREEN_SIZE_X / 2,
-		SETTINGS.SCREEN_SIZE_Y / 2 + 4
+		SETTINGS.screenSizeX / 2,
+		SETTINGS.screenSizeY / 2 + 4
 	)
 
 	if (!UserActivation.hasBeenActive) {
@@ -52,20 +52,20 @@ export function splashScreen(
 		context.textBaseline = "bottom"
 		context.fillText(
 			"Interact with the window to continue",
-			SETTINGS.SCREEN_SIZE_X / 2,
-			SETTINGS.SCREEN_SIZE_Y - 4
+			SETTINGS.screenSizeX / 2,
+			SETTINGS.screenSizeY - 4
 		)
 	}
 
 	context.strokeStyle = "#FFFFFF"
 	context.beginPath()
 	context.moveTo(
-		SETTINGS.SCREEN_SIZE_X / 2 - 120,
-		SETTINGS.SCREEN_SIZE_Y / 2 - 0.5
+		SETTINGS.screenSizeX / 2 - 120,
+		SETTINGS.screenSizeY / 2 - 0.5
 	)
 	context.lineTo(
-		SETTINGS.SCREEN_SIZE_X / 2 + 120,
-		SETTINGS.SCREEN_SIZE_Y / 2 - 0.5
+		SETTINGS.screenSizeX / 2 + 120,
+		SETTINGS.screenSizeY / 2 - 0.5
 	)
 	context.stroke()
 
@@ -73,18 +73,18 @@ export function splashScreen(
 	context.fillStyle = "#FFFFFF"
 	context.beginPath()
 	context.arc(
-		SETTINGS.SCREEN_SIZE_X - 24,
-		SETTINGS.SCREEN_SIZE_Y - 24,
+		SETTINGS.screenSizeX - 24,
+		SETTINGS.screenSizeY - 24,
 		16,
 		-90 * (Math.PI / 180),
 		(-90 + (Preloader.progress / Preloader.total) * 360) * (Math.PI / 180)
 	)
-	context.lineTo(SETTINGS.SCREEN_SIZE_X - 24, SETTINGS.SCREEN_SIZE_Y - 24)
+	context.lineTo(SETTINGS.screenSizeX - 24, SETTINGS.screenSizeY - 24)
 	context.closePath()
 	context.fill()
 
 	// continually request animation frames for the splash screen
-	if (SETTINGS.ENABLE_SPLASH_SCREEN) {
+	if (SETTINGS.enableSplashScreen) {
 		// cancel after timer has expired, assets have loaded, and user has interacted with the window
 		if (!timer && UserActivation.hasBeenActive && Preloader.active) {
 			timer = performance.now()

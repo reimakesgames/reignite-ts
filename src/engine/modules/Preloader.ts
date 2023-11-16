@@ -81,10 +81,10 @@ export class Preloader {
 		this.active = false
 		this.progress = 0
 		this.total = array.length
-		const unlimitedThreads = SETTINGS.PRELOADER_THREADS == 0
+		const unlimitedThreads = SETTINGS.preloaderThreads == 0
 		const threadsToSpawn = unlimitedThreads
 			? array.length
-			: SETTINGS.PRELOADER_THREADS
+			: SETTINGS.preloaderThreads
 		for (let i = 0; i < threadsToSpawn; i++) {
 			if (!unlimitedThreads) {
 				log.warn(

@@ -10,17 +10,17 @@ export class Logger {
 	respectSettings: boolean
 
 	log(message: string) {
-		if (!this.respectSettings || SETTINGS.ENABLE_LOGGING)
+		if (!this.respectSettings || SETTINGS.enableLogging)
 			console.log(`[${this.identifier}] ${message}`)
 	}
 
 	warn(message: string) {
-		if (!this.respectSettings || SETTINGS.ENABLE_LOGGING)
+		if (!this.respectSettings || SETTINGS.enableLogging)
 			console.warn(`[${this.identifier}] ${message}`)
 	}
 
 	error(message: string) {
-		if (!this.respectSettings || SETTINGS.ENABLE_LOGGING)
+		if (!this.respectSettings || SETTINGS.enableLogging)
 			console.error(`[${this.identifier}] ${message}`)
 	}
 }

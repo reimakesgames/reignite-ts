@@ -14,8 +14,8 @@ function CreateMarker(
 	ident: string
 ): void {
 	ctx.beginPath()
-	ctx.moveTo(SETTINGS.SCREEN_SIZE_X - i * 4, SETTINGS.SCREEN_SIZE_Y)
-	ctx.lineTo(SETTINGS.SCREEN_SIZE_X - i * 4, SETTINGS.SCREEN_SIZE_Y - 32)
+	ctx.moveTo(SETTINGS.screenSizeX - i * 4, SETTINGS.screenSizeY)
+	ctx.lineTo(SETTINGS.screenSizeX - i * 4, SETTINGS.screenSizeY - 32)
 	ctx.stroke()
 
 	ctx.font = "12px Arial"
@@ -24,8 +24,8 @@ function CreateMarker(
 	ctx.textBaseline = "top"
 	ctx.fillText(
 		ident,
-		SETTINGS.SCREEN_SIZE_X - i * 4 + 4,
-		SETTINGS.SCREEN_SIZE_Y - 32
+		SETTINGS.screenSizeX - i * 4 + 4,
+		SETTINGS.screenSizeY - 32
 	)
 }
 
@@ -40,8 +40,8 @@ function UsageWarning(
 	ctx.fillStyle = `rgba(255, ${127 + color}, ${127 + color}, 1)`
 	ctx.fillText(
 		`Usage: ${(usageTime * 100).toFixed(0)}%`,
-		SETTINGS.SCREEN_SIZE_X - 960 - 12,
-		SETTINGS.SCREEN_SIZE_Y - 8
+		SETTINGS.screenSizeX - 960 - 12,
+		SETTINGS.screenSizeY - 8
 	)
 }
 
@@ -49,12 +49,12 @@ function CreateFpsMarker(ctx: CanvasRenderingContext2D, fps: number): void {
 	ctx.strokeStyle = "#00ff00"
 	ctx.beginPath()
 	ctx.moveTo(
-		SETTINGS.SCREEN_SIZE_X,
-		SETTINGS.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000
+		SETTINGS.screenSizeX,
+		SETTINGS.screenSizeY - (1 / fps) * FPSBarHeight * 1000
 	)
 	ctx.lineTo(
-		SETTINGS.SCREEN_SIZE_X - 64,
-		SETTINGS.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000
+		SETTINGS.screenSizeX - 64,
+		SETTINGS.screenSizeY - (1 / fps) * FPSBarHeight * 1000
 	)
 	ctx.stroke()
 
@@ -64,8 +64,8 @@ function CreateFpsMarker(ctx: CanvasRenderingContext2D, fps: number): void {
 	ctx.textBaseline = "bottom"
 	ctx.fillText(
 		fps.toFixed(2),
-		SETTINGS.SCREEN_SIZE_X - 8,
-		SETTINGS.SCREEN_SIZE_Y - (1 / fps) * FPSBarHeight * 1000 - 4
+		SETTINGS.screenSizeX - 8,
+		SETTINGS.screenSizeY - (1 / fps) * FPSBarHeight * 1000 - 4
 	)
 }
 
@@ -93,12 +93,12 @@ export default function FPSBarChart(
 
 	context.strokeStyle = "#ffffff"
 	context.beginPath()
-	context.moveTo(SETTINGS.SCREEN_SIZE_X - 960, SETTINGS.SCREEN_SIZE_Y)
+	context.moveTo(SETTINGS.screenSizeX - 960, SETTINGS.screenSizeY)
 	for (let i = 0; i < previousDeltaTimes.length; i++) {
 		const sel = previousDeltaTimes[i] || 0
 		context.lineTo(
-			SETTINGS.SCREEN_SIZE_X - 960 + i * 4,
-			SETTINGS.SCREEN_SIZE_Y - sel * FPSBarHeight
+			SETTINGS.screenSizeX - 960 + i * 4,
+			SETTINGS.screenSizeY - sel * FPSBarHeight
 		)
 	}
 	context.stroke()
@@ -107,8 +107,8 @@ export default function FPSBarChart(
 		const sel = previousFrameTimes[i] || 0
 		context.fillStyle = `rgba(255, 127, 0, ${i / 240})`
 		context.fillRect(
-			SETTINGS.SCREEN_SIZE_X - 960 + i * 4,
-			SETTINGS.SCREEN_SIZE_Y - sel * FPSBarHeight,
+			SETTINGS.screenSizeX - 960 + i * 4,
+			SETTINGS.screenSizeY - sel * FPSBarHeight,
 			4,
 			sel * 100
 		)
@@ -146,16 +146,16 @@ export default function FPSBarChart(
 	const frameTimeUsage = averageFrameTime / averageDeltaTime
 	context.fillStyle = "#000000"
 	context.fillRect(
-		SETTINGS.SCREEN_SIZE_X - 960 - 8,
-		SETTINGS.SCREEN_SIZE_Y - UsageBarHeight,
+		SETTINGS.screenSizeX - 960 - 8,
+		SETTINGS.screenSizeY - UsageBarHeight,
 		8,
 		UsageBarHeight
 	)
 	const color = Math.floor(Quad(frameTimeUsage + 1) * 127)
 	context.fillStyle = `rgba(255, ${color + 127}, ${color + 127}, 1)`
 	context.fillRect(
-		SETTINGS.SCREEN_SIZE_X - 960 - 8,
-		SETTINGS.SCREEN_SIZE_Y,
+		SETTINGS.screenSizeX - 960 - 8,
+		SETTINGS.screenSizeY,
 		8,
 		-frameTimeUsage * UsageBarHeight
 	)
@@ -167,24 +167,24 @@ export default function FPSBarChart(
 	context.textBaseline = "bottom"
 	context.fillText(
 		`Avg Process: ${averageFrameTime.toFixed(2)}ms`,
-		SETTINGS.SCREEN_SIZE_X - 960 + 8,
-		SETTINGS.SCREEN_SIZE_Y - 8 - 12 * 4
+		SETTINGS.screenSizeX - 960 + 8,
+		SETTINGS.screenSizeY - 8 - 12 * 4
 	)
 	context.fillText(
 		`Avg Delta: ${averageDeltaTime.toFixed(2)}ms`,
-		SETTINGS.SCREEN_SIZE_X - 960 + 8,
-		SETTINGS.SCREEN_SIZE_Y - 8 - 12 * 3
+		SETTINGS.screenSizeX - 960 + 8,
+		SETTINGS.screenSizeY - 8 - 12 * 3
 	)
 	context.fillText(
 		`Avg FPS: ${(1000 / averageDeltaTime).toFixed(2)}`,
-		SETTINGS.SCREEN_SIZE_X - 960 + 8,
-		SETTINGS.SCREEN_SIZE_Y - 8 - 12 * 2
+		SETTINGS.screenSizeX - 960 + 8,
+		SETTINGS.screenSizeY - 8 - 12 * 2
 	)
 	context.fillText(
 		`Avg Usage: ${((averageFrameTime / averageDeltaTime) * 100).toFixed(
 			0
 		)}%`,
-		SETTINGS.SCREEN_SIZE_X - 960 + 8,
-		SETTINGS.SCREEN_SIZE_Y - 8 - 12
+		SETTINGS.screenSizeX - 960 + 8,
+		SETTINGS.screenSizeY - 8 - 12
 	)
 }

@@ -11,12 +11,11 @@ const WINDOWS_TITLE_BAR_HEIGHT = TITLEBAR_ENABLED ? TITLEBAR_HEIGHT : 0
 
 const createWindow = () => {
 	const win = new BrowserWindow({
-		width: SETTINGS.SCREEN_SIZE_X + WINDOW_MARGIN,
-		height:
-			SETTINGS.SCREEN_SIZE_Y + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
-		minWidth: SETTINGS.SCREEN_SIZE_X + WINDOW_MARGIN,
+		width: SETTINGS.screenSizeX + WINDOW_MARGIN,
+		height: SETTINGS.screenSizeY + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
+		minWidth: SETTINGS.screenSizeX + WINDOW_MARGIN,
 		minHeight:
-			SETTINGS.SCREEN_SIZE_Y + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
+			SETTINGS.screenSizeY + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
 		webPreferences: {
 			nodeIntegration: true,
 		},

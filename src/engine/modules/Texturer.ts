@@ -37,7 +37,7 @@ class Texturer {
 		if (!this.context) {
 			return
 		}
-		if (SETTINGS.ENABLE_WIREFRAME) {
+		if (SETTINGS.wireframeOn3dObjects) {
 			this.context.strokeStyle = "black"
 			this.context.beginPath()
 			this.context.moveTo(triangle.p0.X, triangle.p0.Y)

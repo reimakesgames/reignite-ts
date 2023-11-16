@@ -20,9 +20,9 @@ export function renderer(
 	Profiler.Begin("Renderer")
 
 	Profiler.Begin("Clear Screen")
-	context.clearRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
+	context.clearRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
 	context.fillStyle = "#1f1f1f"
-	context.fillRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
+	context.fillRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
 	Profiler.End()
 
 	Profiler.Begin("Draw Axes")
@@ -138,7 +138,7 @@ export function renderer(
 			100
 		).toFixed(2)})`,
 		10,
-		SETTINGS.SCREEN_SIZE_Y - 10
+		SETTINGS.screenSizeY - 10
 	)
 
 	FPSBarChart(context, deltaTime, previousFrameTime)
