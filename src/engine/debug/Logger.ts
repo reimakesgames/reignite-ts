@@ -1,6 +1,6 @@
 import { SETTINGS } from "../Settings"
 
-class Logger {
+export class Logger {
 	constructor(identifier: string, respectSettings: boolean = true) {
 		this.identifier = identifier
 		this.respectSettings = respectSettings
@@ -24,5 +24,3 @@ class Logger {
 			console.error(`[${this.identifier}] ${message}`)
 	}
 }
-
-export default Logger

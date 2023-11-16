@@ -1,24 +1,24 @@
-import App from "./modules/App"
 import { SETTINGS } from "./Settings"
-import "./"
+
+import * as app from "./modules/App"
 import {
 	canvasContainer,
 	ctx,
 	createCanvas,
 	enableFill,
 } from "./modules/CanvasViewport"
-import Logger from "./debug/Logger"
+import { splashScreen } from "./modules/SplashScreen"
+import { Preloader } from "./modules/Preloader"
 
-import SplashScreen from "./modules/SplashScreen"
-import Preloader from "./modules/Preloader"
+import { Logger } from "./debug/Logger"
 
 export function main() {
 	// standard engine font
 	document.fonts.add(new FontFace("Ubuntu", "url(assets/Ubuntu.ttf)"))
 
-	const Log = new Logger("Bootstrap")
+	const log = new Logger("Bootstrap")
 
-	Preloader.PreloadAssets([
+	Preloader.preloadAssets([
 		"assets/normal.png",
 		"assets/texture.png",
 		"assets/explosion.png",
@@ -28,15 +28,15 @@ export function main() {
 	document.body.appendChild(canvasContainer)
 	enableFill(false)
 
-	function Post() {
-		Log.log("User has interacted with the window.")
-		App(ctx)
+	function closure() {
+		log.log("User has interacted with the window.")
+		app.main(ctx)
 	}
 
-	Log.log("Awaiting user interaction...")
 	if (SETTINGS.ENABLE_SPLASH_SCREEN) {
-		SplashScreen(ctx, Post)
+		log.log("Awaiting user interaction...")
+		splashScreen(ctx, closure)
 	} else {
-		Post()
+		closure()
 	}
 }

@@ -1,24 +1,27 @@
 import { SETTINGS } from "../Settings"
-import Preloader from "./Preloader"
+import { Preloader } from "./Preloader"
 
 const UserActivation: any = (navigator as any).userActivation
-const Duration = 300
-const FadeDuration = 700
-let Timer: number
-let Callback: Function
+const INPUT_DELAY = 300
+const FADEOUT_DURATION = 400
+let timer: number
+let callback: Function
 
 // TODO: replace callback with an event instead of a function, so that many things can listen to it if needed
 
-function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
-	if (Timer) {
-		if (performance.now() - Timer > Duration) {
+export function splashScreen(
+	context: CanvasRenderingContext2D,
+	newCallback?: Function
+) {
+	if (timer) {
+		if (performance.now() - timer > INPUT_DELAY) {
 			context.globalAlpha =
-				1 - (performance.now() - Timer - Duration) / FadeDuration
+				1 - (performance.now() - timer - INPUT_DELAY) / FADEOUT_DURATION
 		}
 	}
 
-	if (callback) {
-		Callback = callback
+	if (newCallback) {
+		callback = newCallback
 	}
 
 	context.clearRect(0, 0, SETTINGS.SCREEN_SIZE_X, SETTINGS.SCREEN_SIZE_Y)
@@ -74,7 +77,7 @@ function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 		SETTINGS.SCREEN_SIZE_Y - 24,
 		16,
 		-90 * (Math.PI / 180),
-		(-90 + (Preloader.Progress / Preloader.Total) * 360) * (Math.PI / 180)
+		(-90 + (Preloader.progress / Preloader.total) * 360) * (Math.PI / 180)
 	)
 	context.lineTo(SETTINGS.SCREEN_SIZE_X - 24, SETTINGS.SCREEN_SIZE_Y - 24)
 	context.closePath()
@@ -83,16 +86,14 @@ function SplashScreen(context: CanvasRenderingContext2D, callback?: Function) {
 	// continually request animation frames for the splash screen
 	if (SETTINGS.ENABLE_SPLASH_SCREEN) {
 		// cancel after timer has expired, assets have loaded, and user has interacted with the window
-		if (!Timer && UserActivation.hasBeenActive && Preloader.Active) {
-			Timer = performance.now()
+		if (!timer && UserActivation.hasBeenActive && Preloader.active) {
+			timer = performance.now()
 		}
 		// then run the callback and exit
-		if (performance.now() - Timer > Duration + FadeDuration) {
-			Callback?.()
+		if (performance.now() - timer > INPUT_DELAY + FADEOUT_DURATION) {
+			callback?.()
 			return
 		}
-		requestAnimationFrame(() => SplashScreen(context))
+		requestAnimationFrame(() => splashScreen(context))
 	}
 }
-
-export default SplashScreen

@@ -1,7 +1,7 @@
 import { canvas } from "./CanvasViewport"
 import { Camera } from "../classes/Camera"
 
-import { Renderer } from "./Renderer"
+import { renderer } from "./Renderer"
 import { root } from "../classes/Root"
 
 import { Scene } from "../classes/Scene"
@@ -12,7 +12,7 @@ export function setUpdateFunction(fn: (deltaTime: number) => void) {
 	update = fn
 }
 
-export default function App(context: CanvasRenderingContext2D) {
+export function main(context: CanvasRenderingContext2D) {
 	const scene = root.loadSceneFromJson(`{
 		"class": "Scene",
 		"properties": {
@@ -58,7 +58,7 @@ export default function App(context: CanvasRenderingContext2D) {
 
 	let previousTime = 0
 
-	function InternalUpdate() {
+	function internalUpdate() {
 		const currentTime = performance.now()
 		const deltaTime = currentTime - previousTime
 		previousTime = currentTime
@@ -66,8 +66,8 @@ export default function App(context: CanvasRenderingContext2D) {
 		update(deltaTime)
 
 		if (root.currentScene.currentCamera)
-			Renderer(context, deltaTime, root.currentScene.currentCamera)
-		requestAnimationFrame(InternalUpdate)
+			renderer(context, deltaTime, root.currentScene.currentCamera)
+		requestAnimationFrame(internalUpdate)
 	}
-	InternalUpdate()
+	internalUpdate()
 }

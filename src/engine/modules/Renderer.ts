@@ -5,11 +5,11 @@ import FPSBarChart from "../debug/FPSBarChart"
 import Profiler from "../debug/Profiler"
 import ProfilerGui from "../debug/ProfilerGui"
 import RenderCube from "../debug/RenderCube"
-import Projector from "./Projector"
+import { Projector } from "./Projector"
 
 let previousFrameTime = 0
 
-export function Renderer(
+export function renderer(
 	context: CanvasRenderingContext2D,
 	deltaTime: number,
 	camera: Camera

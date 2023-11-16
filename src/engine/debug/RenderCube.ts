@@ -2,7 +2,7 @@ import { Camera } from "../classes/Camera"
 import { Matrix3d } from "../datatypes/Matrix3d"
 import { Vector2 } from "../datatypes/Vector2"
 import { Vector3 } from "../datatypes/Vector3"
-import Projector from "../modules/Projector"
+import { Projector } from "../modules/Projector"
 import Texturer from "../modules/Texturer"
 import Profiler from "./Profiler"
 
