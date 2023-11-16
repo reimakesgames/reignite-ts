@@ -28,6 +28,8 @@ The following changes were made:
 -   Code that utilizes `TextureCoordinates` now uses `Vector2` instead for simplicity
 -   Replaced `jest` with `vitest` for easier debugging and integration with vscode
 -   `tests` folder is gone and is now integrated with the `src` folder via `*.spec.ts` files
+-   Engine now doesn't run on its own, instead it is imported and used by the user
+-   Game is now the entry point of the engine, instead of the engine itself
 
 # [v1.096.0-pre.1]
 
