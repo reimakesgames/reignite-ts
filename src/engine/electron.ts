@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron"
+import { app, BrowserWindow, session } from "electron"
 import { SETTINGS } from "./Settings"
 
 const FRAME_ENABLED = true
@@ -34,6 +34,17 @@ app.whenReady().then(() => {
 
 	app.on("activate", () => {
 		if (BrowserWindow.getAllWindows().length === 0) createWindow()
+	})
+
+	// make COOP same-origin, and COEP require-corp
+	session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+		callback({
+			responseHeaders: {
+				...details.responseHeaders,
+				"Cross-Origin-Opener-Policy": "same-origin",
+				"Cross-Origin-Embedder-Policy": "require-corp",
+			},
+		})
 	})
 })
 
