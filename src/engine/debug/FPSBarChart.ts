@@ -73,7 +73,7 @@ function Quad(x: number): number {
 	return quadA * x * x + quadB * x
 }
 
-export default function FPSBarChart(
+export function FPSBarChart(
 	context: CanvasRenderingContext2D,
 	dt: number,
 	ft: number

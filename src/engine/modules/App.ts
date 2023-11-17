@@ -7,6 +7,10 @@ import { root } from "../classes/Root"
 import { Scene } from "../classes/Scene"
 import { Profiler } from "../debug/Profiler"
 import { profilerGui } from "../debug/ProfilerGui"
+import { FPSBarChart } from "../debug/FPSBarChart"
+import { SETTINGS } from "../Settings"
+
+let previousFrameTime = 0
 
 let update = (deltaTime: number) => {}
 
@@ -66,6 +70,7 @@ export function main(context: CanvasRenderingContext2D) {
 		previousTime = currentTime
 
 		Profiler.createFrame()
+
 		Profiler.startProfile("External Update")
 		update(deltaTime)
 		Profiler.endProfile()
@@ -74,10 +79,31 @@ export function main(context: CanvasRenderingContext2D) {
 		if (root.currentScene.currentCamera)
 			renderer(context, deltaTime, root.currentScene.currentCamera)
 		Profiler.endProfile()
-		Profiler.stopFrame()
+
 		const frameTime = performance.now() - currentTime
 
+		Profiler.startProfile("Draw Debug Info")
+		context.fillStyle = "#ffffff"
+		context.font = "12px Arial"
+		context.textAlign = "left"
+		context.textBaseline = "bottom"
+		context.fillText(
+			`Frame time: ${frameTime.toFixed(2)}ms (%${(
+				(frameTime / deltaTime) *
+				100
+			).toFixed(2)})`,
+			10,
+			SETTINGS.screenSizeY - 10
+		)
+
+		FPSBarChart(context, deltaTime, previousFrameTime)
+		Profiler.endProfile()
+
+		Profiler.stopFrame()
+
 		profilerGui(context, frameTime)
+
+		previousFrameTime = frameTime
 
 		requestAnimationFrame(internalUpdate)
 	}

@@ -1,20 +1,15 @@
 import { SETTINGS } from "../Settings"
 import { Camera } from "../classes/Camera"
 import { Vector3 } from "../datatypes/Vector3"
-import FPSBarChart from "../debug/FPSBarChart"
 import { Profiler } from "../debug/Profiler"
 import RenderCube from "../debug/RenderCube"
 import { Projector } from "./Projector"
-
-let previousFrameTime = 0
 
 export function renderer(
 	context: CanvasRenderingContext2D,
 	deltaTime: number,
 	camera: Camera
 ) {
-	const frameTimeStart = performance.now()
-
 	Profiler.startProfile("Renderer")
 
 	Profiler.startProfile("Clear Screen")
@@ -66,7 +61,6 @@ export function renderer(
 	context.lineTo(yProjected.X - 8, yProjected.Y + 8)
 	context.lineTo(yProjected.X + 8, yProjected.Y + 8)
 	context.fill()
-
 	Profiler.endProfile()
 
 	Profiler.startProfile("Make Floor")
@@ -119,29 +113,4 @@ export function renderer(
 	RenderCube(context, camera)
 
 	Profiler.endProfile()
-	Profiler.endProfile()
-
-	Profiler.startProfile("Draw Debug Info")
-
-	const frameTimeEnd = performance.now()
-	const frameTime = frameTimeEnd - frameTimeStart
-
-	context.fillStyle = "#ffffff"
-	context.font = "12px Arial"
-	context.textAlign = "left"
-	context.textBaseline = "bottom"
-	context.fillText(
-		`Frame time: ${frameTime.toFixed(2)}ms (%${(
-			(frameTime / deltaTime) *
-			100
-		).toFixed(2)})`,
-		10,
-		SETTINGS.screenSizeY - 10
-	)
-
-	FPSBarChart(context, deltaTime, previousFrameTime)
-
-	Profiler.endProfile()
-
-	previousFrameTime = frameTime
 }
