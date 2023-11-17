@@ -2,8 +2,8 @@ import { SETTINGS } from "../Settings"
 import { Camera } from "../classes/Camera"
 import { Vector3 } from "../datatypes/Vector3"
 import FPSBarChart from "../debug/FPSBarChart"
-import Profiler from "../debug/Profiler"
-import ProfilerGui from "../debug/ProfilerGui"
+import { Profiler } from "../debug/Profiler"
+import { profilerGui } from "../debug/ProfilerGui"
 import RenderCube from "../debug/RenderCube"
 import { Projector } from "./Projector"
 
@@ -15,17 +15,17 @@ export function renderer(
 	camera: Camera
 ) {
 	const frameTimeStart = performance.now()
-	Profiler.CreateFrame()
+	Profiler.createFrame()
 
-	Profiler.Begin("Renderer")
+	Profiler.startProfile("Renderer")
 
-	Profiler.Begin("Clear Screen")
+	Profiler.startProfile("Clear Screen")
 	context.clearRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
 	context.fillStyle = "#1f1f1f"
 	context.fillRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
-	Profiler.End()
+	Profiler.endProfile()
 
-	Profiler.Begin("Draw Axes")
+	Profiler.startProfile("Draw Axes")
 	const origin = new Vector3(0, 0, 0)
 	const x = new Vector3(1, 0, 0)
 	const y = new Vector3(0, 1, 0)
@@ -69,9 +69,9 @@ export function renderer(
 	context.lineTo(yProjected.X + 8, yProjected.Y + 8)
 	context.fill()
 
-	Profiler.End()
+	Profiler.endProfile()
 
-	Profiler.Begin("Make Floor")
+	Profiler.startProfile("Make Floor")
 	const floorPoints = []
 	for (let x = -5; x <= 5; x++) {
 		let line = []
@@ -85,9 +85,9 @@ export function renderer(
 			return Projector(point, camera)
 		})
 	})
-	Profiler.End()
+	Profiler.endProfile()
 
-	Profiler.Begin("Draw Floor")
+	Profiler.startProfile("Draw Floor")
 	context.strokeStyle = "#ffffff"
 	for (let x = 0; x < floorProjected.length; x++) {
 		const line = floorProjected[x] as Vector3[]
@@ -116,14 +116,14 @@ export function renderer(
 			}
 		}
 	}
-	Profiler.End()
+	Profiler.endProfile()
 
 	RenderCube(context, camera)
 
-	Profiler.End()
-	Profiler.End()
+	Profiler.endProfile()
+	Profiler.endProfile()
 
-	Profiler.Stop()
+	Profiler.stopFrame()
 
 	const frameTimeEnd = performance.now()
 	const frameTime = frameTimeEnd - frameTimeStart

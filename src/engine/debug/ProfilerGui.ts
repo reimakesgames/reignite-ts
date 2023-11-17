@@ -1,7 +1,7 @@
 import { SETTINGS } from "../Settings"
-import Profiler from "./Profiler"
+import { Profiler } from "./Profiler"
 
-const hexColors: string[] = [
+const HEX_COLORS: string[] = [
 	"#FF0000", // Red
 	"#FF7F00", // Orange
 	"#FFFF00", // Yellow
@@ -16,42 +16,36 @@ const hexColors: string[] = [
 	"#FF007F", // Rose
 ]
 
-const ProfilerZoom = 10 // How much should the profiler be zoomed in? 1 is normal, 2 is twice as zoomed in, etc.
+const ZOOM = 10 // How much should the profiler be zoomed in? 1 is normal, 2 is twice as zoomed in, etc.
 
-export default function ProfilerGui(
-	context: CanvasRenderingContext2D,
-	frameTime: number
-) {
+export function profilerGui(ctx: CanvasRenderingContext2D, frameTime: number) {
 	if (SETTINGS.enableProfiler === false) {
 		return
 	}
-	const frame = Profiler.GetFrame()
+	const frame = Profiler.getFrame()
 
-	for (const label of frame.Labels) {
-		const firstLabel = frame.Labels[0]
-		context.fillStyle = hexColors[label.Depth % hexColors.length] as string
-		context.fillRect(
-			(label.Start - (firstLabel?.Start || 0)) * frameTime * ProfilerZoom,
-			SETTINGS.screenSizeY / 2 + label.Depth * 16,
-			label.Duration * frameTime * ProfilerZoom,
+	for (const label of frame.labels) {
+		const firstLabel = frame.labels[0]
+		ctx.fillStyle = HEX_COLORS[label.depth % HEX_COLORS.length] as string
+		ctx.fillRect(
+			(label.start - (firstLabel?.start || 0)) * frameTime * ZOOM,
+			SETTINGS.screenSizeY / 2 + label.depth * 16,
+			label.duration * frameTime * ZOOM,
 			16
 		)
-		context.fillStyle = "#000000"
-		context.font = "12px Arial"
-		context.textBaseline = "top"
-		context.fillText(
-			`${label.Name} ${(label.Duration * 1000).toFixed(2)}μs`,
-			(label.Start - (firstLabel?.Start || 0)) *
-				frameTime *
-				ProfilerZoom +
-				1,
-			SETTINGS.screenSizeY / 2 + label.Depth * 16 + 5
+		ctx.fillStyle = "#000000"
+		ctx.font = "12px Arial"
+		ctx.textBaseline = "top"
+		ctx.fillText(
+			`${label.name} ${(label.duration * 1000).toFixed(2)}μs`,
+			(label.start - (firstLabel?.start || 0)) * frameTime * ZOOM + 1,
+			SETTINGS.screenSizeY / 2 + label.depth * 16 + 5
 		)
-		context.fillStyle = "#ffffff"
-		context.fillText(
-			`${label.Name} ${(label.Duration * 1000).toFixed(2)}μs`,
-			(label.Start - (firstLabel?.Start || 0)) * frameTime * ProfilerZoom,
-			SETTINGS.screenSizeY / 2 + label.Depth * 16 + 4
+		ctx.fillStyle = "#ffffff"
+		ctx.fillText(
+			`${label.name} ${(label.duration * 1000).toFixed(2)}μs`,
+			(label.start - (firstLabel?.start || 0)) * frameTime * ZOOM,
+			SETTINGS.screenSizeY / 2 + label.depth * 16 + 4
 		)
 	}
 }

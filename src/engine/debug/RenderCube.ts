@@ -4,7 +4,7 @@ import { Vector2 } from "../datatypes/Vector2"
 import { Vector3 } from "../datatypes/Vector3"
 import { Projector } from "../modules/Projector"
 import Texturer from "../modules/Texturer"
-import Profiler from "./Profiler"
+import { Profiler } from "./Profiler"
 
 const texture = new Image()
 // texture.src =
@@ -35,9 +35,9 @@ export default function RenderCube(
 	context: CanvasRenderingContext2D,
 	camera: Camera
 ) {
-	Profiler.Begin("Draw Cube")
+	Profiler.startProfile("Draw Cube")
 
-	Profiler.Begin("Rotate Cube")
+	Profiler.startProfile("Rotate Cube")
 	const cubeRotation = new Vector3(
 		performance.now() / 1000,
 		performance.now() / 1000,
@@ -86,15 +86,15 @@ export default function RenderCube(
 			)
 		)
 	})
-	Profiler.End()
+	Profiler.endProfile()
 
-	Profiler.Begin("Project Cube")
+	Profiler.startProfile("Project Cube")
 	const cubeProjectedVertices = cubeRotatedVertices.map((vertex) => {
 		return Projector(vertex, camera)
 	})
-	Profiler.End()
+	Profiler.endProfile()
 
-	Profiler.Begin("Sort Cube Faces")
+	Profiler.startProfile("Sort Cube Faces")
 	const sortedDrawOrder = cubeFaces
 		.map((face, index) => {
 			// get average distance of each face
@@ -114,9 +114,9 @@ export default function RenderCube(
 		.sort((a, b) => {
 			return b.distance - a.distance
 		})
-	Profiler.End()
+	Profiler.endProfile()
 
-	Profiler.Begin("Draw Cube Faces")
+	Profiler.startProfile("Draw Cube Faces")
 	sortedDrawOrder.forEach((face) => {
 		const faceVertices = cubeFaces[face.index]
 		const faceProjectedVertices = faceVertices?.map((vertex) => {
@@ -157,7 +157,7 @@ export default function RenderCube(
 		)
 		image.Draw(context)
 	})
-	Profiler.End()
+	Profiler.endProfile()
 
-	Profiler.End()
+	Profiler.endProfile()
 }

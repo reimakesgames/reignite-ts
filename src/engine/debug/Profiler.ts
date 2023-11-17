@@ -1,85 +1,77 @@
-let CurrentFrame: Frame
+let currentFrame: ProfilingFrame
 
-class Label {
-	constructor(name: string, start: number, depth: number) {
-		this.Name = name
-		this.Start = start
-		this.End = null
-		this.Depth = depth
+class ProfilingLabel {
+	constructor(
+		readonly name: string,
+		readonly start: number,
+		readonly depth: number
+	) {
+		this.end = null
 	}
 
-	public Name: string
-	public Start: number
-	public End: number | null
-	public Depth: number
-	public get Duration(): number {
-		return this.End ? this.End - this.Start : 0
+	end: number | null
+	public get duration(): number {
+		return this.end ? this.end - this.start : 0
 	}
 }
 
-class Frame {
+class ProfilingFrame {
 	constructor() {
-		this.Labels = []
-		this._labelStack = []
-		this._currentLabel = null
-		this.Depth = -1
-		this.ProfileBegin("Process")
+		this.begin("Process")
 	}
 
-	public Labels: Label[]
-	private _labelStack: string[]
-	private _currentLabel: Label | null
-	public Depth: number
+	labels: ProfilingLabel[] = []
+	depth: number = -1
+	private labelStack: string[] = []
+	private currentLabel?: ProfilingLabel
 
-	public ProfileBegin(name: string) {
-		this.Depth++
-		this._labelStack.push(name)
-		let label = new Label(name, performance.now(), this.Depth)
-		this.Labels.push(label)
-		this._currentLabel = label
+	public begin(name: string) {
+		this.depth++
+		this.labelStack.push(name)
+		let label = new ProfilingLabel(name, performance.now(), this.depth)
+		this.labels.push(label)
+		this.currentLabel = label
 	}
 
-	public ProfileEnd() {
-		this.Depth--
-		this._currentLabel!.End = performance.now()
-		this._currentLabel = this.Labels[this._labelStack.length - 1] ?? null
-		this._labelStack.pop()
+	public end() {
+		this.depth--
+		this.currentLabel!.end = performance.now()
+		this.currentLabel = this.labels[this.labelStack.length - 1]
+		this.labelStack.pop()
 	}
 
-	public Stop() {
-		this.ProfileEnd()
+	public stop() {
+		this.end()
 	}
 }
 
-namespace Profiler {
-	export function CreateFrame() {
-		CurrentFrame = new Frame()
-		return CurrentFrame
+export namespace Profiler {
+	export function createFrame() {
+		currentFrame = new ProfilingFrame()
+		return currentFrame
 	}
 
-	export function GetFrame() {
-		return CurrentFrame
-	}
-
-	export function Begin(name: string) {
-		if (CurrentFrame) {
-			CurrentFrame.ProfileBegin(name)
+	export function stopFrame() {
+		if (currentFrame) {
+			currentFrame.stop()
 		}
 	}
 
-	export function End() {
-		if (CurrentFrame) {
-			CurrentFrame.ProfileEnd()
+	export function getFrame() {
+		return currentFrame
+	}
+
+	export function startProfile(name: string) {
+		if (currentFrame) {
+			currentFrame.begin(name)
 		}
 	}
 
-	export function Stop() {
-		if (CurrentFrame) {
-			CurrentFrame.Stop()
+	export function endProfile() {
+		if (currentFrame) {
+			currentFrame.end()
 		}
 	}
 }
 
-export type { Frame, Label }
-
-export default Profiler
+export type { ProfilingFrame, ProfilingLabel }
