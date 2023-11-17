@@ -5,6 +5,8 @@ import { renderer } from "./Renderer"
 import { root } from "../classes/Root"
 
 import { Scene } from "../classes/Scene"
+import { Profiler } from "../debug/Profiler"
+import { profilerGui } from "../debug/ProfilerGui"
 
 let update = (deltaTime: number) => {}
 
@@ -63,10 +65,20 @@ export function main(context: CanvasRenderingContext2D) {
 		const deltaTime = currentTime - previousTime
 		previousTime = currentTime
 
+		Profiler.createFrame()
+		Profiler.startProfile("External Update")
 		update(deltaTime)
+		Profiler.endProfile()
 
+		Profiler.startProfile("Internal Update")
 		if (root.currentScene.currentCamera)
 			renderer(context, deltaTime, root.currentScene.currentCamera)
+		Profiler.endProfile()
+		Profiler.stopFrame()
+		const frameTime = performance.now() - currentTime
+
+		profilerGui(context, frameTime)
+
 		requestAnimationFrame(internalUpdate)
 	}
 	internalUpdate()

@@ -3,7 +3,6 @@ import { Camera } from "../classes/Camera"
 import { Vector3 } from "../datatypes/Vector3"
 import FPSBarChart from "../debug/FPSBarChart"
 import { Profiler } from "../debug/Profiler"
-import { profilerGui } from "../debug/ProfilerGui"
 import RenderCube from "../debug/RenderCube"
 import { Projector } from "./Projector"
 
@@ -15,7 +14,6 @@ export function renderer(
 	camera: Camera
 ) {
 	const frameTimeStart = performance.now()
-	Profiler.createFrame()
 
 	Profiler.startProfile("Renderer")
 
@@ -123,7 +121,7 @@ export function renderer(
 	Profiler.endProfile()
 	Profiler.endProfile()
 
-	Profiler.stopFrame()
+	Profiler.startProfile("Draw Debug Info")
 
 	const frameTimeEnd = performance.now()
 	const frameTime = frameTimeEnd - frameTimeStart
@@ -142,7 +140,8 @@ export function renderer(
 	)
 
 	FPSBarChart(context, deltaTime, previousFrameTime)
-	profilerGui(context, frameTime)
+
+	Profiler.endProfile()
 
 	previousFrameTime = frameTime
 }
