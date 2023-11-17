@@ -16,7 +16,7 @@ const HEX_COLORS: string[] = [
 	"#FF007F", // Rose
 ]
 
-const ZOOM = 10 // How much should the profiler be zoomed in? 1 is normal, 2 is twice as zoomed in, etc.
+const ZOOM = 1000 // How much should the profiler be zoomed in? 1 is normal, 2 is twice as zoomed in, etc.
 
 export function profilerGui(ctx: CanvasRenderingContext2D, frameTime: number) {
 	if (SETTINGS.enableProfiler === false) {

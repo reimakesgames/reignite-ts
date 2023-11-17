@@ -21,27 +21,35 @@ class ProfilingFrame {
 	}
 
 	labels: ProfilingLabel[] = []
-	depth: number = -1
-	private labelStack: string[] = []
+	depth: number = 0
+	private labelChain: ProfilingLabel[] = []
 	private currentLabel?: ProfilingLabel
 
 	public begin(name: string) {
-		this.depth++
-		this.labelStack.push(name)
-		let label = new ProfilingLabel(name, performance.now(), this.depth)
+		const label = new ProfilingLabel(name, performance.now(), this.depth)
 		this.labels.push(label)
+		this.labelChain.push(label)
+
 		this.currentLabel = label
+		this.depth++
 	}
 
 	public end() {
+		if (!this.currentLabel) {
+			throw new Error("No current label")
+		}
+
+		// we want to end the label
+		this.currentLabel.end = performance.now()
+		this.currentLabel = this.labelChain[this.labelChain.length - 2]
+		this.labelChain.pop()
+
 		this.depth--
-		this.currentLabel!.end = performance.now()
-		this.currentLabel = this.labels[this.labelStack.length - 1]
-		this.labelStack.pop()
 	}
 
 	public stop() {
 		this.end()
+		console.log("Frame was stopped")
 	}
 }
 
