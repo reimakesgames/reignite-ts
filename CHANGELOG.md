@@ -30,6 +30,8 @@ The following changes were made:
 -   `tests` folder is gone and is now integrated with the `src` folder via `*.spec.ts` files
 -   Engine now doesn't run on its own, instead it is imported and used by the user
 -   Game is now the entry point of the engine, instead of the engine itself
+-   COOP and COEP headers are now added to the server to allow more control over the browser
+-   Profiler's `Depth` system now works properly
 
 # [v1.096.0-pre.1]
 
