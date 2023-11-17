@@ -142,7 +142,7 @@ export function renderer(
 	)
 
 	FPSBarChart(context, deltaTime, previousFrameTime)
-	ProfilerGui(context, frameTime)
+	profilerGui(context, frameTime)
 
 	previousFrameTime = frameTime
 }
