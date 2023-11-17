@@ -1,13 +1,16 @@
 import { SETTINGS } from "../Settings"
 
+/**
+ * A simple logger class that can be used to log messages to the console.
+ *
+ * This class is used by the engine to log identifying messages to the console.
+ * It's construction is literally just prepending an identifier to the message.
+ */
 export class Logger {
-	constructor(identifier: string, respectSettings: boolean = true) {
-		this.identifier = identifier
-		this.respectSettings = respectSettings
-	}
-
-	identifier: string
-	respectSettings: boolean
+	constructor(
+		readonly identifier: string,
+		readonly respectSettings: boolean = true
+	) {}
 
 	log(message: string) {
 		if (!this.respectSettings || SETTINGS.enableLogging)
