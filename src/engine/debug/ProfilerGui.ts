@@ -16,7 +16,8 @@ const HEX_COLORS: string[] = [
 	"#FF007F", // Rose
 ]
 
-const ZOOM = 1000 // How much should the profiler be zoomed in? 1 is normal, 2 is twice as zoomed in, etc.
+const PIXELS_PER_MILISECOND = 500
+const PROPORTIONAL_SCALING = false
 
 export function profilerGui(ctx: CanvasRenderingContext2D, frameTime: number) {
 	if (SETTINGS.enableProfiler === false) {
@@ -24,28 +25,46 @@ export function profilerGui(ctx: CanvasRenderingContext2D, frameTime: number) {
 	}
 	const frame = Profiler.getFrame()
 
+	const firstLabel = frame.labels[0]
+	const scale = PROPORTIONAL_SCALING
+		? SETTINGS.screenSizeX / frameTime
+		: PIXELS_PER_MILISECOND
+
 	for (const label of frame.labels) {
-		const firstLabel = frame.labels[0]
+		const positionX = (label.start - (firstLabel?.start || 0)) * scale
+		const positionY = SETTINGS.screenSizeY / 4 + label.depth * 16
+
+		ctx.save()
+
 		ctx.fillStyle = HEX_COLORS[label.depth % HEX_COLORS.length] as string
-		ctx.fillRect(
-			(label.start - (firstLabel?.start || 0)) * frameTime * ZOOM,
-			SETTINGS.screenSizeY / 2 + label.depth * 16,
-			label.duration * frameTime * ZOOM,
-			16
-		)
-		ctx.fillStyle = "#000000"
+		ctx.fillRect(positionX, positionY, label.duration * scale, 16)
+
 		ctx.font = "12px Arial"
 		ctx.textBaseline = "top"
+
+		ctx.beginPath()
+		ctx.moveTo(positionX, positionY)
+		ctx.lineTo(positionX, positionY + 16)
+		ctx.lineTo(positionX + label.duration * scale, positionY + 16)
+		ctx.lineTo(positionX + label.duration * scale, positionY)
+		ctx.closePath()
+
+		ctx.clip()
+
+		ctx.fillStyle = "#000000"
 		ctx.fillText(
-			`${label.name} ${(label.duration * 1000).toFixed(2)}μs`,
-			(label.start - (firstLabel?.start || 0)) * frameTime * ZOOM + 1,
-			SETTINGS.screenSizeY / 2 + label.depth * 16 + 5
+			`${label.name} ${label.duration.toFixed(2)}ms`,
+			positionX + 1,
+			positionY + 5
 		)
+
 		ctx.fillStyle = "#ffffff"
 		ctx.fillText(
-			`${label.name} ${(label.duration * 1000).toFixed(2)}μs`,
-			(label.start - (firstLabel?.start || 0)) * frameTime * ZOOM,
-			SETTINGS.screenSizeY / 2 + label.depth * 16 + 4
+			`${label.name} ${label.duration.toFixed(2)}ms`,
+			positionX,
+			positionY + 4
 		)
+
+		ctx.restore()
 	}
 }
