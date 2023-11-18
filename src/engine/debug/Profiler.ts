@@ -25,7 +25,7 @@ class ProfilingFrame {
 	private labelChain: ProfilingLabel[] = []
 	private currentLabel?: ProfilingLabel
 
-	public begin(name: string) {
+	begin(name: string) {
 		const label = new ProfilingLabel(name, performance.now(), this.depth)
 		this.labels.push(label)
 		this.labelChain.push(label)
@@ -34,7 +34,7 @@ class ProfilingFrame {
 		this.depth++
 	}
 
-	public end() {
+	end() {
 		if (!this.currentLabel) {
 			throw new Error("No current label")
 		}
@@ -47,9 +47,9 @@ class ProfilingFrame {
 		this.depth--
 	}
 
-	public stop() {
+	stop() {
 		this.end()
-		console.log("Frame was stopped")
+		Object.freeze(this.labels)
 	}
 }
 
