@@ -2,8 +2,10 @@ import { SETTINGS } from "../Settings"
 import { Preloader } from "./Preloader"
 
 const UserActivation: any = (navigator as any).userActivation
+
 const INPUT_DELAY = 300
 const FADEOUT_DURATION = 400
+
 let timer: number
 let callback: Function
 

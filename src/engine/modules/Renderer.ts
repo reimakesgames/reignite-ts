@@ -3,7 +3,7 @@ import { Camera } from "../classes/Camera"
 import { Vector3 } from "../datatypes/Vector3"
 import { Profiler } from "../debug/Profiler"
 import RenderCube from "../debug/RenderCube"
-import { Projector } from "./Projector"
+import { projector } from "./Projector"
 
 export function renderer(
 	context: CanvasRenderingContext2D,
@@ -24,10 +24,10 @@ export function renderer(
 	const y = new Vector3(0, 1, 0)
 	const z = new Vector3(0, 0, 1)
 
-	const originProjected = Projector(origin, camera)
-	const xProjected = Projector(x, camera)
-	const yProjected = Projector(y, camera)
-	const zProjected = Projector(z, camera)
+	const originProjected = projector(origin, camera)
+	const xProjected = projector(x, camera)
+	const yProjected = projector(y, camera)
+	const zProjected = projector(z, camera)
 
 	context.strokeStyle = "#ff0000"
 	context.beginPath()
@@ -74,7 +74,7 @@ export function renderer(
 	}
 	const floorProjected = floorPoints.map((line) => {
 		return line.map((point) => {
-			return Projector(point, camera)
+			return projector(point, camera)
 		})
 	})
 	Profiler.endProfile()

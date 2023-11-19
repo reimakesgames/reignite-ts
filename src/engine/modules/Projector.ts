@@ -7,7 +7,7 @@ const SCREEN_X = SETTINGS.screenSizeX
 const SCREEN_Y = SETTINGS.screenSizeY
 const RENDER_CLIPPING_MARGIN = SETTINGS.renderClippingPercentage
 
-export function Projector(position: Vector3, camera: Camera): Vector3 {
+export function projector(position: Vector3, camera: Camera): Vector3 {
 	const fieldOfView = camera.fieldOfView * (Math.PI / 180)
 
 	const dirToObj = camera.transform.vectorToObjectSpace(position)
