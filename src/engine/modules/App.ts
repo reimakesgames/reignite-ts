@@ -7,7 +7,7 @@ import { root } from "../classes/Root"
 import { Scene } from "../classes/Scene"
 import { Profiler } from "../debug/Profiler"
 import { profilerGui } from "../debug/ProfilerGui"
-import { FPSBarChart } from "../debug/FPSBarChart"
+import { performanceMetrics } from "../debug/PerformanceMetrics"
 import { SETTINGS } from "../Settings"
 
 let previousFrameTime = 0
@@ -83,20 +83,7 @@ export function main(context: CanvasRenderingContext2D) {
 		const frameTime = performance.now() - currentTime
 
 		Profiler.startProfile("Draw Debug Info")
-		context.fillStyle = "#ffffff"
-		context.font = "12px Arial"
-		context.textAlign = "left"
-		context.textBaseline = "bottom"
-		context.fillText(
-			`Frame time: ${frameTime.toFixed(2)}ms (%${(
-				(frameTime / deltaTime) *
-				100
-			).toFixed(2)})`,
-			10,
-			SETTINGS.screenSizeY - 10
-		)
-
-		FPSBarChart(context, deltaTime, previousFrameTime)
+		performanceMetrics(context, deltaTime, previousFrameTime)
 		Profiler.endProfile()
 
 		Profiler.stopFrame()
