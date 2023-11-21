@@ -1,0 +1,36 @@
+body {
+	background-color: #1f1f1f;
+	color: #ffffff;
+	padding: 32px;
+	margin: 0;
+}
+
+div.horizontal {
+	display: flex;
+	flex-direction: row;
+}
+
+div.operation {
+	font-size: 24px;
+	padding: 8px;
+}
+
+textarea {
+	background-color: #1f1f1f;
+	color: #ffffff;
+	resize: none;
+	font-size: 24px;
+	padding: 8px;
+	width: fit-content;
+	white-space: nowrap;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+div.container {
+	padding: 32px;
+	background-color: #2f2f2f;
+	margin-bottom: 16px;
+}

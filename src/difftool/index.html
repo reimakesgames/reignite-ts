@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>diff tool</title>
+
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>added template</h1>
+			<h2>method</h2>
+			<div class="horizontal">
+				<div class="operation">Added</div>
+				<textarea id="added_f_cn" required rows="1" placeholder="className"></textarea>
+				<div class="operation">.</div>
+				<textarea id="added_f_m" required rows="1" placeholder="method"></textarea>
+				<div class="operation">&#40</div>
+				<textarea id="added_f_p" rows="1" placeholder="params"></textarea>
+				<div class="operation">&#41 -> </div>
+				<textarea id="added_f_rt" required rows="1" placeholder="returnType"></textarea>
+			</div>
+			<button id="added_f">copy</button>
+			<h2>property</h2>
+			<div class="horizontal">
+				<div class="operation">Added</div>
+				<textarea id="added_p_cn" required rows="1" placeholder="className"></textarea>
+				<div class="operation">.</div>
+				<textarea id="added_p_p" required rows="1" placeholder="property"></textarea>
+				<div class="operation">: </div>
+				<textarea id="added_p_t" required rows="1" placeholder="type"></textarea>
+				<div class="operation"> = </div>
+				<textarea id="added_p_v" rows="1" placeholder="optionalValue"></textarea>
+			</div>
+			<button id="added_p">copy</button>
+		</div>
+		<div class="container">
+			<h1>types template</h1>
+			<h2>definition</h2>
+			<div class="horizontal">
+				<div class="operation">type</div>
+				<textarea id="type_d_n" required rows="1" placeholder="typeName"></textarea>
+				<div class="operation">&#58</div>
+				<textarea id="type_d_t" required rows="1" placeholder="type"></textarea>
+			</div>
+			<button id="type_d">copy</button>
+			<h2>generics</h2>
+			<div class="horizontal">
+				<textarea id="type_g_tn" required rows="1" placeholder="typeName"></textarea>
+				<div class="operation">&lt</div>
+				<textarea id="type_g_p" required rows="1" placeholder="params"></textarea>
+				<div class="operation">&gt</div>
+			</div>
+			<button id="type_g">copy</button>
+
+		</div>
+		<script type="module" src="tool.js"></script>
+	</body>
+</html>

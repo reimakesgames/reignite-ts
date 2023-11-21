@@ -1,0 +1,38 @@
+body {
+	background-color: #1f1f1f;
+	color: #ffffff;
+	padding: 32px;
+	font-size: 24px;
+	font-family: monospace;
+	margin: 0;
+}
+
+span {
+	white-space: pre;
+	margin-right: -1ch;
+}
+
+span.symbol {
+	color: #ffffff;
+}
+
+span.added::before {
+	content: "added ";
+	color: #00ff00;
+}
+
+span.keyword {
+	color: #7fff7f;
+}
+
+span.type {
+	color: #7f7fff;
+}
+
+span.name {
+	color: #7fffff;
+}
+
+span.value {
+	color: #ffc300;
+}
