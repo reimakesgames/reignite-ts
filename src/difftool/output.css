@@ -36,3 +36,19 @@ span.name {
 span.value {
 	color: #ffc300;
 }
+
+span.tag {
+	color: #ff7f7f;
+}
+
+span.tag::before {
+	content: "<";
+}
+
+span.tag::after {
+	content: "> ";
+}
+
+div.tabbed {
+	margin-left: 4ch;
+}
