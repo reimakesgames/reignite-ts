@@ -1,0 +1,83 @@
+body {
+	background-color: rgb(40, 42, 58);
+	color: #ffffff;
+	font-size: 16px;
+	font-family: "Fira Code", monospace;
+
+	margin: 0;
+	padding: 16px;
+}
+
+div.generator {
+	background-color: rgb(30, 31, 43);
+	width: calc(100% - 32px);
+
+	padding: 16px;
+	margin-bottom: 16px;
+
+	/* gap on each child */
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	transition: background-color 0.1s ease-in-out;
+
+	border-radius: 16px;
+}
+div.generator:focus-within {
+	background-color: rgb(30, 35, 51);
+}
+
+div.generator div.title {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+div.generator div.description {
+	font-size: 16px;
+}
+
+input {
+	background-color: rgb(40, 42, 58);
+	color: #ffffff;
+	font-size: 16px;
+	font-family: "Fira Code", monospace;
+
+	border: none;
+	border-bottom: 1px solid #ffffff;
+}
+input:focus {
+	/* thin outline */
+	outline: 1px solid #7fffff;
+}
+
+select {
+	background-color: rgb(40, 42, 58);
+	color: #ffffff;
+	font-size: 16px;
+	font-family: "Fira Code", monospace;
+
+	border: none;
+	border-bottom: 1px solid #ffffff;
+}
+
+button {
+	background-color: #ffaec9;
+	color: #ffffff;
+	font-size: 16px;
+	font-family: "Fira Code", monospace;
+
+	width: 24ch;
+
+	border: none;
+	border-radius: 4px;
+	padding: 8px;
+
+	transition: background-color 0.2s ease-in-out;
+}
+button:hover {
+	background-color: rgb(156, 209, 187);
+}
+button:focus {
+	background-color: rgb(156, 209, 187);
+}

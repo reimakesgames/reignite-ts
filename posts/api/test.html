@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>test</title>
+
+		<link rel="stylesheet" href="theme.css" />
+	</head>
+	<body>
+		<div class="added">
+			<span class="modifier">protected</span>
+			<span class="class">Fish</span>
+			<span class="method">pathfindTo</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">location</span>
+					<span class="type">string</span>
+				</div>
+			</div>
+			<span class="return-type">boolean</span>
+		</div>
+		<div class="added">
+			<span class="class">Fish</span>
+			<span class="method">swim</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">speed</span>
+					<span class="type">number</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">location</span>
+					<span class="type">string</span>
+					<span class="defaults">
+						<span class="string">home</span>
+					</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">distance</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="number">10</span>
+					</span>
+				</div>
+			</div>
+			<span class="return-type">void</span>
+		</div>
+		<div class="added">
+			<span class="class">Fish</span>
+			<div class="property-type">
+				<span class="property">name</span>
+				<span class="type">string</span>
+				<span class="defaults">
+					<span class="string">Sunfish</span>
+				</span>
+			</div>
+		</div>
+		<div class="added">
+			<span class="modifier">readonly</span>
+			<span class="class">Fish</span>
+			<div class="property-type">
+				<span class="property" data-readonly="true">gills</span>
+				<span class="type">boolean</span>
+				<span class="defaults">
+					<span class="boolean">true</span>
+				</span>
+			</div>
+		</div>
+		<div class="added">
+			<span class="modifier">abstract</span>
+			<span class="class">Fish</span>
+			<span class="method">serialize</span>
+			<div class="brackets"></div>
+			<span class="return-type">ClassStorage</span>
+		</div>
+		<div class="added">
+			<span class="class">Fish</span>
+			<div class="brackets"></div>
+			<span class="extends">
+				<span class="class">GameObject</span>
+			</span>
+		</div>
+		<div class="added">
+			<span class="modifier">abstract</span>
+			<span class="class">Fish</span>
+			<div class="brackets"></div>
+			<span class="extends">
+				<span class="class">GameObject</span>
+			</span>
+		</div>
+		<div class="array">
+			<span class="type">number</span>
+			<span class="type">boolean</span>
+			<span class="type">number</span>
+			<span class="type">number</span>
+		</div>
+
+		<div class="changed">
+			<div class="referrent">
+				<span class="class">Fish</span>
+				<div class="property-type">
+					<span class="property">air</span>
+					<span class="type">number</span>
+					<div class="lt-gt">
+						<span class="type">T</span>
+						<span class="type">U</span>
+						<span class="type">V</span>
+					</div>
+					<span class="defaults">
+						<span class="number">100</span>
+					</span>
+				</div>
+			</div>
+			<div class="to">
+				<span class="modifier">protected</span>
+				<span class="class">Fish</span>
+				<div class="property-type">
+					<span class="property">air</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="number">100</span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="changed">
+			<div class="referrent"></div>
+			<div class="to"></div>
+		</div>
+
+		<div class="added">
+			<span class="modifier">readonly</span>
+			<span class="class">Fish</span>
+			<div class="property-type">
+				<span class="property">killLogs</span>
+				<span class="type">Array</span>
+				<div class="lt-gt">
+					<span class="type">Fish</span>
+				</div>
+				<span class="defaults"></span>
+			</div>
+		</div>
+
+		<div class="removed">
+			<span class="class">Fish</span>
+			<div class="property-type">
+				<span class="property">legs</span>
+				<span class="type">number</span>
+			</div>
+		</div>
+		<div class="removed">
+			<span class="class">Fish</span>
+			<span class="method">grab</span>
+			<div class="brackets"></div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,300 @@
+:root {
+	--added-keyword-color: rgb(0, 255, 0);
+	--removed-keyword-color: rgb(255, 0, 0);
+	--changed-keyword-color: rgb(255, 255, 0);
+	--to-keyword-color: rgb(255, 101, 122);
+
+	--member-access-operator-color: rgb(136, 141, 148);
+	--brackets-color: rgb(136, 141, 148);
+	--lt-gt-color: rgb(255, 255, 255);
+	--double-quote-color: rgb(136, 141, 148);
+	--comma-color: rgb(136, 141, 148);
+	--optional-color: rgb(255, 101, 122);
+	--default-value-color: rgb(255, 101, 122);
+	--constant-color: rgb(195, 154, 201);
+
+	--super-keyword-color: rgb(175, 185, 189);
+	--modifier-keyword-color: rgb(255, 101, 122);
+	--extends-keyword-color: rgb(255, 101, 122);
+
+	--type-color: rgb(156, 209, 187);
+	--string-color: rgb(255, 215, 109);
+	--number-color: rgb(195, 154, 201);
+	--boolean-color: rgb(195, 154, 201);
+	--parameter-color: rgb(255, 155, 94);
+	--class-color: rgb(156, 209, 187);
+	--array-brackets-color: rgb(255, 101, 122);
+
+	--parameter-type-colon-color: rgb(255, 101, 122);
+	--return-type-arrow-color: rgb(255, 101, 122);
+
+	--method-color: rgb(186, 215, 97);
+	--property-color: rgb(255, 255, 255);
+}
+
+body {
+	background-color: rgb(40, 42, 58);
+	color: #ffffff;
+	font-size: 16px;
+	font-family: "Fira Code", monospace;
+}
+
+/* Diff styles */
+div.added {
+	display: flex;
+	flex-direction: row;
+}
+div.added::before {
+	color: var(--added-keyword-color);
+	content: "added ";
+	white-space: pre;
+}
+
+div.removed {
+	display: flex;
+	flex-direction: row;
+}
+div.removed::before {
+	color: var(--removed-keyword-color);
+	content: "removed ";
+	white-space: pre;
+}
+
+div.changed {
+	display: flex;
+	flex-direction: column;
+}
+div.changed div.referrent::before {
+	color: var(--changed-keyword-color);
+	content: "changed ";
+	white-space: pre;
+}
+div.changed div.referrent {
+	display: flex;
+	flex-direction: row;
+}
+
+div.changed div.to {
+	display: flex;
+	flex-direction: row;
+}
+div.changed div.to::before {
+	color: var(--to-keyword-color);
+	content: "  -> ";
+	margin-left: 3ch;
+	white-space: pre;
+}
+div.changed div.to span.type::before {
+	color: var(--parameter-type-colon-color);
+	content: ": ";
+	font-style: normal;
+	white-space: pre;
+}
+div.changed div.to span.type::after {
+	content: " ";
+	font-style: normal;
+	white-space: pre;
+}
+
+/* "Primitive" classes */
+/* their purpose is a simplistic formatting of text inside them */
+span.type {
+	color: var(--type-color);
+	font-style: italic;
+}
+
+span.class {
+	color: var(--class-color);
+}
+
+span.extends::before {
+	color: var(--extends-keyword-color);
+	content: " extends";
+	font-style: normal;
+	white-space: pre;
+}
+span.extends span.class::after {
+	color: var(--brackets-color);
+	content: "()";
+	font-style: normal;
+	white-space: pre;
+}
+span.extends > * {
+	margin-left: -1ch;
+}
+span.extends :first-child {
+	margin-left: 0;
+}
+
+span.string {
+	color: var(--string-color);
+}
+span.string::before {
+	color: var(--double-quote-color);
+	content: '"';
+}
+span.string::after {
+	color: var(--double-quote-color);
+	content: '"';
+}
+
+span.number {
+	color: var(--number-color);
+}
+
+span.boolean {
+	color: var(--boolean-color);
+}
+
+span.parameter {
+	color: var(--parameter-color);
+}
+
+span.modifier {
+	color: var(--modifier-keyword-color);
+}
+span.modifier::after {
+	color: var(--member-access-operator-color);
+	content: " ";
+	font-style: normal;
+	white-space: pre;
+}
+
+div.tab {
+	margin-left: 4ch;
+}
+
+/* "Wrapper" classes */
+/* their purpose is to format the elements inside them or to add some text before/after them */
+span.array::before {
+	color: var(--array-brackets-color);
+	content: "[";
+}
+span.array::after {
+	color: var(--array-brackets-color);
+	content: "]";
+}
+span.array > ::after {
+	color: var(--comma-color);
+	content: ", ";
+	font-style: normal;
+}
+span.array > :last-child::after {
+	content: "";
+}
+
+span.property {
+	color: var(--property-color);
+}
+span.property::before {
+	color: var(--member-access-operator-color);
+	content: ".";
+}
+span.property[data-readonly="true"] {
+	color: var(--constant-color);
+}
+
+div.property-type {
+	display: flex;
+	flex-direction: row;
+}
+div.property-type > span.type::before {
+	color: var(--parameter-type-colon-color);
+	content: ": ";
+	font-style: normal;
+	white-space: pre;
+}
+div.property-type > span.type::after {
+	color: var(--comma-color);
+	content: " ";
+	font-style: normal;
+	white-space: pre;
+}
+
+span.method {
+	color: var(--method-color);
+}
+span.method::before {
+	color: var(--member-access-operator-color);
+	content: ".";
+}
+
+div.brackets {
+	display: flex;
+	flex-direction: row;
+}
+div.brackets::before {
+	color: var(--brackets-color);
+	content: "(";
+}
+div.brackets::after {
+	color: var(--brackets-color);
+	content: ")";
+}
+/* we're sure that brackets won't be used in other contexts other than method parameters */
+div.brackets div.parameter-type span.parameter[data-optional="true"]::after {
+	color: var(--optional-color);
+	content: "?";
+	font-style: normal;
+	white-space: pre;
+}
+div.brackets div.parameter-type span.type::before {
+	color: var(--parameter-type-colon-color);
+	content: ": ";
+	margin-left: -1ch;
+	font-style: normal;
+	white-space: pre;
+}
+div.brackets div.parameter-type::after {
+	color: var(--comma-color);
+	content: ", ";
+	margin-left: -1ch;
+	font-style: normal;
+	white-space: pre;
+}
+div.brackets div.parameter-type:last-child::after {
+	content: "";
+	margin-left: 0;
+}
+
+div.lt-gt {
+	display: flex;
+	flex-direction: row;
+	margin-left: -1ch;
+	margin-right: 1ch;
+}
+div.lt-gt::before {
+	color: var(--lt-gt-color);
+	content: "<";
+}
+div.lt-gt::after {
+	color: var(--lt-gt-color);
+	content: ">";
+}
+div.lt-gt span.type::after {
+	color: var(--comma-color);
+	content: ", ";
+	font-style: normal;
+	white-space: pre;
+}
+div.lt-gt span.type:last-child::after {
+	content: "";
+}
+
+span.defaults:not(:empty)::before {
+	color: var(--default-value-color);
+	content: "=";
+	font-style: normal;
+	white-space: pre;
+}
+
+span.return-type {
+	color: var(--type-color);
+	font-style: italic;
+}
+span.return-type::before {
+	color: var(--return-type-arrow-color);
+	content: " -> ";
+	font-style: normal;
+	white-space: pre;
+}
