@@ -9,7 +9,13 @@ const POLYMORPHISM = [
 ]
 // readonly flag here
 
-const appendChild = document.body.appendChild.bind(document.body)
+const appendToBody = document.body.appendChild.bind(document.body)
+
+function addToElement(element, elements) {
+	elements.forEach((el) => {
+		element.appendChild(el)
+	})
+}
 
 function stringToHtmlSafe(str) {
 	console.log(str)
@@ -185,9 +191,8 @@ function DefaultValueGenerator() {
 		navigator.clipboard.writeText(output)
 	})
 
-	row.appendChild(value)
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(row, [value])
+	addToElement(generator, [row, copy])
 
 	return generator
 }
@@ -210,9 +215,8 @@ function GenericGenerator() {
 		navigator.clipboard.writeText(output)
 	})
 
-	row.appendChild(generic)
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(row, [generic])
+	addToElement(generator, [row, copy])
 
 	return generator
 }
@@ -258,14 +262,15 @@ function ParameterTypedGenerator() {
 		navigator.clipboard.writeText(parameterStr)
 	})
 
-	row.appendChild(parameterName)
-	row.appendChild(optionalFlag.row)
-	row.appendChild(colon)
-	row.appendChild(parameterType)
-	row.appendChild(equals)
-	row.appendChild(defaultValue)
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(row, [
+		parameterName,
+		optionalFlag.row,
+		colon,
+		parameterType,
+		equals,
+		defaultValue,
+	])
+	addToElement(generator, [row, copy])
 
 	return generator
 }
@@ -296,13 +301,8 @@ function AddedClassGenerator() {
 		navigator.clipboard.writeText(classStr)
 	})
 
-	row.appendChild(abstract.row)
-	row.appendChild(className)
-	row.appendChild(params)
-	row.appendChild(colon)
-	row.appendChild(baseClass)
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(row, [abstract.row, className, params, colon, baseClass])
+	addToElement(generator, [row, copy])
 
 	return generator
 }
@@ -368,18 +368,19 @@ function AddedMethodGenerator() {
 		navigator.clipboard.writeText(methodStr)
 	})
 
-	row.appendChild(modifier)
-	row.appendChild(staticFlag.row)
-	row.appendChild(polymorphism)
-	row.appendChild(readonlyFlag.row)
-	row.appendChild(className)
-	row.appendChild(dot)
-	row.appendChild(methodName)
-	row.appendChild(brackets)
-	row.appendChild(colon)
-	row.appendChild(returnType)
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(row, [
+		modifier,
+		staticFlag.row,
+		polymorphism,
+		readonlyFlag.row,
+		className,
+		dot,
+		methodName,
+		brackets,
+		colon,
+		returnType,
+	])
+	addToElement(generator, [row, copy])
 
 	return generator
 }
@@ -452,20 +453,21 @@ function AddedPropertyGenerator() {
 		navigator.clipboard.writeText(propertyStr)
 	})
 
-	row.appendChild(modifier)
-	row.appendChild(staticFlag.row)
-	row.appendChild(polymorphism)
-	row.appendChild(readonlyFlag.row)
-	row.appendChild(className)
-	row.appendChild(dot)
-	row.appendChild(propertyName)
-	row.appendChild(optionalFlag.row)
-	row.appendChild(colon)
-	row.appendChild(propertyType)
-	row.appendChild(equals)
-	row.appendChild(defaultValue)
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(row, [
+		modifier,
+		staticFlag.row,
+		polymorphism,
+		readonlyFlag.row,
+		className,
+		dot,
+		propertyName,
+		optionalFlag.row,
+		colon,
+		propertyType,
+		equals,
+		defaultValue,
+	])
+	addToElement(generator, [row, copy])
 
 	return generator
 }
@@ -486,8 +488,7 @@ function ChangedGenerator() {
 		navigator.clipboard.writeText(output)
 	})
 
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(generator, [row, copy])
 
 	return generator
 }
@@ -502,16 +503,16 @@ function RemovedGenerator() {
 		navigator.clipboard.writeText(output)
 	})
 
-	generator.appendChild(row)
-	generator.appendChild(copy)
+	addToElement(generator, [row, copy])
 
 	return generator
 }
-appendChild(DefaultValueGenerator())
-appendChild(GenericGenerator())
-appendChild(ParameterTypedGenerator())
-appendChild(ChangedGenerator())
-appendChild(RemovedGenerator())
-appendChild(AddedClassGenerator())
-appendChild(AddedMethodGenerator())
-appendChild(AddedPropertyGenerator())
+
+appendToBody(DefaultValueGenerator())
+appendToBody(GenericGenerator())
+appendToBody(ParameterTypedGenerator())
+appendToBody(ChangedGenerator())
+appendToBody(RemovedGenerator())
+appendToBody(AddedClassGenerator())
+appendToBody(AddedMethodGenerator())
+appendToBody(AddedPropertyGenerator())
