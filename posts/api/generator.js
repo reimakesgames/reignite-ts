@@ -130,10 +130,9 @@ function GeneratorSelect(options) {
 }
 
 function GeneratorFlag(name) {
-	const id =
-		name.toLowerCase() +
-		"-flag" +
-		Math.random().toString(36).substring(2, 9)
+	const id = `${name.toLowerCase()}-flag${Math.random()
+		.toString(36)
+		.substring(2, 9)}`
 
 	const checkbox = document.createElement("input")
 	checkbox.type = "checkbox"
@@ -148,7 +147,7 @@ function GeneratorFlag(name) {
 	row.appendChild(checkbox)
 	row.appendChild(label)
 
-	return { row: row, checkbox: checkbox }
+	return { row, checkbox }
 }
 
 function GeneratorCopy(callback) {
@@ -240,25 +239,20 @@ function ParameterTypedGenerator() {
 	const row = GeneratorRow()
 
 	const parameterName = GeneratorText("parameterName")
-	const optionalFlag = GeneratorFlag("optional", "Optional")
+	const optionalFlag = GeneratorFlag("optional")
 	const colon = GeneratorSpan(":")
 	const parameterType = GeneratorText("parameterType")
 	const equals = GeneratorSpan("=")
 	const defaultValue = GeneratorText("defaultValue")
 	const copy = GeneratorCopy(() => {
-		let parameterStr =
-			'\t<div class="parameter-type">\n' +
-			'\t\t<span class="parameter"' +
-			(optionalFlag.checkbox.checked ? '  data-optional="true">' : ">") +
-			parameterName.value +
-			"</span>\n" +
-			'\t\t<span class="type">' +
-			parameterType.value +
-			"</span>\n" +
-			'\t\t<span class="defaults">' +
-			primitiveGenerator(defaultValue.value) +
-			"</span>\n" +
-			"\t</div>"
+		let parameterStr = `<div class="parameter-type">
+	<span class="parameter"${
+		optionalFlag.checkbox.checked ? '  data-optional="true"' : ""
+	}>${parameterName.value}</span>
+	<span class="type">${parameterType.value}</span>
+	<span class="defaults">${primitiveGenerator(defaultValue.value)}</span>
+</div>
+`
 		navigator.clipboard.writeText(parameterStr)
 	})
 
@@ -279,25 +273,23 @@ function AddedClassGenerator() {
 	const generator = Generator("Added Class", "Generates a class")
 	const row = GeneratorRow()
 
-	const abstract = GeneratorFlag("abstract", "Abstract")
+	const abstract = GeneratorFlag("abstract")
 	const className = GeneratorText("className")
 	const params = GeneratorSpan("()")
 	const colon = GeneratorSpan("extends")
 	const baseClass = GeneratorText("baseClass")
 	const copy = GeneratorCopy(() => {
-		let classStr =
-			'<div class="added">\n' +
-			'\t<span class="class">' +
-			className.value +
-			"</span>\n" +
-			'\t<div class="brackets">\n\n' +
-			"\t</div>\n" +
-			'\t<span class="extends">\n' +
-			'\t\t<span class="class">' +
-			baseClass.value +
-			"</span>\n" +
-			"\t</span>\n" +
-			"</div>"
+		let classStr = `<div class="added">
+	${abstract.checkbox.checked ? '<span class="modifier">abstract</span>\n' : ""}
+	<span class="class">${className.value}</span>
+	<div class="brackets">
+
+	</div>
+	<span class="extends">
+		<span class="class">${baseClass.value}</span>
+	</span>
+</div>
+`
 		navigator.clipboard.writeText(classStr)
 	})
 
@@ -324,9 +316,9 @@ function AddedMethodGenerator() {
 	const row = GeneratorRow()
 
 	const modifier = GeneratorSelect(ACCESS_MODIF)
-	const staticFlag = GeneratorFlag("static", "Static")
+	const staticFlag = GeneratorFlag("static")
 	const polymorphism = GeneratorSelect(POLYMORPHISM)
-	const readonlyFlag = GeneratorFlag("readonly", "Readonly")
+	const readonlyFlag = GeneratorFlag("readonly")
 	const className = GeneratorText("className")
 	const dot = GeneratorSpan(".")
 	const methodName = GeneratorText("methodName")
@@ -335,36 +327,31 @@ function AddedMethodGenerator() {
 	const returnType = GeneratorText("returnType")
 	const copy = GeneratorCopy(() => {
 		let accessModifHtml = modifier.value
-			? `\t<span class="modifier">${modifier.value}</span>\n`
+			? `<span class="modifier">${modifier.value}</span>`
 			: ""
 		let staticFlagHtml = staticFlag.checkbox.checked
-			? `\t<span class="modifier">static</span>\n`
+			? `<span class="modifier">static</span>`
 			: ""
 		let polymorphismHtml = polymorphism.value
-			? `\t<span class="modifier">${polymorphism.value}</span>\n`
+			? `<span class="modifier">${polymorphism.value}</span>`
 			: ""
 		let readonlyFlagHtml = readonlyFlag.checkbox.checked
-			? `\t<span class="modifier">readonly</span>\n`
+			? `<span class="modifier">readonly</span>`
 			: ""
 
-		let methodStr =
-			'<div class="added">\n' +
-			accessModifHtml +
-			staticFlagHtml +
-			polymorphismHtml +
-			readonlyFlagHtml +
-			'\t<span class="class">' +
-			className.value +
-			"</span>\n" +
-			'\t<span class="method">' +
-			methodName.value +
-			"</span>\n" +
-			'\t<div class="brackets">\n\n' +
-			"\t</div>\n" +
-			'\t<span class="return-type">' +
-			returnType.value +
-			"</span>\n" +
-			"</div>"
+		let methodStr = `<div class="added">
+	${accessModifHtml}
+	${staticFlagHtml}
+	${polymorphismHtml}
+	${readonlyFlagHtml}
+	<span class="class">${className.value}</span>
+	<span class="method">${methodName.value}</span>
+	<div class="brackets">
+
+	</div>
+	<span class="return-type">${returnType.value}</span>
+</div>
+`
 		navigator.clipboard.writeText(methodStr)
 	})
 
@@ -403,53 +390,48 @@ function AddedPropertyGenerator() {
 	// TODO: ADD data-readonly="true" to property if readonlyFlag is checked
 
 	const modifier = GeneratorSelect(ACCESS_MODIF)
-	const staticFlag = GeneratorFlag("static", "Static")
+	const staticFlag = GeneratorFlag("static")
 	const polymorphism = GeneratorSelect(POLYMORPHISM)
-	const readonlyFlag = GeneratorFlag("readonly", "Readonly")
+	const readonlyFlag = GeneratorFlag("readonly")
 	const className = GeneratorText("className")
 	const dot = GeneratorSpan(".")
 	const propertyName = GeneratorText("propertyName")
-	const optionalFlag = GeneratorFlag("optional", "Optional")
+	const optionalFlag = GeneratorFlag("optional")
 	const colon = GeneratorSpan(":")
 	const propertyType = GeneratorText("propertyType")
 	const equals = GeneratorSpan("=")
 	const defaultValue = GeneratorText("defaultValue")
 	const copy = GeneratorCopy(() => {
 		let accessModifHtml = modifier.value
-			? `\t<span class="modifier">${modifier.value}</span>\n`
+			? `<span class="modifier">${modifier.value}</span>`
 			: ""
 		let staticFlagHtml = staticFlag.checkbox.checked
-			? `\t<span class="modifier">static</span>\n`
+			? `<span class="modifier">static</span>`
 			: ""
 		let polymorphismHtml = polymorphism.value
-			? `\t<span class="modifier">${polymorphism.value}</span>\n`
+			? `<span class="modifier">${polymorphism.value}</span>`
 			: ""
 		let readonlyFlagHtml = readonlyFlag.checkbox.checked
-			? `\t<span class="modifier">readonly</span>\n`
+			? `<span class="modifier">readonly</span>`
 			: ""
 
-		let propertyStr =
-			'<div class="added">\n' +
-			accessModifHtml +
-			staticFlagHtml +
-			polymorphismHtml +
-			readonlyFlagHtml +
-			'\t<span class="class">' +
-			className.value +
-			"</span>\n" +
-			'\t<div class="property-type">\n' +
-			'\t\t<span class="property"' +
-			(optionalFlag.checkbox.checked ? '  data-optional="true">' : ">") +
-			propertyName.value +
-			"</span>\n" +
-			'\t\t<span class="type">' +
-			propertyType.value +
-			"</span>\n" +
-			'\t\t<span class="defaults">' +
-			primitiveGenerator(defaultValue.value) +
-			"</span>\n" +
-			"\t</div>\n" +
-			"</div>"
+		let propertyStr = `<div class="added">
+	${accessModifHtml}
+	${staticFlagHtml}
+	${polymorphismHtml}
+	${readonlyFlagHtml}
+	<span class="class">${className.value}</span>
+	<div class="property-type">
+		<span class="property"${
+			optionalFlag.checkbox.checked ? '  data-optional="true"' : ""
+		}${readonlyFlag.checkbox.checked ? '  data-readonly="true"' : ""}>${
+			propertyName.value
+		}</span>
+		<span class="type">${propertyType.value}</span>
+		<span class="defaults">${primitiveGenerator(defaultValue.value)}</span>
+	</div>
+</div>
+`
 		navigator.clipboard.writeText(propertyStr)
 	})
 
