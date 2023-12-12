@@ -44,6 +44,1292 @@
 					</span>
 				</div>
 			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Matrix2d</span>
+				<span class="method" data-accessor="true">determinant</span>
+				<div class="brackets"></div>
+				<span class="return-type">number</span>
+			</div>
+		</div>
+		<br />
+		<div class="added">
+			<span class="modifier">abstract</span>
+			<span class="class">GameObject</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">parent</span>
+					<span class="type">GameObject</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="added">
+			<span class="modifier">abstract</span>
+			<span class="class">GameObject</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">props</span>
+					<span class="type">PropertiesOf</span>
+					<div class="lt-gt">
+						<span class="type">T</span>
+					</div>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">parent</span>
+					<span class="type">GameObject</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="class">GameObject</span>
+				<div class="property-type">
+					<span class="property">name</span>
+					<span class="type">string</span>
+					<span class="defaults">
+						<span class="string">GameObject</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">GameObject</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">children</span>
+					<span class="type">GameObject</span>
+					<span class="array"></span>
+					<span class="defaults">
+						<span class="array"></span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="accessor">set</span>
+
+				<span class="class">GameObject</span>
+				<span class="method" data-accessor="true">parent</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">parent</span>
+						<span class="type">GameObject</span>
+						<span class="union"></span>
+						<span class="type">null</span>
+					</div>
+				</div>
+				<span class="return-type"></span>
+			</div>
+
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">GameObject</span>
+				<span class="method" data-accessor="true">parent</span>
+				<div class="brackets"></div>
+				<span class="return-type">
+					<span class="type">GameObject</span>
+					<span class="union"></span>
+					<span class="type">null</span>
+				</span>
+			</div>
+			<div class="added">
+				<span class="class">GameObject</span>
+				<span class="method">isDescendantOf</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">parent</span>
+						<span class="type">GameObject</span>
+					</div>
+				</div>
+				<span class="return-type">boolean</span>
+			</div>
+			<div class="added">
+				<span class="modifier">abstract</span>
+				<span class="class">GameObject</span>
+				<span class="method">serialize</span>
+				<div class="brackets"></div>
+				<span class="return-type">
+					<span class="type">ClassStorage</span>
+					<span class="union"></span>
+					<span class="type">void</span>
+				</span>
+			</div>
+			<div class="added">
+				<span class="modifier">abstract</span>
+				<span class="class">GameObject</span>
+				<span class="method">update</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+			<div class="added">
+				<span class="modifier">abstract</span>
+				<span class="class">GameObject</span>
+				<span class="method">render</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+		</div>
+		<br />
+		<div class="added">
+			<span class="class">Vector3</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">X</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="string">0</span>
+					</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">Y</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="string">0</span>
+					</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">Z</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="string">0</span>
+					</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Vector3</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">X</span>
+					<span class="type">number</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Vector3</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">Y</span>
+					<span class="type">number</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Vector3</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">Z</span>
+					<span class="type">number</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Vector3</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">magnitude</span>
+					<span class="type">number</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Vector3</span>
+				<span class="method" data-accessor="true">unit</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">angle</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">axis</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">number</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">cross</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">dot</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">number</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">fuzzyEq</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter" data-optional="true"
+							>epsilon</span
+						>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">boolean</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">lerp</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">alpha</span>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">max</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">min</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+						<span class="union"></span>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">divide</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+						<span class="union"></span>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">add</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">subtract</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">negate</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector3</span>
+				<span class="method">serialize</span>
+				<div class="brackets"></div>
+				<span class="return-type">DatatypeStorage</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector3</span>
+				<span class="method">zero</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector3</span>
+				<span class="method">one</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector3</span>
+				<span class="method">unitX</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector3</span>
+				<span class="method">unitY</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector3</span>
+				<span class="method">unitZ</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+		</div>
+		<br />
+		<div class="added">
+			<span class="class">Matrix3d</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">matrix</span>
+					<span class="type">Matrix3x3</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Matrix3d</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">matrix</span>
+					<span class="type">Matrix3x3</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Matrix3d</span>
+				<span class="method" data-accessor="true">rightVector</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Matrix3d</span>
+				<span class="method" data-accessor="true">upVector</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Matrix3d</span>
+				<span class="method" data-accessor="true">lookVector</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Matrix3d</span>
+				<span class="method">determinant</span>
+				<div class="brackets"></div>
+				<span class="return-type">number</span>
+			</div>
+			<div class="added">
+				<span class="class">Matrix3d</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Matrix3d</span>
+					</div>
+				</div>
+				<span class="return-type">Matrix3d</span>
+			</div>
+			<div class="added">
+				<span class="class">Matrix3d</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Matrix3d</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">scalar</span>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">Matrix3d</span>
+			</div>
+			<div class="added">
+				<span class="class">Matrix3d</span>
+				<span class="method">inverse</span>
+				<div class="brackets"></div>
+				<span class="return-type">Matrix3d</span>
+			</div>
+			<div class="added">
+				<span class="class">Matrix3d</span>
+				<span class="method">vectorToObjectSpace</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">vector</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+
+			<div class="added">
+				<span class="class">Matrix3d</span>
+				<span class="method">serialize</span>
+				<div class="brackets"></div>
+				<span class="return-type">DatatypeStorage</span>
+			</div>
+
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="class">Matrix3d</span>
+				<span class="method">angles</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">x</span>
+						<span class="type">number</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">y</span>
+						<span class="type">number</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">z</span>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">Matrix3d</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="class">Matrix3d</span>
+				<span class="method">lookAt</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">position</span>
+						<span class="type">Vector3</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">target</span>
+						<span class="type">Vector3</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">up</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Matrix3d</span>
+			</div>
+
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Matrix3d</span>
+				<span class="method">IDENTITY</span>
+				<div class="brackets"></div>
+				<span class="return-type">Matrix3d</span>
+			</div>
+		</div>
+		<br />
+		<div class="added">
+			<span class="class">Transform</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">position</span>
+					<span class="type">Vector3</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter">rotation</span>
+					<span class="type">Matrix3d</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="added">
+			<span class="class">Transform</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">x</span>
+					<span class="type">number</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter">y</span>
+					<span class="type">number</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter">z</span>
+					<span class="type">number</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="added">
+			<span class="class">Transform</span>
+			<div class="brackets"></div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Transform</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">position</span>
+					<span class="type">Vector3</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Transform</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">rotation</span>
+					<span class="type">Matrix3d</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Transform</span>
+				<span class="method" data-accessor="true">lookVector</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Transform</span>
+				<span class="method" data-accessor="true">upVector</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Transform</span>
+				<span class="method" data-accessor="true">rightVector</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">inverse</span>
+				<div class="brackets"></div>
+				<span class="return-type">Transform</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Transform</span>
+					</div>
+				</div>
+				<span class="return-type">Transform</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">add</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Transform</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">subtract</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Transform</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">toWorldSpace</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Transform</span>
+					</div>
+				</div>
+				<span class="return-type">Transform</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">toObjectSpace</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Transform</span>
+					</div>
+				</div>
+				<span class="return-type">Transform</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">vectorToWorldSpace</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">vectorToObjectSpace</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">pointToWorldSpace</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">pointToObjectSpace</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Vector3</span>
+			</div>
+			<div class="added">
+				<span class="class">Transform</span>
+				<span class="method">serialize</span>
+				<div class="brackets"></div>
+				<span class="return-type">DatatypeStorage</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="class">Transform</span>
+				<span class="method">lookAt</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">position</span>
+						<span class="type">Vector3</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">target</span>
+						<span class="type">Vector3</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter" data-optional="true">up</span>
+						<span class="type">Vector3</span>
+					</div>
+				</div>
+				<span class="return-type">Transform</span>
+			</div>
+		</div>
+		<br />
+		<div class="added">
+			<span class="class">Vector2</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">X</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="string">0</span>
+					</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">Y</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="string">0</span>
+					</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">Object</span>
+			</span>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Vector2</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">X</span>
+					<span class="type">number</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">Vector2</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">Y</span>
+					<span class="type">number</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Vector2</span>
+				<span class="method" data-accessor="true">magnitude</span>
+				<div class="brackets"></div>
+				<span class="return-type">number</span>
+			</div>
+			<div class="added">
+				<span class="accessor">get</span>
+				<span class="class">Vector2</span>
+				<span class="method" data-accessor="true">unit</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">angle</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">number</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">cross</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">number</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">dot</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">number</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">fuzzyEq</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter" data-optional="true"
+							>epsilon</span
+						>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">boolean</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">lerp</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+					<div class="parameter-type">
+						<span class="parameter">alpha</span>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">max</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">min</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">scalar</span>
+						<span class="type">number</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">multiply</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">divide</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">add</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">subtract</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">other</span>
+						<span class="type">Vector2</span>
+					</div>
+				</div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="class">Vector2</span>
+				<span class="method">negate</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector2</span>
+				<span class="method">zero</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector2</span>
+				<span class="method">one</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector2</span>
+				<span class="method">unitX</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector2</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="accessor">get</span>
+				<span class="class">Vector2</span>
+				<span class="method">unitY</span>
+				<div class="brackets"></div>
+				<span class="return-type">Vector2</span>
+			</div>
+		</div>
+		<br />
+
+		<div class="added">
+			<span class="class">Camera</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">parent</span>
+					<span class="type">GameObject</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">GameObject</span>
+			</span>
+		</div>
+		<div class="added">
+			<span class="class">Camera</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">props</span>
+					<span class="type">PropertiesOf</span>
+					<div class="lt-gt">
+						<span class="type">Camera</span>
+					</div>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">parent</span>
+					<span class="type">GameObject</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">GameObject</span>
+			</span>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="class">Camera</span>
+				<div class="property-type">
+					<span class="property">transform</span>
+					<span class="type">Transform</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="class">Camera</span>
+				<div class="property-type">
+					<span class="property">fieldOfView</span>
+					<span class="type">number</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="class">Camera</span>
+				<span class="method">serialize</span>
+				<div class="brackets"></div>
+				<span class="return-type">ClassStorage</span>
+			</div>
+			<div class="added">
+				<span class="class">Camera</span>
+				<span class="method">update</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+
+			<div class="added">
+				<span class="class">Camera</span>
+				<span class="method">render</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+		</div>
+
+		<br />
+
+		<div class="added">
+			<span class="class">Scene</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">parent</span>
+					<span class="type">GameObject</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">GameObject</span>
+			</span>
+		</div>
+		<div class="added">
+			<span class="class">Scene</span>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">props</span>
+					<span class="type">PropertiesOf</span>
+					<div class="lt-gt">
+						<span class="type">Scene</span>
+					</div>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter" data-optional="true">parent</span>
+					<span class="type">GameObject</span>
+				</div>
+			</div>
+			<span class="extends">
+				<span class="class">GameObject</span>
+			</span>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="class">Scene</span>
+				<div class="property-type">
+					<span class="property">name</span>
+					<span class="type">string</span>
+					<span class="defaults"></span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="class">Scene</span>
+				<div class="property-type">
+					<span class="property">currentCamera</span>
+					<span class="type">Camera</span>
+					<span class="union"></span>
+					<span class="type">null</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="class">Scene</span>
+				<span class="method">serialize</span>
+				<div class="brackets"></div>
+				<span class="return-type">ClassStorage</span>
+			</div>
+			<div class="added">
+				<span class="class">Scene</span>
+				<span class="method">update</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+
+			<div class="added">
+				<span class="class">Scene</span>
+				<span class="method">render</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+		</div>
+		<br />
+
+		<div class="added">
+			<div class="property-type">
+				<span class="property" data-readonly="true">root</span>
+				<span class="type">Root</span>
+			</div>
+		</div>
+		<div class="added">
+			<div class="property-type">
+				<span class="property" data-readonly="true">SETTINGS</span>
+				<span class="type">Object</span>
+			</div>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<div class="property-type">
+					<span class="property">screenSizeX</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="number">1920</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">screenSizeY</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="number">1080</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">screenFill</span>
+					<span class="type">boolean</span>
+					<span class="defaults">
+						<span class="boolean">false</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">preloaderThreads</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="number">4</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">renderClippingPercentage</span>
+					<span class="type">number</span>
+					<span class="defaults">
+						<span class="number">1</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">wireframeOn3dObjects</span>
+					<span class="type">boolean</span>
+					<span class="defaults">
+						<span class="boolean">false</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">enableSplashScreen</span>
+					<span class="type">boolean</span>
+					<span class="defaults">
+						<span class="boolean">true</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">enableLogging</span>
+					<span class="type">boolean</span>
+					<span class="defaults">
+						<span class="boolean">true</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">enableFpsCounter</span>
+					<span class="type">boolean</span>
+					<span class="defaults">
+						<span class="boolean">true</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">enableProfiler</span>
+					<span class="type">boolean</span>
+					<span class="defaults">
+						<span class="boolean">true</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<div class="property-type">
+					<span class="property">imageSmoothingQuality</span>
+					<span class="type">ImageSmoothingQuality</span>
+					<span class="defaults">
+						<span class="string">high</span>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<br />
+		<div class="added">
+			<span class="interface">ClassStorage</span>
+		</div>
+		<div class="added">
+			<span class="interface">DatatypeStorage</span>
+		</div>
+		<div class="added">
+			<span class="type">PropertiesOf</span>
+			<div class="lt-gt">
+				<span class="type">T</span>
+			</div>
+		</div>
+		<div class="added">
+			<span class="type">Matrix3x3</span>
 		</div>
 	</body>
 </html>

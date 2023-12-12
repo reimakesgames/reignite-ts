@@ -490,11 +490,51 @@ function RemovedGenerator() {
 	return generator
 }
 
+function AccessorGenerator() {
+	const generator = Generator("Accessor", "Generates a accessor")
+	const row = GeneratorRow()
+
+	const get = GeneratorFlag("get")
+	const set = GeneratorFlag("set")
+	const copy = GeneratorCopy(() => {
+		let output = `
+	${get.checkbox.checked ? '<span class="accessor">get</span>' : ""}
+	${set.checkbox.checked ? '<span class="accessor">set</span>' : ""}
+	`
+		navigator.clipboard.writeText(output)
+	})
+
+	addToElement(row, [get.row, set.row])
+	addToElement(generator, [row, copy])
+
+	return generator
+}
+
+function InterfaceGenerator() {
+	const generator = Generator("Interface", "Generates a interface")
+	const row = GeneratorRow()
+
+	const name = GeneratorText("name")
+	const copy = GeneratorCopy(() => {
+		let output = `<div class="added">
+	<span class="interface">${name.value}</span>
+</div>`
+		navigator.clipboard.writeText(output)
+	})
+
+	addToElement(row, [name])
+	addToElement(generator, [row, copy])
+
+	return generator
+}
+
 appendToBody(DefaultValueGenerator())
 appendToBody(GenericGenerator())
 appendToBody(ParameterTypedGenerator())
 appendToBody(ChangedGenerator())
 appendToBody(RemovedGenerator())
+appendToBody(AccessorGenerator())
+appendToBody(InterfaceGenerator())
 appendToBody(AddedClassGenerator())
 appendToBody(AddedMethodGenerator())
 appendToBody(AddedPropertyGenerator())

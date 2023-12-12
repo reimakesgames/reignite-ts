@@ -18,6 +18,9 @@
 	--extends-keyword-color: rgb(255, 101, 122);
 
 	--type-color: rgb(156, 209, 187);
+	--type-op-color: rgb(255, 101, 122);
+	--accessor-color: rgb(156, 209, 187);
+	--interface-color: rgb(156, 209, 187);
 	--string-color: rgb(255, 215, 109);
 	--number-color: rgb(195, 154, 201);
 	--boolean-color: rgb(195, 154, 201);
@@ -101,6 +104,27 @@ div.changed div.to span.type::after {
 span.type {
 	color: var(--type-color);
 	font-style: italic;
+}
+span.type + div.lt-gt {
+	display: inline-flex;
+	flex-direction: row;
+	margin-left: 0ch;
+}
+span.type + span.array {
+	margin-left: -1ch;
+	margin-right: 1ch;
+}
+
+span.union::before {
+	color: var(--type-op-color);
+	font-style: normal;
+	content: "|";
+}
+
+span.intersection::before {
+	color: var(--type-op-color);
+	font-style: normal;
+	content: "&";
 }
 
 span.class {
@@ -186,7 +210,7 @@ span.array > :last-child::after {
 span.property {
 	color: var(--property-color);
 }
-span.property::before {
+span.class + div.property-type > span.property::before {
 	color: var(--member-access-operator-color);
 	content: ".";
 }
@@ -198,7 +222,7 @@ div.property-type {
 	display: flex;
 	flex-direction: row;
 }
-div.property-type > span.type::before {
+div.property-type > span.property + span.type::before {
 	color: var(--parameter-type-colon-color);
 	content: ": ";
 	font-style: normal;
@@ -210,17 +234,23 @@ div.property-type > span.type::after {
 	font-style: normal;
 	white-space: pre;
 }
+div.property-type > span.union {
+	margin-right: 1ch;
+}
 
 span.method {
 	color: var(--method-color);
 }
-span.method::before {
+span.class + span.method::before {
 	color: var(--member-access-operator-color);
 	content: ".";
 }
+span.method[data-accessor="true"] {
+	color: var(--property-color);
+}
 
 div.brackets {
-	display: flex;
+	display: inline-flex;
 	flex-direction: row;
 }
 div.brackets::before {
@@ -232,33 +262,42 @@ div.brackets::after {
 	content: ")";
 }
 /* we're sure that brackets won't be used in other contexts other than method parameters */
-div.brackets div.parameter-type span.parameter[data-optional="true"]::after {
+div.brackets
+	> div.parameter-type
+	> span.parameter[data-optional="true"]::after {
 	color: var(--optional-color);
 	content: "?";
 	font-style: normal;
 	white-space: pre;
 }
-div.brackets div.parameter-type span.type::before {
+div.brackets > div.parameter-type > span.parameter + span.type::before {
 	color: var(--parameter-type-colon-color);
 	content: ": ";
 	margin-left: -1ch;
 	font-style: normal;
 	white-space: pre;
 }
-div.brackets div.parameter-type::after {
+div.brackets > div.parameter-type > div.lt-gt {
+	margin-left: -1ch;
+	margin-right: 0ch;
+}
+div.brackets > div.parameter-type {
+	width: max-content;
+}
+div.brackets > div.parameter-type::after {
 	color: var(--comma-color);
 	content: ", ";
 	margin-left: -1ch;
 	font-style: normal;
 	white-space: pre;
 }
-div.brackets div.parameter-type:last-child::after {
+div.brackets > div.parameter-type:last-child::after {
 	content: "";
 	margin-left: 0;
 }
 
 div.lt-gt {
-	display: flex;
+	display: inline-flex;
 	flex-direction: row;
 	margin-left: -1ch;
 	margin-right: 1ch;
@@ -292,9 +331,27 @@ span.return-type {
 	color: var(--type-color);
 	font-style: italic;
 }
-span.return-type::before {
+span.return-type:not(:empty)::before {
 	color: var(--return-type-arrow-color);
 	content: " -> ";
 	font-style: normal;
 	white-space: pre;
+}
+span.return-type > span.type:first-child {
+	margin-left: -1ch;
+}
+
+span.accessor {
+	color: var(--accessor-color);
+	font-style: italic;
+	margin-right: 1ch;
+}
+
+span.interface {
+	color: var(--interface-color);
+}
+span.interface::before {
+	color: var(--interface-color);
+	content: "interface ";
+	font-style: italic;
 }
