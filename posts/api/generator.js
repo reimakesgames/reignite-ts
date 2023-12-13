@@ -372,6 +372,67 @@ function AddedMethodGenerator() {
 	return generator
 }
 
+// generator for a global function, same as method but without class
+function AddedFunctionGenerator() {
+	const generator = Generator(
+		"Added Function",
+		"Generates a function with no params, use Parameter Typed for params"
+	)
+	const row = GeneratorRow()
+
+	const modifier = GeneratorSelect(ACCESS_MODIF)
+	const staticFlag = GeneratorFlag("static")
+	const polymorphism = GeneratorSelect(POLYMORPHISM)
+	const readonlyFlag = GeneratorFlag("readonly")
+
+	const functionName = GeneratorText("functionName")
+	const brackets = GeneratorSpan("()")
+	const colon = GeneratorSpan(":")
+	const returnType = GeneratorText("returnType")
+	const copy = GeneratorCopy(() => {
+		let accessModifHtml = modifier.value
+			? `<span class="modifier">${modifier.value}</span>`
+			: ""
+		let staticFlagHtml = staticFlag.checkbox.checked
+			? `<span class="modifier">static</span>`
+			: ""
+		let polymorphismHtml = polymorphism.value
+			? `<span class="modifier">${polymorphism.value}</span>`
+			: ""
+		let readonlyFlagHtml = readonlyFlag.checkbox.checked
+			? `<span class="modifier">readonly</span>`
+			: ""
+
+		let methodStr = `<div class="added">
+	${accessModifHtml}
+	${staticFlagHtml}
+	${polymorphismHtml}
+	${readonlyFlagHtml}
+	<span class="function">${functionName.value}</span>
+	<div class="brackets">
+
+	</div>
+	<span class="return-type">${returnType.value}</span>
+</div>
+`
+		navigator.clipboard.writeText(methodStr)
+	})
+
+	addToElement(row, [
+		modifier,
+		staticFlag.row,
+		polymorphism,
+		readonlyFlag.row,
+		functionName,
+		brackets,
+		colon,
+		returnType,
+	])
+	addToElement(generator, [row, copy])
+
+	return generator
+}
+
 // <div class="added">
 // 	<span class="modifier">readonly</span>
 // 	<span class="class">Fish</span>
@@ -536,5 +597,6 @@ appendToBody(RemovedGenerator())
 appendToBody(AccessorGenerator())
 appendToBody(InterfaceGenerator())
 appendToBody(AddedClassGenerator())
+appendToBody(AddedFunctionGenerator())
 appendToBody(AddedMethodGenerator())
 appendToBody(AddedPropertyGenerator())
