@@ -1,4 +1,4 @@
-import { SETTINGS } from "../Settings"
+import { Settings } from "../Settings"
 import { Profiler } from "./Profiler"
 
 const HEX_COLORS: string[] = [
@@ -20,19 +20,19 @@ const PIXELS_PER_MILISECOND = 500
 const PROPORTIONAL_SCALING = false
 
 export function profilerGui(ctx: CanvasRenderingContext2D, frameTime: number) {
-	if (SETTINGS.enableProfiler === false) {
+	if (Settings.enableProfiler === false) {
 		return
 	}
 	const frame = Profiler.getFrame()
 
 	const firstLabel = frame.labels[0]
 	const scale = PROPORTIONAL_SCALING
-		? SETTINGS.screenSizeX / frameTime
+		? Settings.screenSizeX / frameTime
 		: PIXELS_PER_MILISECOND
 
 	for (const label of frame.labels) {
 		const positionX = (label.start - (firstLabel?.start || 0)) * scale
-		const positionY = SETTINGS.screenSizeY / 4 + label.depth * 16
+		const positionY = Settings.screenSizeY / 4 + label.depth * 16
 
 		ctx.save()
 

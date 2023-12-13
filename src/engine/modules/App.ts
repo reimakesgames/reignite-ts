@@ -8,7 +8,7 @@ import { Scene } from "../classes/Scene"
 import { Profiler } from "../debug/Profiler"
 import { profilerGui } from "../debug/ProfilerGui"
 import { performanceMetrics } from "../debug/PerformanceMetrics"
-import { SETTINGS } from "../Settings"
+import { Settings } from "../Settings"
 
 let previousFrameTime = 0
 

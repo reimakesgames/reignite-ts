@@ -1,4 +1,4 @@
-const SETTINGS = {
+const Settings = {
 	screenSizeX: 1920,
 	screenSizeY: 1080,
 	screenFill: false, // Should the canvas fill the screen? If false, the canvas will be centered and letterboxed.
@@ -20,8 +20,8 @@ const SETTINGS = {
 	imageSmoothingQuality: "high" as ImageSmoothingQuality,
 }
 
-export function extendSettings(settings: Partial<typeof SETTINGS>) {
-	Object.assign(SETTINGS, settings)
+export function extendSettings(settings: Partial<typeof Settings>) {
+	Object.assign(Settings, settings)
 }
 
-export { SETTINGS }
+export { Settings }

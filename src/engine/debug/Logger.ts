@@ -1,4 +1,4 @@
-import { SETTINGS } from "../Settings"
+import { Settings } from "../Settings"
 
 /**
  * A simple logger class that can be used to log messages to the console.
@@ -13,17 +13,17 @@ export class Logger {
 	) {}
 
 	log(message: string) {
-		if (!this.respectSettings || SETTINGS.enableLogging)
+		if (!this.respectSettings || Settings.enableLogging)
 			console.log(`[${this.identifier}] ${message}`)
 	}
 
 	warn(message: string) {
-		if (!this.respectSettings || SETTINGS.enableLogging)
+		if (!this.respectSettings || Settings.enableLogging)
 			console.warn(`[${this.identifier}] ${message}`)
 	}
 
 	error(message: string) {
-		if (!this.respectSettings || SETTINGS.enableLogging)
+		if (!this.respectSettings || Settings.enableLogging)
 			console.error(`[${this.identifier}] ${message}`)
 	}
 }

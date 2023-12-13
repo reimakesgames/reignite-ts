@@ -1,4 +1,4 @@
-import { SETTINGS } from "../Settings"
+import { Settings } from "../Settings"
 import { Camera } from "../classes/Camera"
 import { Vector3 } from "../datatypes/Vector3"
 import { Profiler } from "../debug/Profiler"
@@ -13,9 +13,9 @@ export function renderer(
 	Profiler.startProfile("Renderer")
 
 	Profiler.startProfile("Clear Screen")
-	context.clearRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
+	context.clearRect(0, 0, Settings.screenSizeX, Settings.screenSizeY)
 	context.fillStyle = "#1f1f1f"
-	context.fillRect(0, 0, SETTINGS.screenSizeX, SETTINGS.screenSizeY)
+	context.fillRect(0, 0, Settings.screenSizeX, Settings.screenSizeY)
 	Profiler.endProfile()
 
 	Profiler.startProfile("Draw Axes")

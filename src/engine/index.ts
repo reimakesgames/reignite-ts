@@ -11,6 +11,6 @@ export { Scene } from "./classes/Scene"
 
 export { root } from "./classes/Root"
 
-export { extendSettings } from "./Settings"
+export { extendSettings, Settings } from "./Settings"
 export { setUpdateFunction } from "./modules/App"
 export { main } from "./bootstrap"

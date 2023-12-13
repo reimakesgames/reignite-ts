@@ -1,5 +1,5 @@
 import { app, BrowserWindow, session } from "electron"
-import { SETTINGS } from "./Settings"
+import { Settings } from "./Settings"
 
 const FRAME_ENABLED = true
 const TITLEBAR_ENABLED = true
@@ -11,11 +11,11 @@ const WINDOWS_TITLE_BAR_HEIGHT = TITLEBAR_ENABLED ? TITLEBAR_HEIGHT : 0
 
 const createWindow = () => {
 	const win = new BrowserWindow({
-		width: SETTINGS.screenSizeX + WINDOW_MARGIN,
-		height: SETTINGS.screenSizeY + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
-		minWidth: SETTINGS.screenSizeX + WINDOW_MARGIN,
+		width: Settings.screenSizeX + WINDOW_MARGIN,
+		height: Settings.screenSizeY + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
+		minWidth: Settings.screenSizeX + WINDOW_MARGIN,
 		minHeight:
-			SETTINGS.screenSizeY + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
+			Settings.screenSizeY + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
 		webPreferences: {
 			nodeIntegration: true,
 		},

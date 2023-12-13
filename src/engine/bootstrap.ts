@@ -1,4 +1,4 @@
-import { SETTINGS } from "./Settings"
+import { Settings } from "./Settings"
 
 import * as app from "./modules/App"
 import {
@@ -33,7 +33,7 @@ export function main() {
 		app.main(ctx)
 	}
 
-	if (SETTINGS.enableSplashScreen) {
+	if (Settings.enableSplashScreen) {
 		log.log("Awaiting user interaction...")
 		splashScreen(ctx, closure)
 	} else {

@@ -1,5 +1,5 @@
 import { Logger } from "../debug/Logger"
-import { SETTINGS } from "../Settings"
+import { Settings } from "../Settings"
 
 const log = new Logger("Preloader")
 
@@ -81,10 +81,10 @@ export class Preloader {
 		this.active = false
 		this.progress = 0
 		this.total = array.length
-		const unlimitedThreads = SETTINGS.preloaderThreads == 0
+		const unlimitedThreads = Settings.preloaderThreads == 0
 		const threadsToSpawn = unlimitedThreads
 			? array.length
-			: SETTINGS.preloaderThreads
+			: Settings.preloaderThreads
 		for (let i = 0; i < threadsToSpawn; i++) {
 			if (!unlimitedThreads) {
 				log.warn(
