@@ -1,39 +1,31 @@
 # reignite-ts
 
-A typescript game engine for the browser.
+A typescript game engine for the browser or standalone.
 
 ## Goals
 
-- [ ] 2D / 3D rendering
-- [ ] Be similar to Roblox's System
-- [ ] Simple to use
+-   [ ] 2D rendering
+-   [ ] Simple 3D rendering
+-   [ ] GUI
+-   [ ] Tilemaps
+-   [ ] Tilesets
+-   [ ] Events
+-   [ ] Datatypes
+-   [ ] Moddable
+-   [ ] Easy to use
+-   [ ] Easy to learn
 
 ## Why?
 
-I wanted to make a game engine in TypeScript. I've seen the potentials of it and I wanted to make a game engine that I could use to make games, hence reimakesgames.
+I've seen the potentials of typescript as a game development language, and I wanted
+to make a game engine that I could use to make games with a fast velocity in mind.
 
-## How?
+## Local Development
 
-I don't know either, it just will work.
-
-## What?
-
-It's a game engine, what else?
-
-## Will feature
-
-* 2D / 3D rendering
-* Datatypes
-* Events
-* Tilemaps and Tilesets
-* GUI
+1. Install dev dependencies: `npm install`
+1. Build and watch the game: `npm run dev`
+1. Run the game: `npm start`
 
 ## Building
 
-1. Install dev dependencies: `npm install`
-1. Build and host the game: `npm start`
-
-You don't need to install any dependencies to run the game, but you will need to install them to build the game.
-
-Don't use `npm run build`, it's not a complete build process. It's intended for me to be able to export a release build for the game,
-while the `npm start` command is intended for development purposes. I prefer you use `npm start` to run the game.
+Work in progress. Still figuring out how to use electron-forge.

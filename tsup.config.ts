@@ -3,13 +3,15 @@ import { defineConfig } from "tsup"
 
 export default defineConfig((options) => ({
 	entry: ["src/engine/electron.ts", "src/engine/index.ts", "game/Game.ts"],
-	splitting: false,
+	format: ["esm"],
+
+	splitting: false, // No need since app must be a single file for use
+	treeshake: true, // Trim unused code
+	minify: true, // Minify code
+
 	clean: true,
-	treeshake: true,
-	minify: false,
-	format: ["cjs", "esm"],
+	dts: true,
 	esbuildOptions(options, context) {
-		options.metafile = true
 		options.external = ["electron"]
 	},
 }))

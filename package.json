@@ -1,27 +1,31 @@
 {
-	"devDependencies": {
-		"@electron/typescript-definitions": "^8.15.0",
-		"@mxssfd/typedoc-theme": "^1.1.3",
-		"concurrently": "^8.2.1",
-		"electron": "^27.0.1",
-		"esbuild": "0.19.3",
-		"tsup": "^7.2.0",
-		"typedoc": "^0.25.2",
-		"vitest": "^0.34.6"
-	},
-	"scripts": {
-		"dev": "tsup --sourcemap --metafile --watch --dts src/engine/index.ts",
-		"build": "tsup",
-		"start": "electron .",
-		"test": "vitest",
-		"coverage": "vitest --coverage",
-		"docs": "typedoc --watch",
-		"docs:prod": "typedoc --out _site/docs"
-	},
 	"name": "reignitetypescript",
 	"version": "1.96.1",
 	"description": "A Godot/Unity-like simplistic 2d with basic 3d support game engine for the web and as a standalone desktop app.",
 	"author": "Rei",
 	"license": "MIT",
-	"main": "dist/src/engine/electron.js"
+	"main": "dist/src/engine/electron.mjs",
+	"engines": {
+		"node": ">=20.X.X"
+	},
+	"devDependencies": {
+		"@electron/typescript-definitions": "^8.15.2",
+		"@mxssfd/typedoc-theme": "^1.1.3",
+		"concurrently": "^8.2.2",
+		"electron": "^28.0.0",
+		"esbuild": "^0.19.9",
+		"tsup": "^8.0.1",
+		"typedoc": "^0.25.4",
+		"typescript": "^5.3.3",
+		"vitest": "^1.0.4"
+	},
+	"scripts": {
+		"start": "electron .",
+		"dev": "tsup --sourcemap --metafile --watch src/engine/index.ts",
+		"build": "tsup",
+		"test": "vitest",
+		"coverage": "vitest --coverage",
+		"docs": "typedoc --watch",
+		"docs:prod": "typedoc --out _site/docs"
+	}
 }

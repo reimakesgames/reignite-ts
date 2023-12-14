@@ -1,6 +1,6 @@
 # Reignite Typescript Game Engine Changelog
 
-# [v1.096.1] WORK IN PROGRESS
+## [v1.96.1]
 
 ```
 This commit mostly refactored the system to partially follow Google's Typescript Style Guide to allow for easier code readability and maintainability.
@@ -19,7 +19,7 @@ The following changes were made:
 - Exports do not use default anymore
 ```
 
-## Changed
+### Changed
 
 -   `Matrix3d.lookAt` properly calculates the matrix now
 -   TypeDoc is now reutilized for documentation
@@ -32,34 +32,38 @@ The following changes were made:
 -   Game is now the entry point of the engine, instead of the engine itself
 -   COOP and COEP headers are now added to the server to allow more control over the browser
 -   Profiler's `Depth` system now works properly
+-   Better CLI scripts
+-   Updated dependencies (December 13, 2023)
+-   Removed cjs build because of dep updates
+-   Actually added typescript as a dev dependency (oops)
 
-# [v1.096.0-pre.1]
+## [v1.96.0-pre.1]
 
-## Added
+### Added
 
 -   Electron test and support
 -   Electron configuration
 
-## Changed
+### Changed
 
 -   Default Engine Font is now imported as a local asset instead of a local installed font
 
-# [v1.095.1]
+## [v1.95.1]
 
-## Added
+### Added
 
 -   Preloader system with customizable preloaders
 
-## Changed
+### Changed
 
 -   Splash screen waits for preloader and user input instead of just user input
 -   requestPointerLock is now called onclick instead of every frame
 -   Reorganized the project structure to prepare for Editor development
 -   Changed html file from `index.html` to `game.html` to prepare for Editor development
 
-# [v1.095.0]
+## [v1.95.0]
 
-## Added
+### Added
 
 -   Matrix3x3 datatype
 -   Matrix2x2 datatype
