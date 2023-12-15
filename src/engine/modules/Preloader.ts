@@ -6,6 +6,12 @@ const log = new Logger("Preloader")
 const ALLOWED_IMG_FORMATS = ["jpg", "jpeg", "png"] as const
 const ALLOWED_AUDIO_FORMATS = ["mp3", "ogg", "wav"] as const
 
+var cacheStorage: (HTMLImageElement | HTMLAudioElement)[] = []
+// give the reference to the window object to actually cache the assets
+;(window as any).__Preloader_CacheStorage = cacheStorage
+// yes, i know. but fighting against the minifier/trimmer took too much time
+// for me to figure out, too bad!
+
 type URL = string
 type AllowedImageFormat = (typeof ALLOWED_IMG_FORMATS)[number]
 type AllowedAudioFormat = (typeof ALLOWED_AUDIO_FORMATS)[number]
@@ -28,14 +34,20 @@ function loadAsset(url: URL) {
 	if (ALLOWED_IMG_FORMATS.includes(ext as AllowedImageFormat)) {
 		return new Promise<HTMLImageElement>((resolve, reject) => {
 			let img = new Image()
-			img.onload = () => resolve(img)
+			img.onload = () => {
+				cacheStorage.push(img)
+				resolve(img)
+			}
 			img.onerror = () => reject()
 			img.src = url
 		})
 	} else if (ALLOWED_AUDIO_FORMATS.includes(ext as AllowedAudioFormat)) {
 		return new Promise<HTMLAudioElement>((resolve, reject) => {
 			let audio = new Audio()
-			audio.oncanplaythrough = () => resolve(audio)
+			audio.oncanplaythrough = () => {
+				cacheStorage.push(audio)
+				resolve(audio)
+			}
 			audio.onerror = () => reject()
 			audio.src = url
 		})
@@ -73,7 +85,7 @@ function sanitizeAssetArray(array: URL[]) {
 export class Preloader {
 	static progress = 0
 	static total = 0
-	static active = true
+	static active = false
 	private static activeThreads = 0
 
 	static preloadAssets(array: URL[]) {
