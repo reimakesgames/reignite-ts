@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+env:
+  VERSION: ''
+  TAG: ''
+
 jobs:
   tag-and-release:
     runs-on: ubuntu-latest
@@ -43,8 +47,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: $VERSION
-          release_name: Release $VERSION
+          tag_name: ${{ env.VERSION }}
+          release_name: Release ${{ env.VERSION }}
           draft: false
           prerelease: false
       - name: Create pre-release
@@ -53,7 +57,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: $VERSION-staging-${{ github.sha }}
-          release_name: Pre-release $VERSION-staging-${{ github.sha }}
+          tag_name: ${{ env.VERSION }}-staging-${{ github.sha }}
+          release_name: Pre-release ${{ env.VERSION }}-staging-${{ github.sha }}
           draft: false
           prerelease: true
