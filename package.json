@@ -1,6 +1,6 @@
 {
 	"name": "reignitetypescript",
-	"version": "1.96.1",
+	"version": "1.96.2",
 	"description": "A Godot/Unity-like simplistic 2d with basic 3d support game engine for the web and as a standalone desktop app.",
 	"author": "Rei",
 	"license": "MIT",
@@ -21,7 +21,7 @@
 	},
 	"scripts": {
 		"start": "electron .",
-		"dev": "tsup --sourcemap --metafile --watch src/engine/index.ts",
+		"dev": "tsup --sourcemap --metafile --watch",
 		"build": "tsup",
 		"test": "vitest",
 		"coverage": "vitest --coverage",
