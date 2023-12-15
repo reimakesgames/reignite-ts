@@ -1,4 +1,6 @@
 const Settings = {
+	gameName: "Default Project", // The name of the game. This is displayed in the window title and the splash screen.
+
 	screenSizeX: 1920,
 	screenSizeY: 1080,
 	screenFill: false, // Should the canvas fill the screen? If false, the canvas will be centered and letterboxed.

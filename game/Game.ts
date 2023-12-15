@@ -1,3 +1,4 @@
+import "./Settings"
 import {
 	Matrix3d,
 	Transform,
@@ -5,6 +6,8 @@ import {
 	setUpdateFunction,
 	root,
 	main,
+	setWindowTitle,
+	Settings,
 } from "../src/engine/index"
 
 let PlayerTransform = Transform.lookAt(
@@ -58,6 +61,8 @@ setUpdateFunction(function (deltaTime: number) {
 	}
 
 	MouseDelta = [0, 0]
+
+	setWindowTitle(`${Settings.gameName}`)
 })
 
 document.onwheel = (e) => {

@@ -12,5 +12,5 @@ export { Scene } from "./classes/Scene"
 export { root } from "./classes/Root"
 
 export { extendSettings, Settings } from "./Settings"
-export { setUpdateFunction } from "./modules/App"
+export { setUpdateFunction, setWindowTitle } from "./modules/App"
 export { main } from "./bootstrap"

@@ -18,11 +18,14 @@ export function main() {
 
 	const log = new Logger("Bootstrap")
 
-	Preloader.preloadAssets([
-		"assets/normal.png",
-		"assets/texture.png",
-		"assets/explosion.png",
-	])
+	// preload assets deferred by 1s
+	setTimeout(() => {
+		Preloader.preloadAssets([
+			"assets/normal.png",
+			"assets/texture.png",
+			"assets/explosion.png",
+		])
+	}, 1e3)
 
 	createCanvas()
 	document.body.appendChild(canvasContainer)

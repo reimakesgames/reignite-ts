@@ -1,4 +1,6 @@
-import { app, BrowserWindow, session } from "electron"
+import { app, BrowserWindow, session, ipcMain } from "electron"
+import * as path from "path"
+const __dirname = path.resolve()
 import { Settings } from "./Settings"
 
 const FRAME_ENABLED = true
@@ -17,16 +19,20 @@ const createWindow = () => {
 		minHeight:
 			Settings.screenSizeY + WINDOW_MARGIN + WINDOWS_TITLE_BAR_HEIGHT,
 		webPreferences: {
-			nodeIntegration: true,
+			preload: path.join(__dirname, "preload.js"),
 		},
 		titleBarStyle: TITLEBAR_ENABLED ? "hiddenInset" : "hidden",
 		frame: FRAME_ENABLED,
-		title: "Game",
+		title: "ReigniteTS",
 	})
 	win.setMenuBarVisibility(false)
 	win.setResizable(RESCALABLE)
 
 	win.loadFile("game.html")
+
+	ipcMain.on("setWindowTitle", (event, title) => {
+		win.setTitle(title)
+	})
 }
 
 app.whenReady().then(() => {

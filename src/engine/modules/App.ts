@@ -4,7 +4,6 @@ import { Camera } from "../classes/Camera"
 import { renderer } from "./Renderer"
 import { root } from "../classes/Root"
 
-import { Scene } from "../classes/Scene"
 import { Profiler } from "../debug/Profiler"
 import { profilerGui } from "../debug/ProfilerGui"
 import { performanceMetrics } from "../debug/PerformanceMetrics"
@@ -16,6 +15,11 @@ let update = (deltaTime: number) => {}
 
 export function setUpdateFunction(fn: (deltaTime: number) => void) {
 	update = fn
+}
+
+export function setWindowTitle(title: string) {
+	;(window as any).cross.setWindowTitle(title)
+	// this is going to make me explode, too bad!
 }
 
 export function main(context: CanvasRenderingContext2D) {
