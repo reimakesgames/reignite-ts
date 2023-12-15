@@ -22,29 +22,29 @@ jobs:
           fetch-depth: 0
       - name: Get version
         id: get_version
-        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
+        run: echo "VERSION=v$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: Tag main
         if: github.ref == 'refs/heads/main'
         run: |
-          git tag ${{ steps.get_version.outputs.VERSION }}
-          git push origin ${{ steps.get_version.outputs.VERSION }}
+          git tag $VERSION
+          git push origin $VERSION
           git push origin --tags
-          echo ::set-output name=TAG::${{ steps.get_version.outputs.VERSION }}
+          echo "TAG=$VERSION" >> $GITHUB_ENV
       - name: Tag staging
         if: github.ref == 'refs/heads/staging'
         run: |
-          git tag ${{ steps.get_version.outputs.VERSION }}-staging-${{ github.sha }}
-          git push origin ${{ steps.get_version.outputs.VERSION }}-staging-${{ github.sha }}
+          git tag $VERSION-staging-${{ github.sha }}
+          git push origin $VERSION-staging-${{ github.sha }}
           git push origin --tags
-          echo ::set-output name=TAG::${{ steps.get_version.outputs.VERSION }}-staging-${{ github.sha }}
+          echo "TAG=$VERSION-staging-${{ github.sha }}" >> $GITHUB_ENV
       - name: Create release
         if: github.ref == 'refs/heads/main'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get_version.outputs.VERSION }}
-          release_name: Release ${{ steps.get_version.outputs.VERSION }}
+          tag_name: $VERSION
+          release_name: Release $VERSION
           draft: false
           prerelease: false
       - name: Create pre-release
@@ -53,7 +53,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get_version.outputs.VERSION }}-staging-${{ github.sha }}
-          release_name: Pre-release ${{ steps.get_version.outputs.VERSION }}-staging-${{ github.sha }}
+          tag_name: $VERSION-staging-${{ github.sha }}
+          release_name: Pre-release $VERSION-staging-${{ github.sha }}
           draft: false
           prerelease: true
