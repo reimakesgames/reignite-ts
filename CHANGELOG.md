@@ -1,5 +1,12 @@
 # Reignite Typescript Game Engine Changelog
 
+## [v1.96.2]
+
+### Changed
+
+-   Preloader cache bug fixed
+-   Experimental IPC system
+
 ## [v1.96.1]
 
 ```
