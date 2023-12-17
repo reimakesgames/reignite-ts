@@ -8,6 +8,7 @@ import { Profiler } from "../debug/Profiler"
 import { profilerGui } from "../debug/ProfilerGui"
 import { performanceMetrics } from "../debug/PerformanceMetrics"
 import { Settings } from "../Settings"
+import { Signal } from "../datatypes/Signal"
 
 let previousFrameTime = 0
 
@@ -62,6 +63,11 @@ export function main(context: CanvasRenderingContext2D) {
 		canvas.requestPointerLock()
 	})
 
+	const signal = new Signal<[number]>()
+	signal.connect((n) => {
+		console.log(`immediate took ${Math.floor(performance.now() - n)}ms`)
+	})
+
 	context.globalAlpha = 1
 	context.imageSmoothingEnabled = false
 	context.imageSmoothingQuality = "high"
@@ -72,6 +78,10 @@ export function main(context: CanvasRenderingContext2D) {
 		const currentTime = performance.now()
 		const deltaTime = currentTime - previousTime
 		previousTime = currentTime
+
+		Signal.fireAll()
+
+		signal.fire(currentTime)
 
 		Profiler.createFrame()
 
