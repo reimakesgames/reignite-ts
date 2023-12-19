@@ -79,7 +79,7 @@ export function main(context: CanvasRenderingContext2D) {
 		const deltaTime = currentTime - previousTime
 		previousTime = currentTime
 
-		Signal.fireAll()
+		Signal.interalResumeDeferred()
 
 		signal.fire(currentTime)
 
