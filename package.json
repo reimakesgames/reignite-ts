@@ -25,7 +25,7 @@
 		"dev": "tsup --sourcemap --metafile --watch",
 		"build": "tsup",
 		"test": "vitest",
-		"testci": "vitest run",
+		"testci": "vitest run --coverage",
 		"coverage": "vitest --coverage",
 		"docs": "typedoc --watch",
 		"docs:prod": "typedoc --out _site/docs"
