@@ -1,0 +1,4 @@
+ignore:
+- "src/engine/*"
+- "src/engine/debug/*"
+- "src/engine/modules/*"
