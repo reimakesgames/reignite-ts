@@ -1,6 +1,6 @@
 import { test, beforeEach, expect, describe } from "vitest"
 
-import { GameObject } from ".."
+import { GameObject } from "./GameObject"
 
 // extend the GameObject class to make it testable
 class TestObject extends GameObject {

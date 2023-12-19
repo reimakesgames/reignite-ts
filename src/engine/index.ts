@@ -5,6 +5,8 @@ export { Transform } from "./datatypes/Transform"
 export { Vector2 } from "./datatypes/Vector2"
 export { Vector3 } from "./datatypes/Vector3"
 
+export { Signal } from "./datatypes/Signal"
+
 export { GameObject } from "./classes/GameObject"
 
 export { Scene } from "./classes/Scene"
