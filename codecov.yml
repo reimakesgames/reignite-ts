@@ -2,6 +2,6 @@ ignore:
 - "src/engine/*"
 - "src/engine/debug/*"
 - "src/engine/modules/*"
-- "posts/*"
-- "game/*" # we don't need to include coverage of the test game
+- "posts/**/*"
+- "game/**/*" # we don't need to include coverage of the test game
 - "*"
