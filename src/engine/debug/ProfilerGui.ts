@@ -36,7 +36,20 @@ export function profilerGui(ctx: CanvasRenderingContext2D, frameTime: number) {
 
 		ctx.save()
 
-		ctx.fillStyle = HEX_COLORS[label.depth % HEX_COLORS.length] as string
+		// ctx.fillStyle = HEX_COLORS[label.depth % HEX_COLORS.length] as string
+		const gradient = ctx.createLinearGradient(
+			0,
+			positionY - 32,
+			0,
+			positionY + 48
+		)
+		gradient.addColorStop(0, "#ffffff")
+		gradient.addColorStop(
+			0.5,
+			HEX_COLORS[label.depth % HEX_COLORS.length] as string
+		)
+		gradient.addColorStop(1, "#000000")
+		ctx.fillStyle = gradient
 		ctx.fillRect(positionX, positionY, label.duration * scale, 16)
 
 		ctx.font = "12px Arial"

@@ -15,6 +15,8 @@ class Root extends GameObject {
 		else super(props, parent)
 	}
 
+	name = "Root"
+
 	private wrappedCurrentScene: Scene | null = null
 	/**
 	 * The active scene in the engine.
