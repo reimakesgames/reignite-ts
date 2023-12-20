@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add label "needs-triaging"
-        uses: actions-ecosystem/action-add-labels@v1
+        uses: actions-ecosystem/action-add-labels@v1.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: needs-triaging
