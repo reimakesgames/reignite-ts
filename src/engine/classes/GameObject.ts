@@ -4,14 +4,6 @@ export type PropertiesOf<T> = {
 	[P in keyof T as T[P] extends (...args: any) => any ? never : P]?: T[P]
 }
 
-export function serializeGameObjectChildren(
-	children: GameObject[]
-): ClassStorage[] {
-	return children
-		.map((child) => child.serialize())
-		.filter((child) => child !== null) as ClassStorage[]
-}
-
 /**
  * A GameObject is the base class for all objects in the engine
  */
@@ -121,4 +113,11 @@ export abstract class GameObject {
 	 * TODO - Add distinction between update and render or remove this
 	 */
 	abstract render(): void
+
+	static serializeGameObjectChildren(children: GameObject[]): ClassStorage[] {
+		if (children.length === 0) return []
+		return children
+			.map((child) => child.serialize())
+			.filter((child) => child !== null) as ClassStorage[]
+	}
 }
