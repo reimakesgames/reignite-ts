@@ -1,6 +1,7 @@
 import { Settings } from ".."
 import { GameObject } from "../classes/GameObject"
 import { root } from "../classes/Root"
+import { Profiler } from "./Profiler"
 
 type ElementData = {
 	gameObject: GameObject
@@ -12,6 +13,7 @@ const LINE_HEIGHT = 12
 const HALF_LINE_HEIGHT = LINE_HEIGHT / 2
 
 export function ancestryViewer(context: CanvasRenderingContext2D) {
+	Profiler.startProfile("ancestryViewer")
 	let list: ElementData[] = []
 
 	function traverse(gameObject: GameObject, depth: number) {
@@ -22,8 +24,11 @@ export function ancestryViewer(context: CanvasRenderingContext2D) {
 		gameObject.children.forEach((child) => traverse(child, depth + 1))
 	}
 
+	Profiler.startProfile("traverse")
 	traverse(root, 0)
+	Profiler.endProfile()
 
+	Profiler.startProfile("draw")
 	context.font = `${LINE_HEIGHT}px monospace`
 	context.textAlign = "left"
 	context.textBaseline = "top"
@@ -132,6 +137,8 @@ export function ancestryViewer(context: CanvasRenderingContext2D) {
 			}
 		}
 	}
+	Profiler.endProfile()
 
 	context.lineWidth = 1
+	Profiler.endProfile()
 }
