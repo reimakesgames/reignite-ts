@@ -59,9 +59,7 @@ export abstract class GameObject {
 			throw new Error("Cannot set parent to self")
 		}
 		if (parent === undefined) {
-			console.warn(
-				`Attempt to set parent of ${this.name} [${this.constructor.name}] to undefined`
-			)
+			console.warn(`Attempt to set parent of ${this.name} to undefined`)
 			parent = null
 		}
 		if (typeof parent !== "object" && parent !== null) {
