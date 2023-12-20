@@ -1,0 +1,19 @@
+# add label "needs-triaging" to new issues
+
+name: Issues and PRs management
+
+on:
+  issues:
+    types: opened
+  pull_request:
+    types: opened
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add label "needs-triaging"
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: needs-triaging
