@@ -9,6 +9,7 @@ import { profilerGui } from "../debug/ProfilerGui"
 import { performanceMetrics } from "../debug/PerformanceMetrics"
 import { Settings } from "../Settings"
 import { Signal } from "../datatypes/Signal"
+import { ancestryViewer } from "../debug/AncestryViewer"
 
 let previousFrameTime = 0
 
@@ -52,6 +53,80 @@ export function main(context: CanvasRenderingContext2D) {
 							}
 						}
 					}
+				},
+				"children": [
+					{
+						"class": "Camera",
+						"properties": {
+							"name": "Camera1",
+							"FieldOfView": 70,
+							"Transform": {
+								"datatype": "Transform",
+								"value": {
+									"position": {
+										"datatype": "Vector3",
+										"value": [0, 0, 0]
+									},
+									"rotation": {
+										"datatype": "Matrix3d",
+										"value": [
+											[1, 0, 0],
+											[0, 1, 0],
+											[0, 0, 1]
+										]
+									}
+								}
+							}
+						}
+					},
+					{
+						"class": "Camera",
+						"properties": {
+							"name": "Camera1",
+							"FieldOfView": 70,
+							"Transform": {
+								"datatype": "Transform",
+								"value": {
+									"position": {
+										"datatype": "Vector3",
+										"value": [0, 0, 0]
+									},
+									"rotation": {
+										"datatype": "Matrix3d",
+										"value": [
+											[1, 0, 0],
+											[0, 1, 0],
+											[0, 0, 1]
+										]
+									}
+								}
+							}
+						}
+					}
+				]
+			},
+			{
+				"class": "Camera",
+				"properties": {
+					"name": "Camera1",
+					"FieldOfView": 70,
+					"Transform": {
+						"datatype": "Transform",
+						"value": {
+							"position": {
+								"datatype": "Vector3",
+								"value": [0, 0, 0]
+							},
+							"rotation": {
+								"datatype": "Matrix3d",
+								"value": [
+									[1, 0, 0],
+									[0, 1, 0],
+									[0, 0, 1]
+								]
+							}
+						}
+					}
 				}
 			}
 		]
@@ -61,11 +136,6 @@ export function main(context: CanvasRenderingContext2D) {
 	// fix so that the console doesn't spam errors
 	canvas.addEventListener("click", () => {
 		canvas.requestPointerLock()
-	})
-
-	const signal = new Signal<[number]>()
-	signal.connect((n) => {
-		console.log(`immediate took ${Math.floor(performance.now() - n)}ms`)
 	})
 
 	context.globalAlpha = 1
@@ -80,8 +150,6 @@ export function main(context: CanvasRenderingContext2D) {
 		previousTime = currentTime
 
 		Signal.interalResumeDeferred()
-
-		signal.fire(currentTime)
 
 		Profiler.createFrame()
 
@@ -98,6 +166,7 @@ export function main(context: CanvasRenderingContext2D) {
 
 		Profiler.startProfile("Draw Debug Info")
 		performanceMetrics(context, deltaTime, previousFrameTime)
+		ancestryViewer(context)
 		Profiler.endProfile()
 
 		Profiler.stopFrame()
