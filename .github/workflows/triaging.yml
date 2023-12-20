@@ -4,16 +4,22 @@ name: Issues and PRs management
 
 on:
   issues:
-    types: opened
+    types: [opened, reopened, edited]
   pull_request:
-    types: opened
+    types: [opened, reopened, edited]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
 
 jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
       - name: Add label "needs-triaging"
-        uses: actions-ecosystem/action-add-labels@v1.1.0
+        uses: github/issue-labeler@v3.3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: needs-triaging
+          configuration-path: .github/labeler.yml
+          enable-versioned-regex: 0
+          repo-token: ${{ github.token }}
