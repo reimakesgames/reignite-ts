@@ -37,10 +37,12 @@ jobs:
       - name: Tag staging
         if: github.ref == 'refs/heads/staging'
         run: |
-          git tag $VERSION-staging+${{ github.sha }}
-          git push origin $VERSION-staging+${{ github.sha }}
+          # make short version of sha
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-8)
+          echo "TAG=$VERSION-staging+$SHORT_SHA" >> $GITHUB_ENV
+          git tag $TAG
+          git push origin $TAG
           git push origin --tags
-          echo "TAG=$VERSION-staging+${{ github.sha }}" >> $GITHUB_ENV
       - name: Create release
         if: github.ref == 'refs/heads/main'
         uses: actions/create-release@v1
@@ -57,7 +59,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.VERSION }}-staging+${{ github.sha }}
-          release_name: Pre-release ${{ env.VERSION }}-staging+${{ github.sha }}
+          tag_name: ${{ env.TAG }}
+          release_name: Pre-release ${{ env.TAG }}
           draft: false
           prerelease: true
