@@ -9,6 +9,249 @@
 	<body>
 		<h1>Reignite-TS API Changelogs</h1>
 		<div class="horizontal-line"></div>
+		<h2>v1.96.3</h2>
+		<div class="added">
+			<span class="type">Callback</span>
+			<div class="lt-gt">
+				<div>
+					<span class="type">Args</span>
+					<span class="keyword">extends</span>
+					<span class="type">any</span>
+					<span class="brackets">[]</span>
+				</div>
+			</div>
+		</div>
+		<div class="added">
+			<span class="class">SignalConnection</span>
+			<div class="lt-gt">
+				<div>
+					<span class="type">Args</span>
+					<span class="keyword">extends</span>
+					<span class="type">any</span>
+					<span class="brackets">[]</span>
+				</div>
+			</div>
+			<div class="brackets">
+				<div class="parameter-type">
+					<span class="parameter">signal</span>
+					<span class="type"
+						>Signal
+						<div class="lt-gt">
+							<span class="type">Args</span>
+						</div>
+					</span>
+				</div>
+				<div class="parameter-type">
+					<span class="parameter">callback</span>
+					<span class="type"
+						>Callback
+						<div class="lt-gt">
+							<span class="type">Args</span>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="modifier">readonly</span>
+				<span class="class">SignalConnection</span>
+				<div class="property-type">
+					<span class="property" data-readonly="true">callback</span>
+					<span class="type"
+						>Callback
+						<div class="lt-gt">
+							<span class="type">Args</span>
+						</div>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="class">SignalConnection</span>
+				<div class="property-type">
+					<span class="property">connected</span>
+					<span class="type">boolean</span>
+					<span class="defaults">
+						<span class="boolean">true</span>
+					</span>
+				</div>
+			</div>
+			<div class="added">
+				<span class="class">SignalConnection</span>
+				<span class="method">disconnect</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+		</div>
+		<br />
+		<div class="added">
+			<span class="class">Signal</span>
+			<div class="lt-gt">
+				<div>
+					<span class="type">Args</span>
+					<span class="keyword">extends</span>
+					<span class="type">any</span>
+					<span class="brackets">[]</span>
+				</div>
+			</div>
+			<div class="brackets"></div>
+		</div>
+		<div class="tab">
+			<div class="added">
+				<span class="class">Signal</span>
+				<span class="method">connect</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">callback</span>
+						<span class="type">Callback</span>
+						<div class="lt-gt">
+							<span class="type">Args</span>
+						</div>
+						<span class="defaults"></span>
+					</div>
+				</div>
+				<span class="return-type">
+					<span class="type"
+						>SignalConnection
+						<div class="lt-gt">
+							<span class="type">Args</span>
+						</div>
+					</span>
+				</span>
+			</div>
+			<div class="added">
+				<span class="class">Signal</span>
+				<span class="method">once</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">callback</span>
+						<span class="type">Callback</span>
+						<div class="lt-gt">
+							<span class="type">Args</span>
+						</div>
+						<span class="defaults"></span>
+					</div>
+				</div>
+				<span class="return-type">
+					<span class="type"
+						>SignalConnection
+						<div class="lt-gt">
+							<span class="type">Args</span>
+						</div>
+					</span>
+				</span>
+			</div>
+			<div class="added">
+				<span class="class">Signal</span>
+				<span class="method">fire</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">...args</span>
+						<span class="type">Args</span>
+					</div>
+				</div>
+				<span class="return-type">void</span>
+			</div>
+			<div class="added">
+				<span class="class">Signal</span>
+				<span class="method">fireDeferred</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">...args</span>
+						<span class="type">Args</span>
+					</div>
+				</div>
+				<span class="return-type">void</span>
+			</div>
+			<div class="added">
+				<span class="class">Signal</span>
+				<span class="method">disconnectAll</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+			<div class="added">
+				<span class="class">Signal</span>
+				<span class="method">internalDisconnect</span>
+				<div class="brackets">
+					<div class="parameter-type">
+						<span class="parameter">connection</span>
+						<span class="type"
+							>SignalConnection
+							<div class="lt-gt">
+								<span class="type">Args</span>
+							</div>
+						</span>
+					</div>
+				</div>
+				<span class="return-type">void</span>
+			</div>
+			<div class="added">
+				<span class="modifier">static</span>
+				<span class="class">Signal</span>
+				<span class="method">internalResumeDeferred</span>
+				<div class="brackets"></div>
+				<span class="return-type">void</span>
+			</div>
+		</div>
+		<br />
+		<div class="added">
+			<span class="modifier">readonly</span>
+			<span class="class">GameObject</span>
+			<div class="property-type">
+				<span class="property" data-readonly="true">childAdded</span>
+				<span class="type"
+					>Signal
+					<div class="lt-gt">
+						<span class="array">
+							<span class="type">GameObject</span>
+						</span>
+					</div>
+				</span>
+				<span class="defaults"></span>
+			</div>
+		</div>
+		<div class="added">
+			<span class="modifier">readonly</span>
+			<span class="class">GameObject</span>
+			<div class="property-type">
+				<span class="property" data-readonly="true"
+					>descendantAdded</span
+				>
+				<span class="type"
+					>Signal
+					<div class="lt-gt">
+						<span class="array">
+							<span class="type">GameObject</span>
+						</span>
+					</div>
+				</span>
+				<span class="defaults"></span>
+			</div>
+		</div>
+		<div class="added">
+			<span class="modifier">static</span>
+			<span class="class">GameObject</span>
+			<span class="method">serializeGameObjectChildren</span>
+			<div class="brackets"></div>
+			<span class="return-type">ClassStorage</span>
+			<span class="array"></span>
+		</div>
+		<br />
+		<div class="added">
+			<span class="class">Root</span>
+			<div class="property-type">
+				<span class="property">name</span>
+				<span class="type">string</span>
+				<span class="defaults">
+					<span class="string">Root</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="horizontal-line"></div>
+		<h2>v1.96.2</h2>
+		No public API changes.
+		<div class="horizontal-line"></div>
 		<h2>v1.96.1</h2>
 		<div class="added">
 			<span class="class">Matrix2d</span>
