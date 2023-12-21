@@ -1,5 +1,15 @@
 # Reignite Typescript Game Engine Changelog
 
+## [v1.96.3]
+
+### Added
+
+-   Codecov integration
+-   Unit tests on CI
+-   Signal class
+-   childAdded/descendantAdded events
+-   Ancestry Viewer
+
 ## [v1.96.2]
 
 ### Changed

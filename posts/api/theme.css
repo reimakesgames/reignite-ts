@@ -162,6 +162,18 @@ span.class::before {
 	content: "class ";
 	font-style: italic;
 }
+span.class:has(+ span.method)::before,
+span.class:has(+ div.property-type)::before {
+	content: "";
+}
+
+span.class + div.lt-gt {
+	margin-left: 0ch;
+	margin-right: 0ch;
+}
+span.type > div.lt-gt {
+	margin-right: 0ch;
+}
 
 span.extends::before {
 	color: var(--extends-keyword-color);
@@ -351,14 +363,20 @@ div.lt-gt::after {
 	color: var(--lt-gt-color);
 	content: ">";
 }
-div.lt-gt span.type::after {
+div.lt-gt > span.type::after {
 	color: var(--comma-color);
 	content: ", ";
 	font-style: normal;
 	white-space: pre;
 }
-div.lt-gt span.type:last-child::after {
+div.lt-gt > span.type:last-child::after {
 	content: "";
+}
+div.lt-gt span.keyword {
+	margin-right: 0;
+}
+div.lt-gt span.brackets {
+	margin-left: -1ch;
 }
 
 span.defaults:not(:empty)::before {

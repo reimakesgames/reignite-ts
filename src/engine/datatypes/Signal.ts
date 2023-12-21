@@ -74,7 +74,7 @@ export class Signal<Args extends any[]> {
 	 *
 	 * This is an internal method, and should not be used.
 	 */
-	static interalResumeDeferred() {
+	static internalResumeDeferred() {
 		queue.forEach((q) => {
 			q.signal.fire(...q.args)
 		})
