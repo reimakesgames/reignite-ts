@@ -149,7 +149,7 @@ export function main(context: CanvasRenderingContext2D) {
 		const deltaTime = currentTime - previousTime
 		previousTime = currentTime
 
-		Signal.interalResumeDeferred()
+		Signal.internalResumeDeferred()
 
 		Profiler.createFrame()
 
