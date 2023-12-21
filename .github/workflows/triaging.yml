@@ -1,0 +1,25 @@
+# add label "needs-triaging" to new issues
+
+name: Issues and PRs management
+
+on:
+  issues:
+    types: [opened, reopened, edited]
+  pull_request:
+    types: [opened, reopened, edited]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add label "needs-triaging"
+        uses: github/issue-labeler@v3.3
+        with:
+          configuration-path: .github/labeler.yml
+          enable-versioned-regex: 0
+          repo-token: ${{ github.token }}

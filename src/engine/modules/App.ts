@@ -8,6 +8,8 @@ import { Profiler } from "../debug/Profiler"
 import { profilerGui } from "../debug/ProfilerGui"
 import { performanceMetrics } from "../debug/PerformanceMetrics"
 import { Settings } from "../Settings"
+import { Signal } from "../datatypes/Signal"
+import { ancestryViewer } from "../debug/AncestryViewer"
 
 let previousFrameTime = 0
 
@@ -29,6 +31,80 @@ export function main(context: CanvasRenderingContext2D) {
 			"name": "Scene1"
 		},
 		"children": [
+			{
+				"class": "Camera",
+				"properties": {
+					"name": "Camera1",
+					"FieldOfView": 70,
+					"Transform": {
+						"datatype": "Transform",
+						"value": {
+							"position": {
+								"datatype": "Vector3",
+								"value": [0, 0, 0]
+							},
+							"rotation": {
+								"datatype": "Matrix3d",
+								"value": [
+									[1, 0, 0],
+									[0, 1, 0],
+									[0, 0, 1]
+								]
+							}
+						}
+					}
+				},
+				"children": [
+					{
+						"class": "Camera",
+						"properties": {
+							"name": "Camera1",
+							"FieldOfView": 70,
+							"Transform": {
+								"datatype": "Transform",
+								"value": {
+									"position": {
+										"datatype": "Vector3",
+										"value": [0, 0, 0]
+									},
+									"rotation": {
+										"datatype": "Matrix3d",
+										"value": [
+											[1, 0, 0],
+											[0, 1, 0],
+											[0, 0, 1]
+										]
+									}
+								}
+							}
+						}
+					},
+					{
+						"class": "Camera",
+						"properties": {
+							"name": "Camera1",
+							"FieldOfView": 70,
+							"Transform": {
+								"datatype": "Transform",
+								"value": {
+									"position": {
+										"datatype": "Vector3",
+										"value": [0, 0, 0]
+									},
+									"rotation": {
+										"datatype": "Matrix3d",
+										"value": [
+											[1, 0, 0],
+											[0, 1, 0],
+											[0, 0, 1]
+										]
+									}
+								}
+							}
+						}
+					}
+				]
+			},
 			{
 				"class": "Camera",
 				"properties": {
@@ -73,6 +149,8 @@ export function main(context: CanvasRenderingContext2D) {
 		const deltaTime = currentTime - previousTime
 		previousTime = currentTime
 
+		Signal.internalResumeDeferred()
+
 		Profiler.createFrame()
 
 		Profiler.startProfile("External Update")
@@ -88,6 +166,7 @@ export function main(context: CanvasRenderingContext2D) {
 
 		Profiler.startProfile("Draw Debug Info")
 		performanceMetrics(context, deltaTime, previousFrameTime)
+		ancestryViewer(context)
 		Profiler.endProfile()
 
 		Profiler.stopFrame()

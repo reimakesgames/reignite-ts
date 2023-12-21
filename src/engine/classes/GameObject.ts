@@ -1,15 +1,8 @@
+import { Signal } from "../datatypes/Signal"
 import { ClassStorage } from "../modules/Serde"
 
 export type PropertiesOf<T> = {
 	[P in keyof T as T[P] extends (...args: any) => any ? never : P]?: T[P]
-}
-
-export function serializeGameObjectChildren(
-	children: GameObject[]
-): ClassStorage[] {
-	return children
-		.map((child) => child.serialize())
-		.filter((child) => child !== null) as ClassStorage[]
 }
 
 /**
@@ -65,11 +58,15 @@ export abstract class GameObject {
 		if (parent === this) {
 			throw new Error("Cannot set parent to self")
 		}
-		if (parent && parent.isDescendantOf(this)) {
-			throw new Error("Cannot set parent to descendant")
+		if (parent === undefined) {
+			console.warn(`Attempt to set parent of ${this.name} to undefined`)
+			parent = null
 		}
 		if (typeof parent !== "object" && parent !== null) {
 			throw new Error("Parent must be a GameObject")
+		}
+		if (parent && parent.isDescendantOf(this)) {
+			throw new Error("Cannot set parent to descendant")
 		}
 		if (this.parentReference) {
 			this.parentReference.children.splice(
@@ -82,6 +79,12 @@ export abstract class GameObject {
 
 		if (parent) {
 			parent.children.push(this)
+
+			parent.childAdded.fire(this)
+			while (parent) {
+				parent.descendantAdded.fire(this)
+				parent = parent.parent
+			}
 		}
 	}
 
@@ -102,6 +105,9 @@ export abstract class GameObject {
 		return this.parent.isDescendantOf(parent)
 	}
 
+	readonly childAdded = new Signal<[GameObject]>()
+	readonly descendantAdded = new Signal<[GameObject]>()
+
 	/**
 	 * A required method for serializing the GameObject, can be overridden to allow for custom serialization
 	 *
@@ -121,4 +127,11 @@ export abstract class GameObject {
 	 * TODO - Add distinction between update and render or remove this
 	 */
 	abstract render(): void
+
+	static serializeGameObjectChildren(children: GameObject[]): ClassStorage[] {
+		if (children.length === 0) return []
+		return children
+			.map((child) => child.serialize())
+			.filter((child) => child !== null) as ClassStorage[]
+	}
 }

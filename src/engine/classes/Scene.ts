@@ -1,10 +1,6 @@
 import { ClassStorage } from "../modules/Serde"
 import { Camera } from "./Camera"
-import {
-	GameObject,
-	PropertiesOf,
-	serializeGameObjectChildren,
-} from "./GameObject"
+import { GameObject, PropertiesOf } from "./GameObject"
 
 /**
  * A scene is a collection of GameObjects and other data.
@@ -29,7 +25,7 @@ export class Scene extends GameObject {
 			properties: {
 				name: this.name,
 			},
-			children: serializeGameObjectChildren(this.children),
+			children: GameObject.serializeGameObjectChildren(this.children),
 		}
 	}
 

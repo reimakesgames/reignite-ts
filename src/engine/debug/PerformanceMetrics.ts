@@ -1,4 +1,5 @@
 import { Settings } from "../Settings"
+import { Profiler } from "./Profiler"
 
 let previousFrameTimes: number[] = []
 let previousDeltaTimes: number[] = []
@@ -12,6 +13,7 @@ function pieGraph(
 	frameTimeUsage: number,
 	color: number
 ) {
+	Profiler.startProfile("pieGraph")
 	context.save()
 	context.translate(80, Settings.screenSizeY - 48 - 64)
 	context.transform(0, -0.5, 1, 0, 0, 0)
@@ -29,9 +31,11 @@ function pieGraph(
 	context.closePath()
 	context.fill()
 	context.restore()
+	Profiler.endProfile()
 }
 
 function fpsGraph(context: CanvasRenderingContext2D) {
+	Profiler.startProfile("fpsGraph")
 	context.fillStyle = "#0000007f"
 	context.fillRect(16, Settings.screenSizeY - 72, 240, 56)
 
@@ -66,6 +70,7 @@ function fpsGraph(context: CanvasRenderingContext2D) {
 	context.stroke()
 	context.closePath()
 	context.restore()
+	Profiler.endProfile()
 }
 
 function details(
@@ -73,6 +78,7 @@ function details(
 	averageFrameTime: number,
 	averageDeltaTime: number
 ) {
+	Profiler.startProfile("details")
 	context.font = "12px Arial"
 	context.fillStyle = "#ffffff"
 	context.textAlign = "left"
@@ -99,6 +105,7 @@ function details(
 		160,
 		Settings.screenSizeY - 8 - 64 - 12 * 2
 	)
+	Profiler.endProfile()
 }
 
 export function performanceMetrics(
@@ -106,6 +113,7 @@ export function performanceMetrics(
 	dt: number,
 	ft: number
 ) {
+	Profiler.startProfile("performanceMetrics")
 	previousDeltaTimes.push(dt)
 	previousFrameTimes.push(ft)
 
@@ -126,4 +134,5 @@ export function performanceMetrics(
 	pieGraph(context, frameTimeUsage, color)
 	fpsGraph(context)
 	details(context, averageFrameTime, averageDeltaTime)
+	Profiler.endProfile()
 }
