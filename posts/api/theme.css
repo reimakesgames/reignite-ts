@@ -114,17 +114,6 @@ div.changed div.to::before {
 	margin-left: 3ch;
 	white-space: pre;
 }
-div.changed div.to span.type::before {
-	color: var(--parameter-type-colon-color);
-	content: ": ";
-	font-style: normal;
-	white-space: pre;
-}
-div.changed div.to span.type::after {
-	content: " ";
-	font-style: normal;
-	white-space: pre;
-}
 
 /* "Primitive" classes */
 /* their purpose is a simplistic formatting of text inside them */
@@ -257,12 +246,17 @@ span.class + div.property-type > span.property::before {
 	color: var(--member-access-operator-color);
 	content: ".";
 }
+span.defaults > span.class + div.property-type > span.property::before {
+	color: var(--member-access-operator-color);
+	content: ".";
+	margin-left: -1ch;
+}
 span.property[data-readonly="true"] {
 	color: var(--constant-color);
 }
 
 div.property-type {
-	display: flex;
+	display: inline-flex;
 	flex-direction: row;
 }
 div.property-type > span.property + span.type::before {
