@@ -26,9 +26,15 @@ export class Transform {
 		) {
 			this.position = new Vector3(x, y, z)
 			this.rotation = new Matrix3d()
-		} else {
+		} else if (
+			typeof x === "undefined" &&
+			typeof y === "undefined" &&
+			typeof z === "undefined"
+		) {
 			this.position = new Vector3()
 			this.rotation = new Matrix3d()
+		} else {
+			throw new TypeError("Invalid signature")
 		}
 	}
 
@@ -96,7 +102,7 @@ export class Transform {
 		} else if (other instanceof Vector3) {
 			return this.position.add(this.rotation.multiply(other))
 		}
-		throw new Error("Invalid type")
+		throw new TypeError("Invalid overload parameters")
 	}
 
 	/**

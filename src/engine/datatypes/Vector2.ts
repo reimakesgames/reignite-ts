@@ -96,7 +96,7 @@ export class Vector2 {
 			return new Vector2(this.X * other.X, this.Y * other.Y)
 		}
 		// throw typeError("other", ["number", "Vector2"], other)
-		throw new Error("Invalid type on parameter `other`")
+		throw new TypeError("Invalid type on parameter `other`")
 	}
 
 	/**

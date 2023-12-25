@@ -68,7 +68,7 @@ export class Vector3 {
 	/**
 	 * Checks if two vectors are equal within a certain epilson.
 	 */
-	fuzzyEq(other: Vector3, epilson: number): boolean {
+	fuzzyEq(other: Vector3, epilson: number = Number.EPSILON): boolean {
 		return (
 			Math.abs(this.X - other.X) < epilson &&
 			Math.abs(this.Y - other.Y) < epilson &&

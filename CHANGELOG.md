@@ -1,5 +1,11 @@
 # Reignite Typescript Game Engine Changelog
 
+## [v1.97.0]
+
+### Changed
+
+-   `Vector3.fuzzyEq`'s epsilon now defaults to `Number.EPSILON`
+
 ## [v1.96.3]
 
 ### Added

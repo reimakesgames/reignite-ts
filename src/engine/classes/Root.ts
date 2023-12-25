@@ -7,12 +7,8 @@ import { Camera } from "./Camera"
  * The root object of the engine which contains utility services.
  */
 class Root extends GameObject {
-	constructor(parent?: GameObject)
-	constructor(props: PropertiesOf<Root>, parent?: GameObject)
-	constructor(props?: PropertiesOf<Root> | GameObject, parent?: GameObject) {
-		if (!props) super(parent)
-		else if (props instanceof GameObject) super(props)
-		else super(props, parent)
+	constructor() {
+		super()
 	}
 
 	name = "Root"

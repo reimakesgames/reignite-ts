@@ -19,19 +19,19 @@ export abstract class GameObject {
 	 * Overload 3: Properties only
 	 * Overload 4: Properties and parent
 	 */
-	constructor(parent?: GameObject)
-	constructor(props: PropertiesOf<GameObject>, parent?: GameObject)
+	constructor(parent?: GameObject | null)
+	constructor(props: PropertiesOf<GameObject>, parent?: GameObject | null)
 	constructor(
-		props?: PropertiesOf<GameObject> | GameObject,
-		parent?: GameObject
+		props?: PropertiesOf<GameObject> | GameObject | null,
+		parent?: GameObject | null
 	) {
-		if (props === undefined) return // no args
+		if (props === undefined || props === null) return // no args
 
 		// If the first argument is a GameObject, then it's the parent
 		if (props instanceof GameObject) {
 			this.parent = props
 			return
-		} else if (props) {
+		} else if (props instanceof Object && !(props instanceof Array)) {
 			Object.assign(this, props)
 			this.parent = parent || null
 			return
@@ -48,6 +48,7 @@ export abstract class GameObject {
 	/**
 	 * The array of the GameObject's children
 	 */
+	// TODO: implement proper readonly arrays (im gonna explode)
 	readonly children: GameObject[] = []
 	private parentReference: GameObject | null = null
 
@@ -95,14 +96,19 @@ export abstract class GameObject {
 	/**
 	 * Returns true if the GameObject is a descendant of the given GameObject
 	 */
+	// just realized js doesn't optimize tail recursion!!! too bad
 	isDescendantOf(parent: GameObject): boolean {
-		if (this.parent === parent) {
-			return true
-		}
-		if (this.parent === null) {
+		let current: GameObject | null = this
+		if (current === parent) {
 			return false
 		}
-		return this.parent.isDescendantOf(parent)
+		while (current) {
+			if (current === parent) {
+				return true
+			}
+			current = current.parent
+		}
+		return false
 	}
 
 	readonly childAdded = new Signal<[GameObject]>()

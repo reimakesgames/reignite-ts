@@ -166,7 +166,7 @@ export class Matrix3d {
 
 			return new Matrix3d(matrix)
 		} else {
-			throw new Error("Invalid type")
+			throw new TypeError("Invalid type")
 		}
 	}
 
