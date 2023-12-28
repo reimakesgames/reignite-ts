@@ -9,9 +9,7 @@ export class Camera extends GameObject {
 		props?: PropertiesOf<Camera> | GameObject,
 		parent?: GameObject
 	) {
-		if (!props) super(parent)
-		else if (props instanceof GameObject) super(props)
-		else super(props, parent)
+		super(props, parent)
 	}
 	transform: Transform = new Transform()
 	fieldOfView: number = 70

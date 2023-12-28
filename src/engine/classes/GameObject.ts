@@ -20,7 +20,7 @@ export abstract class GameObject {
 	 * Overload 4: Properties and parent
 	 */
 	constructor(parent?: GameObject | null)
-	constructor(props: PropertiesOf<GameObject>, parent?: GameObject | null)
+	constructor(props?: PropertiesOf<GameObject>, parent?: GameObject | null)
 	constructor(
 		props?: PropertiesOf<GameObject> | GameObject | null,
 		parent?: GameObject | null

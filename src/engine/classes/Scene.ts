@@ -9,9 +9,7 @@ export class Scene extends GameObject {
 	constructor(parent?: GameObject)
 	constructor(props: PropertiesOf<Scene>, parent?: GameObject)
 	constructor(props?: PropertiesOf<Scene> | GameObject, parent?: GameObject) {
-		if (!props) super(parent)
-		else if (props instanceof GameObject) super(props)
-		else super(props, parent)
+		super(props, parent)
 	}
 	name = "Scene"
 	/**

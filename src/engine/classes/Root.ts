@@ -7,10 +7,6 @@ import { Camera } from "./Camera"
  * The root object of the engine which contains utility services.
  */
 class Root extends GameObject {
-	constructor() {
-		super()
-	}
-
 	name = "Root"
 
 	private wrappedCurrentScene: Scene | null = null
