@@ -4,6 +4,7 @@ import { Transform } from "../datatypes/Transform"
 import { Vector3 } from "../datatypes/Vector3"
 import { Matrix3d } from "../datatypes/Matrix3d"
 import { Scene } from "../classes/Scene"
+import { Transform2d } from "../datatypes/Transform2d"
 
 const CLASSES: { [key: string]: new (...args: any[]) => any } = {
 	Camera,
@@ -11,6 +12,7 @@ const CLASSES: { [key: string]: new (...args: any[]) => any } = {
 }
 const DATATYPES: { [key: string]: new (...args: any[]) => any } = {
 	Transform,
+	Transform2d,
 	Matrix3d,
 	Vector3,
 }

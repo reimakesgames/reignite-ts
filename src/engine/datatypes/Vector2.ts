@@ -1,5 +1,7 @@
 // import { typeError } from "../modules/Debugger"
 
+import { DatatypeStorage } from "../modules/Serde"
+
 /**
  * A 2d vector that represents a position or direction in 2d space.
  */
@@ -125,6 +127,13 @@ export class Vector2 {
 	 */
 	negate(): Vector2 {
 		return new Vector2(-this.X, -this.Y)
+	}
+
+	serialize(): DatatypeStorage {
+		return {
+			datatype: "Vector2",
+			value: [this.X, this.Y],
+		}
 	}
 
 	/**

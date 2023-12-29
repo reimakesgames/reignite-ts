@@ -170,6 +170,15 @@ describe.sequential("Vector2", () => {
 		})
 	})
 
+	describe("serialize", () => {
+		it("should serialize the vector", () => {
+			const vector = new Vector2(1, 2)
+			const serialized = vector.serialize()
+			expect(serialized.datatype).toBe("Vector2")
+			expect(serialized.value).toEqual([1, 2])
+		})
+	})
+
 	describe("zero", () => {
 		it("should return a vector with all components as zero", () => {
 			const vector = Vector2.zero
